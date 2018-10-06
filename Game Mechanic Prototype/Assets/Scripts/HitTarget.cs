@@ -9,11 +9,8 @@ public class HitTarget : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Target")
         {
-            Debug.Log("Target hit");
-            Destroy(gameObject);
+            collision.gameObject.SendMessage("ChangeColour");
         }
-
-        Debug.Log("Object hit");
     }
 
     // Use this for initialization

@@ -21,7 +21,7 @@ public class HoldObject : MonoBehaviour {
 	void Update () {
         if (holdingObj)
         {
-            objPos.position = pos.position + pos.forward * 10;
+            objPos.position = pos.position + (pos.forward * 10) + (pos.up * -3);
         }
 
         if (!holdingObj && Input.GetKeyDown(KeyCode.Space))

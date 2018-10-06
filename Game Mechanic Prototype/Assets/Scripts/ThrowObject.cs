@@ -32,6 +32,7 @@ public class ThrowObject : MonoBehaviour {
 
 
             throwAngle = (Vector3.Normalize(startPos - endPos) * -1) + transform.forward;
+            throwAngle += (Vector3.up * 0.4f);
 
             SendMessage("ReleaseBall");
 
