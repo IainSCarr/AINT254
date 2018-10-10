@@ -26,10 +26,7 @@ public class HoldObject : MonoBehaviour {
 
         if (!holdingObj && Input.GetKeyDown(KeyCode.Space))
         {
-            obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            obj.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            obj.GetComponent<Transform>().rotation = Quaternion.identity;
-            holdingObj = true;
+            ResetPosition();
         }
     }
 
@@ -38,5 +35,11 @@ public class HoldObject : MonoBehaviour {
         holdingObj = false;
     }
 
-
+    void ResetPosition()
+    {
+        holdingObj = true;
+        obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        obj.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        obj.GetComponent<Transform>().rotation = Quaternion.identity;
+    }
 }
