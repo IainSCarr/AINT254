@@ -2,8 +2,6 @@
 
 public class HitTarget : MonoBehaviour {
 
-
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Target")
