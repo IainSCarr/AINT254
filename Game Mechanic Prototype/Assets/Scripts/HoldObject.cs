@@ -5,18 +5,15 @@ using UnityEngine;
 public class HoldObject : MonoBehaviour {
 
     private Transform pos;
-
     public GameObject obj;
-    private Transform ingredient;
+    private Transform objPos;
 
     private bool holdingObj;
 
 	// Use this for initialization
 	void Start () {
         pos = transform;
-
-        ingredient = obj.transform.GetChild(0);
-        ResetPosition();
+        objPos = obj.GetComponent<Transform>();
         holdingObj = true;
 	}
 	
@@ -24,7 +21,7 @@ public class HoldObject : MonoBehaviour {
 	void Update () {
         if (holdingObj)
         {
-            ingredient.position = pos.position + (pos.forward * 5) + (pos.up * -3);
+            objPos.position = pos.position + (pos.forward * 10) + (pos.up * -3);
         }
 
         if (!holdingObj && Input.GetKeyDown(KeyCode.Space))
@@ -41,8 +38,8 @@ public class HoldObject : MonoBehaviour {
     void ResetPosition()
     {
         holdingObj = true;
-        ingredient.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        ingredient.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        ingredient.GetComponent<Transform>().rotation = Quaternion.identity;
+        obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        obj.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        obj.GetComponent<Transform>().rotation = Quaternion.identity;
     }
 }
