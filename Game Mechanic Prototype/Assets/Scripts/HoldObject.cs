@@ -5,15 +5,27 @@ using UnityEngine;
 public class HoldObject : MonoBehaviour {
 
     private Transform pos;
-    public GameObject obj;
+    private GameObject[] objArray;
     private Transform objPos;
+
+    public GameObject cube;
+    public GameObject sphere;
+    public GameObject capsule;
+
+    private int currentObj = 0;
 
     private bool holdingObj;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        objArray = new GameObject[3] { cube, sphere, capsule };
+    }
+
+    // Use this for initialization
+    void Start () {
+        currentObj = 0;
         pos = transform;
-        objPos = obj.GetComponent<Transform>();
+        objPos = objArray[currentObj].GetComponent<Transform>();
         holdingObj = true;
 	}
 	
@@ -33,13 +45,35 @@ public class HoldObject : MonoBehaviour {
     void ReleaseBall()
     {
         holdingObj = false;
+
+        if (currentObj == 2)
+        {
+            currentObj = 0;
+        }
+        else
+        {
+            currentObj++;
+        }
+
+        StartCoroutine(Example());
+
+
     }
 
     void ResetPosition()
     {
         holdingObj = true;
-        obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        obj.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        obj.GetComponent<Transform>().rotation = Quaternion.identity;
+        objArray[currentObj].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        objArray[currentObj].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        objArray[currentObj].GetComponent<Transform>().rotation = Quaternion.identity;
+    }
+
+    IEnumerator Example()
+    {
+        yield return new WaitForSeconds(0.5f);
+        objPos = objArray[currentObj].GetComponent<Transform>();
+        ResetPosition();
     }
 }
+
+

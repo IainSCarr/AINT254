@@ -11,15 +11,19 @@ public class ThrowObject : MonoBehaviour {
     private float magnitude;
     private Vector3 throwAngle;
 
-    public GameObject obj;
+    public GameObject[] obj;
     private Transform objPos;
 
     private int numThrows;
     public Text uiThrowText;
 
+    private int currentObj;
+
 	// Use this for initialization
 	void Start () {
-        objPos = obj.GetComponent<Transform>();
+        currentObj = 0;
+
+        objPos = obj[currentObj].GetComponent<Transform>();
 
         numThrows = 0;
 	}
@@ -49,9 +53,15 @@ public class ThrowObject : MonoBehaviour {
 
         SendMessage("ReleaseBall");
 
-        obj.GetComponent<Rigidbody>().AddRelativeForce(throwAngle * magnitude * 100);
+        obj[currentObj].GetComponent<Rigidbody>().AddRelativeForce(throwAngle * magnitude * 100);
 
-        numThrows++;
-        uiThrowText.text = "Throws: " + numThrows;
+        if (currentObj == 2)
+        {
+            currentObj = 0;
+        }
+        else
+        {
+            currentObj++;
+        }
     }
 }
