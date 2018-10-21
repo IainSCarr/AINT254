@@ -10,7 +10,7 @@ public class ShowTrajectory : MonoBehaviour {
 
     private Camera cam;
 
-    public GameObject projectile;
+    private GameObject projectile;
 
     private Vector3 objectVector;
     private Transform objTrans;
@@ -45,7 +45,7 @@ public class ShowTrajectory : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.name == "Cube")
+                if (hit.transform.name == projectile.name)
                 {
                     hasClickedObject = true;
                 }
@@ -114,5 +114,16 @@ public class ShowTrajectory : MonoBehaviour {
     {
         hasBeenThrown = false;
         hasClickedObject = false;
+    }
+
+    public bool GetHasBeenThrown()
+    {
+        return hasBeenThrown;
+    }
+
+    public void SetProjectile(GameObject projec)
+    {
+        projectile = projec;
+        objTrans = projectile.GetComponent<Transform>();
     }
 }
