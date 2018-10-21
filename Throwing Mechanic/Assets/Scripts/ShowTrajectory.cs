@@ -10,6 +10,7 @@ public class ShowTrajectory : MonoBehaviour {
 
     private Camera cam;
 
+    [SerializeField]
     private GameObject projectile;
 
     private Vector3 objectVector;
@@ -70,6 +71,7 @@ public class ShowTrajectory : MonoBehaviour {
             if (hasClickedObject && !hasBeenThrown)
             {
                 projectile.GetComponent<Rigidbody>().AddForce(aimVector * magnitude, ForceMode.Impulse);
+                projectile.GetComponent<Rigidbody>().AddTorque(new Vector3(1, 0, -aimVector.x) *magnitude);
                 hasBeenThrown = true;
 
                 for (int i = 0; i < 10; i++)

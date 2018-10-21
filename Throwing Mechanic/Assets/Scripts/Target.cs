@@ -5,6 +5,7 @@ using UnityEngine;
 public class Target : MonoBehaviour {
 
     private bool hasBeenHit;
+    public Material[] materials;
 
     private Renderer rend;
 
@@ -16,11 +17,14 @@ public class Target : MonoBehaviour {
     private void Start()
     {
         rend = GetComponent<Renderer>();
+        rend.material = materials[Random.Range(0, 3)];
+        Debug.Log(rend.material.name);
+        Debug.Log(rend.sharedMaterial.name.Replace("(Instance)", ""));
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Object")
+        if (collision.gameObject.tag == "Object" && rend.sharedMaterial.name.Replace(" (Instance)", "") == collision.gameObject.name.Replace("(Clone)", ""))
         {
             if (!hasBeenHit)
             {
@@ -38,7 +42,10 @@ public class Target : MonoBehaviour {
 
     void HandleOnSpaceBarPress()
     {
+        if (hasBeenHit)
+        {
+            rend.material = materials[Random.Range(0, 3)];
+        }
         hasBeenHit = false;
-        rend.material.color = Color.yellow;
     }
 }

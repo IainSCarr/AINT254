@@ -27,28 +27,9 @@ public class InputManager : MonoBehaviour {
 	void Update () {
         MovePlayer(Input.GetAxis("Horizontal") * smoothing);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (player.GetComponent<ShowTrajectory>().GetHasBeenThrown())
         {
-            if (player.GetComponent<ShowTrajectory>().GetHasBeenThrown())
-            {
-                if (currentProjectile == projectile.Length - 1)
-                {
-                    currentProjectile = 0;
-                }
-                else
-                {
-                    currentProjectile++;
-                }
-
-                player.SendMessage("SetProjectile", projectile[currentProjectile]);
-                ResetObjectPosition();
-                player.SendMessage("Reset");
-            }
-
-            if (OnSpaceBarPress != null)
-            {
-                OnSpaceBarPress();
-            }
+            Invoke("SetUpNextThrow", 5f);
         }
 	}
 
@@ -63,5 +44,31 @@ public class InputManager : MonoBehaviour {
         projectile[currentProjectile].GetComponent<Rigidbody>().velocity = Vector3.zero;
         projectile[currentProjectile].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         projectile[currentProjectile].GetComponent<Transform>().rotation = Quaternion.identity;
+    }
+
+
+
+    private void SetUpNextThrow()
+    {
+        if (currentProjectile == projectile.Length - 1)
+        {
+            currentProjectile = 0;
+        }
+        else
+        {
+            currentProjectile++;
+        }
+
+        player.SendMessage("SetProjectile", projectile[currentProjectile]);
+        ResetObjectPosition();
+        player.SendMessage("Reset");
+        Debug.Log(player.GetComponent<ShowTrajectory>().GetHasBeenThrown());
+
+
+        if (OnSpaceBarPress != null)
+        {
+            OnSpaceBarPress();
+        }
+        
     }
 }

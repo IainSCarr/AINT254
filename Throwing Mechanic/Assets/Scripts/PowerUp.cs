@@ -13,7 +13,7 @@ public class PowerUp : MonoBehaviour {
     {
         if (other.gameObject.tag == "Object")
         {
-            DoPowerUp(Random.Range(0, 6));
+            DoPowerUp(Random.Range(0, 5));
             Destroy(gameObject);
         }
     }
