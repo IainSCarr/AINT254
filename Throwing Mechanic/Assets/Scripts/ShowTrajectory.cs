@@ -9,6 +9,7 @@ public class ShowTrajectory : MonoBehaviour {
     private GameObject[] dots;
 
     private Camera cam;
+    private InputManager inputManager;
 
     [SerializeField]
     private GameObject projectile;
@@ -21,6 +22,8 @@ public class ShowTrajectory : MonoBehaviour {
 
     private bool hasClickedObject;
     private bool hasBeenThrown;
+
+    private float throwSpeed;
 
     void Start () {
         dots = new GameObject[10];
@@ -35,8 +38,11 @@ public class ShowTrajectory : MonoBehaviour {
         }
 
         cam = Camera.main;
+        inputManager = FindObjectOfType<InputManager>();
 
         objTrans = projectile.GetComponent<Transform>();
+
+        throwSpeed = 3.0f;
     }
 	
 	void Update () {
@@ -73,6 +79,7 @@ public class ShowTrajectory : MonoBehaviour {
                 projectile.GetComponent<Rigidbody>().AddForce(aimVector * magnitude, ForceMode.Impulse);
                 projectile.GetComponent<Rigidbody>().AddTorque(new Vector3(1, 0, -aimVector.x) *magnitude);
                 hasBeenThrown = true;
+                inputManager.SendMessage("SetUpNextThrow", throwSpeed);
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -127,5 +134,10 @@ public class ShowTrajectory : MonoBehaviour {
     {
         projectile = projec;
         objTrans = projectile.GetComponent<Transform>();
+    }
+
+    public void SetFireRate(float rate)
+    {
+        throwSpeed = rate;   
     }
 }

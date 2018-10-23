@@ -22,15 +22,10 @@ public class InputManager : MonoBehaviour {
         startingPoint = projectile[currentProjectile].GetComponent<Transform>().position;
         player.SendMessage("SetProjectile", projectile[currentProjectile]);
     }
-	
-	// Update is called once per frame
-	void Update () {
-        MovePlayer(Input.GetAxis("Horizontal") * smoothing);
 
-        if (player.GetComponent<ShowTrajectory>().GetHasBeenThrown())
-        {
-            Invoke("SetUpNextThrow", 5f);
-        }
+    // Update is called once per frame
+    void Update () {
+        MovePlayer(Input.GetAxis("Horizontal") * smoothing);
 	}
 
     private void MovePlayer(float num)
@@ -46,10 +41,16 @@ public class InputManager : MonoBehaviour {
         projectile[currentProjectile].GetComponent<Transform>().rotation = Quaternion.identity;
     }
 
-
-
-    private void SetUpNextThrow()
+    IEnumerator SetUpNextThrow(float time)
     {
+        if (OnSpaceBarPress != null)
+        {
+            OnSpaceBarPress();
+        }
+
+        Debug.Log("Resetting throw");
+        yield return new WaitForSeconds(time);
+
         if (currentProjectile == projectile.Length - 1)
         {
             currentProjectile = 0;
@@ -62,13 +63,8 @@ public class InputManager : MonoBehaviour {
         player.SendMessage("SetProjectile", projectile[currentProjectile]);
         ResetObjectPosition();
         player.SendMessage("Reset");
-        Debug.Log(player.GetComponent<ShowTrajectory>().GetHasBeenThrown());
 
 
-        if (OnSpaceBarPress != null)
-        {
-            OnSpaceBarPress();
-        }
-        
+
     }
 }
