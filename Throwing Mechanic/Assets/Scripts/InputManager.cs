@@ -12,14 +12,14 @@ public class InputManager : MonoBehaviour {
     public delegate void SpaceBarPress();
     public static event SpaceBarPress OnSpaceBarPress;
 
-    private Vector3 startingPoint;
+    private Vector3 projectilePosition;
 
-    private float smoothing = 0.1f;
+    private float smoothing = 0.05f;
 
 	// Use this for initialization
 	void Awake () {
         currentProjectile = 0;
-        startingPoint = projectile[currentProjectile].GetComponent<Transform>().position;
+        projectilePosition = projectile[currentProjectile].GetComponent<Transform>().position;
         player.SendMessage("SetProjectile", projectile[currentProjectile]);
     }
 
@@ -31,11 +31,14 @@ public class InputManager : MonoBehaviour {
     private void MovePlayer(float num)
     {
         player.transform.Translate(num, 0, 0);
+        projectilePosition.x = player.transform.position.x;
+        player.GetComponent<ShowTrajectory>().UpdateProjectilePosition(projectilePosition);
     }
 
     private void ResetObjectPosition()
     {
-        projectile[currentProjectile].transform.position = startingPoint;
+        projectile[currentProjectile].transform.position = projectilePosition;
+        projectile[currentProjectile].GetComponent<Rigidbody>().isKinematic = true;
         projectile[currentProjectile].GetComponent<Rigidbody>().velocity = Vector3.zero;
         projectile[currentProjectile].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         projectile[currentProjectile].GetComponent<Transform>().rotation = Quaternion.identity;
@@ -43,13 +46,12 @@ public class InputManager : MonoBehaviour {
 
     IEnumerator SetUpNextThrow(float time)
     {
+        yield return new WaitForSeconds(time);
+
         if (OnSpaceBarPress != null)
         {
             OnSpaceBarPress();
         }
-
-        Debug.Log("Resetting throw");
-        yield return new WaitForSeconds(time);
 
         if (currentProjectile == projectile.Length - 1)
         {
@@ -63,8 +65,5 @@ public class InputManager : MonoBehaviour {
         player.SendMessage("SetProjectile", projectile[currentProjectile]);
         ResetObjectPosition();
         player.SendMessage("Reset");
-
-
-
     }
 }

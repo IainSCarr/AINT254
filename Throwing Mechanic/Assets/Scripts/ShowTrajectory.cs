@@ -76,6 +76,7 @@ public class ShowTrajectory : MonoBehaviour {
         {
             if (hasClickedObject && !hasBeenThrown)
             {
+                projectile.GetComponent<Rigidbody>().isKinematic = false;
                 projectile.GetComponent<Rigidbody>().AddForce(aimVector * magnitude, ForceMode.Impulse);
                 projectile.GetComponent<Rigidbody>().AddTorque(new Vector3(1, 0, -aimVector.x) *magnitude);
                 hasBeenThrown = true;
@@ -139,5 +140,16 @@ public class ShowTrajectory : MonoBehaviour {
     public void SetFireRate(float rate)
     {
         throwSpeed = rate;   
+    }
+
+    public void UpdateProjectilePosition(Vector3 position)
+    {
+        if (!hasBeenThrown)
+        {
+            projectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            projectile.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            projectile.GetComponent<Transform>().rotation = Quaternion.identity;
+            projectile.transform.position = position;
+        }
     }
 }
