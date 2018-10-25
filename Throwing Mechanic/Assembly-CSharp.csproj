@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\MultiplyExplode.cs" />
     <Compile Include="Assets\Scripts\PotCollider.cs" />
     <Compile Include="Assets\Scripts\PowerUp.cs" />
+    <Compile Include="Assets\Scripts\PowerUpManager.cs" />
     <Compile Include="Assets\Scripts\ShowTrajectory.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />

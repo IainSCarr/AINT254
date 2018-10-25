@@ -26,7 +26,21 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         MovePlayer(Input.GetAxis("Horizontal") * smoothing);
-	}
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log(currentProjectile);
+            projectile[currentProjectile].SendMessage("Explode");
+            //if (currentProjectile == 0)
+            //{
+            //    projectile[0].SendMessage("Explode");
+            //}
+            //else
+            //{
+            //    projectile[currentProjectile - 1].SendMessage("Explode");
+            //}
+        }
+    }
 
     private void MovePlayer(float num)
     {

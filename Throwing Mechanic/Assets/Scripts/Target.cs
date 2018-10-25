@@ -9,6 +9,9 @@ public class Target : MonoBehaviour {
 
     private Renderer rend;
 
+    public delegate void SendScore(int score);
+    public static event SendScore OnSendScore;
+
     private void OnEnable()
     {
         InputManager.OnSpaceBarPress += HandleOnSpaceBarPress;
@@ -18,8 +21,6 @@ public class Target : MonoBehaviour {
     {
         rend = GetComponent<Renderer>();
         rend.material = materials[Random.Range(0, 3)];
-        Debug.Log(rend.material.name);
-        Debug.Log(rend.sharedMaterial.name.Replace("(Instance)", ""));
     }
 
     void OnCollisionEnter(Collision collision)
@@ -31,6 +32,11 @@ public class Target : MonoBehaviour {
                 collision.gameObject.SendMessage("Explode");
                 hasBeenHit = true;
                 ChangeColour();
+
+                if (OnSendScore != null)
+                {
+                    OnSendScore(5);
+                }
             }
         }
     }
