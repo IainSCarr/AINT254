@@ -61,16 +61,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\HoldObject.cs" />
-    <Compile Include="Assets\Scripts\InputManager.cs" />
-    <Compile Include="Assets\Scripts\LaunchObject.cs" />
-    <Compile Include="Assets\Scripts\MultiplyExplode.cs" />
-    <Compile Include="Assets\Scripts\PotCollider.cs" />
-    <Compile Include="Assets\Scripts\PowerUp.cs" />
-    <Compile Include="Assets\Scripts\PowerUpManager.cs" />
-    <Compile Include="Assets\Scripts\ShowTrajectory.cs" />
-    <Compile Include="Assets\Scripts\Target.cs" />
-    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Arrows.cs" />
+    <Compile Include="Assets\Scripts\CharacterController.cs" />
+    <Compile Include="Assets\Scripts\EnemyLookAtPlayer.cs" />
+    <Compile Include="Assets\Scripts\MouseLook.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\HoldObject.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\InputManager.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\LaunchObject.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\MultiplyExplode.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\PotCollider.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\PowerUp.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\PowerUpManager.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\ShowTrajectory.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\Target.cs" />
+    <Compile Include="Assets\Scripts\OldScripts\UIManager.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Iain_/Documents/GitHub/AINT254/Throwing Mechanic/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

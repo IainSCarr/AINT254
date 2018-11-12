@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
 
     private int points;
 
-    float totalTime = 120.0f;
+    float totalTime = 10.0f;
 
     void OnEnable()
     {
