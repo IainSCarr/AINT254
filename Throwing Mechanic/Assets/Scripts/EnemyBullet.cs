@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour {
 
-    public float speed = 5.0f;
+    public float speed = 10.0f;
     public float destroyTime = 3.0f;
+    private float dampner = 0.01f;
 
     void OnEnable()
     {
         Invoke("Die", destroyTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            collision.gameObject.SendMessage("TakeDamage", 5f);
-            collision.gameObject.SendMessage("DoDamageFlash");
+            other.gameObject.SendMessage("TakeDamage", 5f);
+            other.gameObject.SendMessage("DoDamageFlash");
+            Die();
+        }
+        else if (other.gameObject.tag == "Obstacle")
+        {
             Die();
         }
     }
@@ -26,7 +31,7 @@ public class EnemyBullet : MonoBehaviour {
     {
         // Fire towards Enemy
         //GetComponent<Rigidbody>().velocity = transform.forward * speed;
-        transform.position = transform.forward * speed;
+        transform.position += transform.forward * speed * dampner;
     }
 
     private void Die()

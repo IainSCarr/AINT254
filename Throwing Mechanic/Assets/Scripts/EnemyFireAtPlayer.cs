@@ -21,7 +21,9 @@ public class EnemyFireAtPlayer : MonoBehaviour
     void Start()
     {
         fireRate = normalFireRate;
-        StartShooting();
+
+        iTween.MoveTo(gameObject, iTween.Hash("y", 0.5, "time", 0.5f, "easetype", iTween.EaseType.spring));
+        iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0, "time", 0.5f, "oncomplete", "StartShooting"));
     }
 
     // Update is called once per frame
@@ -54,6 +56,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
     void OnDestroy()
     {
         CancelInvoke("Shoot");
+        PlayerBehaviour.OnIncreaseFireRate -= HandleOnIncreaseFireRate;
     }
 
     private void HandleOnIncreaseFireRate(float rate)
