@@ -1328,6 +1328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49e16ccb5449a744b963831ba2514c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resolution: 20
+  spread: 0.2
   dotPrefab: {fileID: 1041027977786608, guid: 8ddf2d6b612a84842b90b8a1640e8ef6, type: 2}
   dots: []
   projectile: {fileID: 0}

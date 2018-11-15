@@ -654,6 +654,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 727cb900a5b00494a900674e26711b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resolution: 20
+  spread: 0.1
   dotPrefab: {fileID: 1041027977786608, guid: 8ddf2d6b612a84842b90b8a1640e8ef6, type: 2}
   dots: []
 --- !u!1 &697141735

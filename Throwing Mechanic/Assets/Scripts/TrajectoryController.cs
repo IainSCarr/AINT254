@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TrajectoryController : MonoBehaviour {
 
+    public int resolution;
+    public float spread;
+
     public GameObject dotPrefab;
     [SerializeField]
     private GameObject[] dots;
@@ -23,9 +26,9 @@ public class TrajectoryController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        dots = new GameObject[10];
+        dots = new GameObject[resolution];
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < resolution; i++)
         {
             GameObject tempDot = Instantiate(dotPrefab);
 
@@ -39,7 +42,7 @@ public class TrajectoryController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         Debug.Log(player);
 
-        StartCoroutine(LateStart(0.1f));
+        Invoke("SetProjectile", 0.1f);
     }
 	
 	// Update is called once per frame
@@ -78,7 +81,7 @@ public class TrajectoryController : MonoBehaviour {
 
                 hasBeenThrown = true;
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < resolution; i++)
                 {
                     dots[i].SetActive(false);
                 }
@@ -93,9 +96,9 @@ public class TrajectoryController : MonoBehaviour {
         float Sx = direction.x * magnitude;
         float Sy = direction.y * magnitude;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < resolution; i++)
         {
-            float time = i * 0.2f;
+            float time = i * spread;
 
             float dX = Sx * time;
             float dY = (Sy * time) - (0.5f * (Physics.gravity.y * -1) * time * time);
@@ -108,7 +111,7 @@ public class TrajectoryController : MonoBehaviour {
             if (i != 0)
             {
                 Color newColour = dots[i].GetComponent<Renderer>().material.color;
-                newColour.a = 1f / time * 0.4f;
+                newColour.a = ((float)resolution - i) / resolution;
                 dots[i].GetComponent<Renderer>().material.color = newColour;
             }
 
@@ -116,9 +119,8 @@ public class TrajectoryController : MonoBehaviour {
         }
     }
 
-    IEnumerator LateStart(float waitTime)
+    public void SetProjectile()
     {
-        yield return new WaitForSeconds(waitTime);
         projectile = player.GetComponent<PlayerBehaviour>().GetCurrentObject();
     }
 }

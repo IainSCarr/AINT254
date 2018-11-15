@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShowTrajectory : MonoBehaviour {
 
+    public int resolution;
+    public float spread;
     public GameObject dotPrefab;
     [SerializeField]
     private GameObject[] dots;
@@ -26,9 +28,9 @@ public class ShowTrajectory : MonoBehaviour {
     private float throwSpeed;
 
     void Start () {
-        dots = new GameObject[10];
+        dots = new GameObject[resolution];
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < resolution; i++)
         {
             GameObject tempDot = Instantiate(dotPrefab);
 
@@ -82,7 +84,7 @@ public class ShowTrajectory : MonoBehaviour {
                 hasBeenThrown = true;
                 inputManager.SendMessage("SetUpNextThrow", throwSpeed);
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < resolution; i++)
                 {
                     dots[i].SetActive(false);
                 }
@@ -97,9 +99,9 @@ public class ShowTrajectory : MonoBehaviour {
         float Sx = direction.x * magnitude;
         float Sy = direction.y * magnitude;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < resolution; i++)
         {
-            float time = i * 0.2f;
+            float time = i * spread;
 
             float dX = Sx * time;
             float dY = (Sy * time) - (0.5f * (Physics.gravity.y*-1) * time * time);
@@ -112,7 +114,7 @@ public class ShowTrajectory : MonoBehaviour {
             if (i != 0)
             {
                 Color newColour = dots[i].GetComponent<Renderer>().material.color;
-                newColour.a = 1f / time*0.4f;
+                newColour.a = ((float)resolution - i) / resolution;
                 dots[i].GetComponent<Renderer>().material.color = newColour;
             }
 
