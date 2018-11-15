@@ -88,6 +88,8 @@
     <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
     <Compile Include="Assets\Scripts\SecondUIManager.cs" />
     <Compile Include="Assets\Scripts\SpawnObject.cs" />
+    <Compile Include="Assets\Scripts\ThrowableBehaviour.cs" />
+    <Compile Include="Assets\Scripts\TrajectoryController.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Iain_/Documents/GitHub/AINT254/Throwing Mechanic/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

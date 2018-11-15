@@ -28,7 +28,6 @@ public class CharacterController : MonoBehaviour {
         MovePlayer(Input.GetAxis("Horizontal"));
         // Clamp player to play area
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -31.5f, 31.5f), playerTransform.position.y, playerTransform.position.z);
-
     }
 
     /// <summary>
