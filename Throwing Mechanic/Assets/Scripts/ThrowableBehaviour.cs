@@ -7,19 +7,25 @@ public class ThrowableBehaviour : MonoBehaviour {
     private GameObject player;
     private Transform playerPos;
 
+    private MultiplyExplode exploder;
+
     private bool isCurrentObject = true;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
+        // find player
         player = GameObject.FindGameObjectWithTag("Player");
+
+        // set itself to players current object
         player.GetComponent<PlayerBehaviour>().SetCurrentObject(gameObject);
 
         playerPos = player.GetComponent<Transform>();
-	}
-	
-	void FixedUpdate () {
+    }
+
+    void FixedUpdate() {
         if (isCurrentObject)
         {
+            // lock position to directly behind player
             transform.position = playerPos.position - (playerPos.forward * 2);
         }
     }
@@ -28,7 +34,9 @@ public class ThrowableBehaviour : MonoBehaviour {
     {
         // disconnect object from player
         isCurrentObject = false;
+        player.GetComponent<PlayerBehaviour>().SetCurrentObject(null);
 
+        GetComponent<Rigidbody>().useGravity = true;
         GetComponent<Rigidbody>().AddForce(direction * magnitude, ForceMode.Impulse);
         GetComponent<Rigidbody>().AddTorque(new Vector3(1, 0, -direction.x) * magnitude);
     }

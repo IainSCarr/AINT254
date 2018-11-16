@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class TrajectoryController : MonoBehaviour {
 
+    /// <summary>
+    /// Number of dots in trajectory arc.
+    /// </summary>
     public int resolution;
+
+    /// <summary>
+    /// Distance between dots based on time.
+    /// </summary>
     public float spread;
 
     public GameObject dotPrefab;
@@ -28,6 +35,7 @@ public class TrajectoryController : MonoBehaviour {
     void Start () {
         dots = new GameObject[resolution];
 
+        // create array of dots and set to inactive
         for (int i = 0; i < resolution; i++)
         {
             GameObject tempDot = Instantiate(dotPrefab);
@@ -40,57 +48,95 @@ public class TrajectoryController : MonoBehaviour {
         cam = Camera.main;
 
         player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Log(player);
 
+        // delay initial projectile setting to allow all processes to complete
         Invoke("SetProjectile", 0.1f);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0))
+        // if player is holding object
+        if (projectile)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetMouseButtonDown(0))
             {
-                if (hit.transform.name == player.name)
+                hasClickedObject = GetHasClickedObject();
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                if (hasClickedObject && !hasBeenThrown)
                 {
-                    hasClickedObject = true;
+                    CalculateVectors();
                 }
             }
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            if (hasClickedObject && !hasBeenThrown)
+            else if (Input.GetMouseButtonUp(0))
             {
-                playerVector = cam.WorldToScreenPoint(player.transform.position);
-                playerVector.z = 0;
-
-                aimVector = (playerVector - Input.mousePosition).normalized;
-                aimVector.z = aimVector.y;
-                magnitude = (playerVector - Input.mousePosition).magnitude * 0.1f;
-
-                Aim(aimVector, magnitude);
-            }
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            if (hasClickedObject && !hasBeenThrown)
-            {
-                projectile.GetComponent<ThrowableBehaviour>().Throw(aimVector, magnitude);
-
-                hasBeenThrown = true;
-
-                for (int i = 0; i < resolution; i++)
+                if (hasClickedObject && !hasBeenThrown)
                 {
-                    dots[i].SetActive(false);
-                }
-            }
+                    projectile.GetComponent<ThrowableBehaviour>().Throw(aimVector, magnitude);
 
-            hasClickedObject = false;
+                    hasBeenThrown = true;
+
+                    for (int i = 0; i < resolution; i++)
+                    {
+                        dots[i].SetActive(false);
+                    }
+                }
+
+                hasClickedObject = false;
+            }
+        }
+        else
+        {
+            Debug.Log("The player isn't holding an object.");
         }
     }
 
+    /// <summary>
+    /// Uses raycast to find if player has clicked on correct object.
+    /// </summary>
+    /// <returns>True if player has clicked on correct object.</returns>
+    private bool GetHasClickedObject()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.name == player.name)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Calculates vector and magnitude between mouse position and player.
+    /// </summary>
+    private void CalculateVectors()
+    {
+        playerVector = cam.WorldToScreenPoint(player.transform.position);
+        playerVector.z = 0;
+
+        aimVector = (playerVector - Input.mousePosition).normalized;
+        aimVector.z = aimVector.y;
+        magnitude = (playerVector - Input.mousePosition).magnitude * 0.1f;
+
+        Aim(aimVector, magnitude);
+    }
+
+    /// <summary>
+    /// Places dots in trajectory arc.
+    /// </summary>
+    /// <param name="direction">Direction of arc</param>
+    /// <param name="magnitude">Amount of power</param>
     private void Aim(Vector3 direction, float magnitude)
     {
         float Sx = direction.x * magnitude;
@@ -119,8 +165,10 @@ public class TrajectoryController : MonoBehaviour {
         }
     }
 
-    public void SetProjectile()
+    public void SetProjectile(GameObject newProjectile)
     {
-        projectile = player.GetComponent<PlayerBehaviour>().GetCurrentObject();
+        projectile = newProjectile;
+        hasBeenThrown = false;
+        hasClickedObject = false;
     }
 }

@@ -11,9 +11,14 @@ public class EnemyDeath : MonoBehaviour {
 
     private bool isQuitting;
 
-	// Use this for initialization
-	void Start () {
-        Invoke("StartDeath", 20);
+    // Use this for initialization
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Object")
+        {
+            StartDeath();
+        }
     }
 
     public void StartDeath()
@@ -30,6 +35,7 @@ public class EnemyDeath : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
+        // prevents errors if application is closed during enemy death
         isQuitting = true;
     }
 
