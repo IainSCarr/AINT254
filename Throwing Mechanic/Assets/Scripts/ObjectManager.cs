@@ -9,7 +9,12 @@ public class ObjectManager : MonoBehaviour {
     private TrajectoryController trajectoryController;
     private PlayerBehaviour player;
 
+    private float fireRate;
+
     private bool explodableObjects;
+
+    public PhysicMaterial bouncyMaterial;
+    private bool bouncyObjects;
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +30,8 @@ public class ObjectManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Debug.Log("Explodable Objects");
-            SetExplodableObjects(true);
+            Debug.Log("Bouncy Objects");
+            SetBouncyObjects(true);
         }
 	}
 
@@ -54,10 +59,25 @@ public class ObjectManager : MonoBehaviour {
         {
             newObject.GetComponent<MultiplyExplode>().SetCanExplode(true);
         }
+
+        if (bouncyObjects)
+        {
+            newObject.GetComponent<Collider>().material = bouncyMaterial;
+        }
     }
 
     public void SetExplodableObjects(bool setting)
     {
         explodableObjects = setting;
+    }
+
+    public void SetBouncyObjects(bool setting)
+    {
+        bouncyObjects = setting;
+    }
+
+    public void SetPlayerFireRate()
+    {
+
     }
 }

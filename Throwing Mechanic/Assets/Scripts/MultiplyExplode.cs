@@ -36,6 +36,7 @@ public class MultiplyExplode : MonoBehaviour {
                 for (int i = 0; i < 5; i++)
                 {
                     GameObject tempObject = Instantiate(exlodePrefab, transform.position + (Vector3.up), transform.rotation);
+                    tempObject.GetComponent<Collider>().material = GetComponent<Collider>().material;
 
                     if (i == 0)
                     {

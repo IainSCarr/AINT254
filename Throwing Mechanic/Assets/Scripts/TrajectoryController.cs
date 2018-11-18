@@ -48,9 +48,6 @@ public class TrajectoryController : MonoBehaviour {
         cam = Camera.main;
 
         player = GameObject.FindGameObjectWithTag("Player");
-
-        // delay initial projectile setting to allow all processes to complete
-        Invoke("SetProjectile", 0.1f);
     }
 	
 	// Update is called once per frame
@@ -85,10 +82,6 @@ public class TrajectoryController : MonoBehaviour {
 
                 hasClickedObject = false;
             }
-        }
-        else
-        {
-            Debug.Log("The player isn't holding an object.");
         }
     }
 

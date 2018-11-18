@@ -14,7 +14,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerBehaviour.OnIncreaseFireRate += HandleOnIncreaseFireRate;
+        NewPowerUpManager.OnIncreaseFireRate += HandleOnIncreaseFireRate;
     }
 
     // Use this for initialization
@@ -56,7 +56,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
     void OnDestroy()
     {
         CancelInvoke("Shoot");
-        PlayerBehaviour.OnIncreaseFireRate -= HandleOnIncreaseFireRate;
+        NewPowerUpManager.OnIncreaseFireRate -= HandleOnIncreaseFireRate;
     }
 
     private void HandleOnIncreaseFireRate(float rate)

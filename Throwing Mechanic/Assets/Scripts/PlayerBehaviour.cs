@@ -8,8 +8,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
     private int speed;
 
-    public delegate void IncreaseFireRate(float rate);
-    public static event IncreaseFireRate OnIncreaseFireRate;
+
 
     private GameObject currentObject;
 
@@ -20,13 +19,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (OnIncreaseFireRate != null)
-            {
-                OnIncreaseFireRate(0.25f);
-            }
-        }
+
 	}
 
     public void TakeDamage(int damage)

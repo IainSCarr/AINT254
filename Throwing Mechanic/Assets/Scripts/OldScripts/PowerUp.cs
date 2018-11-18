@@ -4,30 +4,43 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
 
-    private PowerUpManager manager;
+    private bool chance;
 
     private void Start()
     {
-        manager = FindObjectOfType<PowerUpManager>();
+        if (gameObject.tag == "ChancePowerUp")
+        {
+            chance = true;
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Object")
         {
-            manager.DoPowerUp(Random.Range(0, 5));
-            StartCoroutine(RespawnTime());
-            gameObject.GetComponent<Renderer>().enabled = false;
-            gameObject.GetComponent<Collider>().enabled = false;
+
+            if (chance)
+            {
+                int coinFlip = Random.Range(0, 2);
+
+                Debug.Log(coinFlip);
+
+                if (coinFlip == 0)
+                {
+                    transform.SendMessageUpwards("DoGoodPowerUp");
+                }
+                else
+                {
+                    transform.SendMessageUpwards("DoBadPowerUp");
+                }
+            }
+            else
+            {
+                transform.SendMessageUpwards("DoGoodPowerUp");
+            }
+
+            transform.SendMessageUpwards("PowerUpDestroyed", transform.parent);
+            Destroy(gameObject);
         }
     }
-
-    IEnumerator RespawnTime()
-    {
-        yield return new WaitForSeconds(15);
-
-        gameObject.GetComponent<Renderer>().enabled = true;
-        gameObject.GetComponent<Collider>().enabled = true;
-    }
-
 }

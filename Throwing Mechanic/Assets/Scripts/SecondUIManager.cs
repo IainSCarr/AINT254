@@ -7,8 +7,8 @@ public class SecondUIManager : MonoBehaviour {
 
     private GameObject notification;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).name == "Notification")
@@ -20,9 +20,19 @@ public class SecondUIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
+    }
+
+    public void ShowNotification(string text, bool goodNotification)
+    {
+        if (goodNotification)
         {
-            notification.SetActive(true);
+            notification.GetComponent<Text>().color = Color.green;
         }
+        else
+        {
+            notification.GetComponent<Text>().color = Color.red;
+        }
+        notification.GetComponent<Text>().text = text;
+        notification.SetActive(true);
     }
 }

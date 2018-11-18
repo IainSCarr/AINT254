@@ -62,9 +62,9 @@ public class ObstacleManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Updates state after enemy is destroyed.
+    /// Updates state after obstacle is destroyed.
     /// </summary>
-    /// <param name="parent">The spawn point where the enemy was destroyed.</param>
+    /// <param name="parent">The spawn point where the obstacle was destroyed.</param>
     private void ObstacleDestroyed(Transform parent)
     {
         numObstacles--;
