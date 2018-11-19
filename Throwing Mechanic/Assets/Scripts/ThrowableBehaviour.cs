@@ -36,6 +36,7 @@ public class ThrowableBehaviour : MonoBehaviour {
         // disconnect object from player
         isCurrentObject = false;
         player.GetComponent<PlayerBehaviour>().SetCurrentObject(null);
+        gameObject.SendMessageUpwards("StartSpawn");
 
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<Rigidbody>().AddForce(direction * magnitude, ForceMode.Impulse);

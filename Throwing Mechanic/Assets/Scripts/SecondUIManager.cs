@@ -24,6 +24,7 @@ public class SecondUIManager : MonoBehaviour {
 
     public void ShowNotification(string text, bool goodNotification)
     {
+        notification.SetActive(false);
         if (goodNotification)
         {
             notification.GetComponent<Text>().color = Color.green;

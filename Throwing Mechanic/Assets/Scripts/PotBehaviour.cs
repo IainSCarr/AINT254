@@ -5,29 +5,18 @@ using UnityStandardAssets.Utility;
 
 public class PotBehaviour : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-        iTween.MoveFrom(gameObject, iTween.Hash("y", 20));
-        SetRotation(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SetRotation(true);
-        }
-	}
-
-    public void SetRotation(bool rotation)
+    private void Awake()
     {
-        if (rotation)
-        {
-            GetComponent<AutoMoveAndRotate>().enabled = true;
-        }
-        else
-        {
-            GetComponent<AutoMoveAndRotate>().enabled = false;
-        }
+        ActivatePowerUps.OnRotateTargets += HandleOnRotateTargets;
+    }
+
+    // Use this for initialization
+    void Start() {
+        iTween.MoveFrom(gameObject, iTween.Hash("y", 20));
+    }
+
+    private void HandleOnRotateTargets(bool rotating)
+    {
+        GetComponent<AutoMoveAndRotate>().enabled = rotating;
     }
 }

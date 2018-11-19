@@ -12,22 +12,6 @@ public class NewPowerUpManager : MonoBehaviour {
     private int numSpawns;
     private int numPowerUps;
 
-    private EnemyManager enemyManager;
-    private ObjectManager objectManager;
-    private SecondUIManager uiManager;
-
-    private bool[] currentGoodPowerUps = new bool[5];
-    private string[] goodPowerUpNames = new string[5] {"INCREASED GRAVITY", "QUICKFIRE ACTIVATED", "X2 SCORE MULTIPLIER", "EXPLODING OBJECTS", "ALL ENEMIES KILLED" };
-
-    private bool[] currentBadPowerUps = new bool[2];
-    private string[] badPowerUpNames = new string[2] { "BARRAGE INCOMING", "ROTATING TARGETS"};
-
-    public delegate void IncreaseFireRate(float rate);
-    public static event IncreaseFireRate OnIncreaseFireRate;
-
-    public delegate void RotateTargets(bool isActive);
-    public static event RotateTargets OnRotateTargets;
-
     // Use this for initialization
     void Start () {
         numSpawns = transform.childCount;
@@ -42,10 +26,6 @@ public class NewPowerUpManager : MonoBehaviour {
         }
 
         numPowerUps = 0;
-
-        enemyManager = FindObjectOfType<EnemyManager>();
-        objectManager = FindObjectOfType<ObjectManager>();
-        uiManager = FindObjectOfType<SecondUIManager>();
     }
 	
 	// Update is called once per frame
@@ -90,92 +70,9 @@ public class NewPowerUpManager : MonoBehaviour {
         {
             if (spawnArray[i] == parent)
             {
-                // Make spawn available for next obstacle
+                // Make spawn available for next powerup
                 activeSpawns[i] = false;
             }
         }
-    }
-
-    public void DoGoodPowerUp()
-    {
-        Debug.Log("Good PowerUp");
-
-        int num = Random.Range(0, goodPowerUpNames.Length);
-
-        if (!currentGoodPowerUps[num])
-        {
-            switch (num)
-            {
-                case 0:
-                    Physics.gravity = new Vector3(0, -30, 0);
-                    break;
-                case 1:
-
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    objectManager.SetExplodableObjects(true);
-                    break;
-                case 4:
-                    if (enemyManager.GetCurrentEnemies() > 0)
-                    {
-                        enemyManager.DestroyAllEnemies();
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            currentGoodPowerUps[num] = true;
-            uiManager.ShowNotification(goodPowerUpNames[num], true);
-
-        }
-        else
-        {
-            DoGoodPowerUp();
-        }
-    }
-
-    public void DoBadPowerUp()
-    {
-        Debug.Log("Bad PowerUp");
-
-        int num = Random.Range(0, badPowerUpNames.Length);
-
-        if (!currentBadPowerUps[num])
-        {
-            switch (num)
-            {
-                case 0:
-                    if (enemyManager.GetCurrentEnemies() > 0)
-                    {
-                        if (OnIncreaseFireRate != null)
-                        {
-                            OnIncreaseFireRate(0.25f);
-                        }
-                    }
-                    break;
-                case 1:
-                    if (OnRotateTargets != null)
-                    {
-                        OnRotateTargets(true);
-                    }
-                    break;
-            }
-
-            currentGoodPowerUps[num] = true;
-            uiManager.ShowNotification(goodPowerUpNames[num], false);
-
-        }
-        else
-        {
-            DoGoodPowerUp();
-        }
-    }
-
-    private void DeactivatePowerUp()
-    {
-
     }
 }

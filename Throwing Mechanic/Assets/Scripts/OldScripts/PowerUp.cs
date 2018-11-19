@@ -18,12 +18,9 @@ public class PowerUp : MonoBehaviour {
     {
         if (other.gameObject.tag == "Object")
         {
-
             if (chance)
             {
                 int coinFlip = Random.Range(0, 2);
-
-                Debug.Log(coinFlip);
 
                 if (coinFlip == 0)
                 {

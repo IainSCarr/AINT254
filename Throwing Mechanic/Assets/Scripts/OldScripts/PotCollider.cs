@@ -24,6 +24,8 @@ public class PotCollider : MonoBehaviour {
             hasBeenHit = true;
             ChangeColour();
 
+            other.gameObject.SendMessage("Explode");
+
             if (OnSendScore != null)
             {
                 OnSendScore(15);

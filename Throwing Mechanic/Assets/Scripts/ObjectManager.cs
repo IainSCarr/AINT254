@@ -9,7 +9,7 @@ public class ObjectManager : MonoBehaviour {
     private TrajectoryController trajectoryController;
     private PlayerBehaviour player;
 
-    private float fireRate;
+    private float fireRate = 2f;
 
     private bool explodableObjects;
 
@@ -20,6 +20,8 @@ public class ObjectManager : MonoBehaviour {
 	void Start () {
         trajectoryController = FindObjectOfType<TrajectoryController>();
          player = FindObjectOfType<PlayerBehaviour>();
+
+        Spawn();
     }
 	
 	// Update is called once per frame
@@ -43,7 +45,7 @@ public class ObjectManager : MonoBehaviour {
         if (!player.GetCurrentObject())
         {
             // create object
-            GameObject newObject = Instantiate(objectPrefab);
+            GameObject newObject = Instantiate(objectPrefab, gameObject.transform);
 
             // set it's properties
             SetObjectProperties(newObject);
@@ -51,6 +53,11 @@ public class ObjectManager : MonoBehaviour {
             // update trajectory controller
             trajectoryController.SetProjectile(newObject);
         }
+    }
+
+    public void StartSpawn()
+    {
+        Invoke("Spawn", fireRate);
     }
 
     private void SetObjectProperties(GameObject newObject)
@@ -76,8 +83,8 @@ public class ObjectManager : MonoBehaviour {
         bouncyObjects = setting;
     }
 
-    public void SetPlayerFireRate()
+    public void SetPlayerFireRate(float rate)
     {
-
+        fireRate = rate;
     }
 }
