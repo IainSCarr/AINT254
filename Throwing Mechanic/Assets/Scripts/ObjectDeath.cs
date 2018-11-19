@@ -7,11 +7,12 @@ public class ObjectDeath : MonoBehaviour {
     public float deathTime = 0.2f;
     public float scaleAmount = 0.2f;
 
-    private bool isQuitting;
-
+    private void Start()
+    {
+    }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Target")
         {
             // if the object can explode
             if (GetComponent<MultiplyExplode>().GetCanExplode())

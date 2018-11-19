@@ -17,10 +17,16 @@ public class NewPowerUpManager : MonoBehaviour {
     private SecondUIManager uiManager;
 
     private bool[] currentGoodPowerUps = new bool[5];
-    private string[] goodPowerUpNames = new string[5] {"INCREASED GRAVITY", "QUICKFIRE", "X2 SCORE MULTIPLIER", "EXPLODING OBJECTS", "ALL ENEMIES KILLED" };
+    private string[] goodPowerUpNames = new string[5] {"INCREASED GRAVITY", "QUICKFIRE ACTIVATED", "X2 SCORE MULTIPLIER", "EXPLODING OBJECTS", "ALL ENEMIES KILLED" };
+
+    private bool[] currentBadPowerUps = new bool[2];
+    private string[] badPowerUpNames = new string[2] { "BARRAGE INCOMING", "ROTATING TARGETS"};
 
     public delegate void IncreaseFireRate(float rate);
     public static event IncreaseFireRate OnIncreaseFireRate;
+
+    public delegate void RotateTargets(bool isActive);
+    public static event RotateTargets OnRotateTargets;
 
     // Use this for initialization
     void Start () {
@@ -133,10 +139,38 @@ public class NewPowerUpManager : MonoBehaviour {
 
     public void DoBadPowerUp()
     {
-        if (OnIncreaseFireRate != null)
+        Debug.Log("Bad PowerUp");
+
+        int num = Random.Range(0, badPowerUpNames.Length);
+
+        if (!currentBadPowerUps[num])
         {
-            OnIncreaseFireRate(0.25f);
-            //NotifyUIManager("BARRAGE INCOMING");
+            switch (num)
+            {
+                case 0:
+                    if (enemyManager.GetCurrentEnemies() > 0)
+                    {
+                        if (OnIncreaseFireRate != null)
+                        {
+                            OnIncreaseFireRate(0.25f);
+                        }
+                    }
+                    break;
+                case 1:
+                    if (OnRotateTargets != null)
+                    {
+                        OnRotateTargets(true);
+                    }
+                    break;
+            }
+
+            currentGoodPowerUps[num] = true;
+            uiManager.ShowNotification(goodPowerUpNames[num], false);
+
+        }
+        else
+        {
+            DoGoodPowerUp();
         }
     }
 

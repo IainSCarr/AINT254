@@ -6,7 +6,7 @@ public class MultiplyExplode : MonoBehaviour {
 
     public GameObject exlodePrefab;
 
-    private float power = 600f;
+    private float power = 700f;
 
     private bool hasExploded;
 

@@ -32,6 +32,7 @@ public class ThrowableBehaviour : MonoBehaviour {
 
     public void Throw(Vector3 direction, float magnitude)
     {
+        Invoke("Die", 10f);
         // disconnect object from player
         isCurrentObject = false;
         player.GetComponent<PlayerBehaviour>().SetCurrentObject(null);
@@ -39,5 +40,15 @@ public class ThrowableBehaviour : MonoBehaviour {
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<Rigidbody>().AddForce(direction * magnitude, ForceMode.Impulse);
         GetComponent<Rigidbody>().AddTorque(new Vector3(1, 0, -direction.x) * magnitude);
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        CancelInvoke("Die");
     }
 }

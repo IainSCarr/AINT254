@@ -11,11 +11,6 @@ public class PotCollider : MonoBehaviour {
     public delegate void SendScore(int score);
     public static event SendScore OnSendScore;
 
-    private void OnEnable()
-    {
-        InputManager.OnSpaceBarPress += HandleOnSpaceBarPress;
-
-    }
 
     private void Start()
     {
@@ -26,7 +21,6 @@ public class PotCollider : MonoBehaviour {
     {
         if (!hasBeenHit)
         {
-            other.gameObject.SendMessage("Explode");
             hasBeenHit = true;
             ChangeColour();
 
@@ -36,13 +30,6 @@ public class PotCollider : MonoBehaviour {
             }
         }
     }
-
-    void HandleOnSpaceBarPress()
-    {
-        hasBeenHit = false;
-        rend.material.color = Color.yellow;
-    }
-
 
     private void ChangeColour()
     {
