@@ -40,7 +40,7 @@ public class PauseMenu : MonoBehaviour {
         Time.timeScale = 1f;
         GameisPaused = false;
         audioManager.PlaySound("StartGame");
-        audioManager.PlaySound("GameplayMusic");
+        audioManager.PlaySound("GameMusic");
     }
 
     void Pause()

@@ -19,12 +19,17 @@ public class SecondUIManager : MonoBehaviour {
     private int score;
     private int highscore;
 
-    float totalTime = 10.0f;
+    float totalTime = 180.0f;
 
     void OnEnable()
     {
         PlayerBehaviour.OnUpdateHealth += HandleonUpdateHealth;
         //AddScore.OnSendScore += HandleonSendScore;
+    }
+
+    private void OnDisable()
+    {
+        PlayerBehaviour.OnUpdateHealth -= HandleonUpdateHealth;
     }
 
     private void Start()
@@ -40,10 +45,7 @@ public class SecondUIManager : MonoBehaviour {
 
         if (totalTime <= 0)
         {
-            gameInfo.SetActive(false);
-            Time.timeScale = 0f;
-            finalScore.text = score.ToString();
-            endScreen.SetActive(true);
+            EndGame();
         }
         else
         {
@@ -87,6 +89,11 @@ public class SecondUIManager : MonoBehaviour {
     {
         health = newHealth;
         healthBar.value = health;
+
+        if (health <= 0)
+        {
+            EndGame();
+        }
     }
 
     void HandleonSendScore(int theScore)
@@ -95,5 +102,11 @@ public class SecondUIManager : MonoBehaviour {
         scoreText.text = score.ToString();
     }
 
-
+    private void EndGame()
+    {
+        gameInfo.SetActive(false);
+        Time.timeScale = 0f;
+        finalScore.text = score.ToString();
+        endScreen.SetActive(true);
+    }
 }

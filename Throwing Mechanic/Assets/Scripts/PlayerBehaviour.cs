@@ -31,11 +31,6 @@ public class PlayerBehaviour : MonoBehaviour {
         {
             OnUpdateHealth(health);
         }
-
-        if (health <= 0)
-        {
-            //End game
-        }
     }
 
     public void SetCurrentObject(GameObject obj)
