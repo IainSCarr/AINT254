@@ -12,10 +12,18 @@ public class LevelManager : MonoBehaviour {
         instance = AudioManager.instance;
     }
 
-    public void LoadScene(string scene)
+    public void LoadGame()
     {
         instance.StopSound("TitleMusic");
         instance.PlaySound("ClickButton");
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene("Game");
+    }
+
+    public void LoadMenu()
+    {
+        instance.StopSound("GameMusic");
+        instance.PlaySound("TitleMusic");
+        instance.PlaySound("ClickButton");
+        SceneManager.LoadScene("MenuScreen");
     }
 }

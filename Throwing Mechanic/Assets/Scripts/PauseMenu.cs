@@ -48,6 +48,6 @@ public class PauseMenu : MonoBehaviour {
         PauseUI.SetActive(true);
         Time.timeScale = 0f;
         GameisPaused = true;
-        audioManager.StopSound("GameplayMusic");
+        audioManager.StopSound("GameMusic");
     }
 }
