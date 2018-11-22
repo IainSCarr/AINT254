@@ -20,6 +20,8 @@ public class ThrowableBehaviour : MonoBehaviour {
         player.GetComponent<PlayerBehaviour>().SetCurrentObject(gameObject);
 
         playerPos = player.GetComponent<Transform>();
+
+        iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0));
     }
 
     void FixedUpdate() {

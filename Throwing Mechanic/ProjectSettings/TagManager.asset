@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Enemy
   - ChancePowerUp
+  - Target
   layers:
   - Default
   - TransparentFX

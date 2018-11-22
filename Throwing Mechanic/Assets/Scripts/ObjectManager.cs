@@ -21,7 +21,7 @@ public class ObjectManager : MonoBehaviour {
         trajectoryController = FindObjectOfType<TrajectoryController>();
          player = FindObjectOfType<PlayerBehaviour>();
 
-        Spawn();
+        Invoke("Spawn", 5f);
     }
 	
 	// Update is called once per frame
@@ -45,8 +45,8 @@ public class ObjectManager : MonoBehaviour {
         if (!player.GetCurrentObject())
         {
             // create object
-            GameObject newObject = Instantiate(objectPrefab, gameObject.transform);
-
+            GameObject newObject = Instantiate(objectPrefab, player.transform.position - (player.transform.forward * 2), player.transform.rotation, gameObject.transform);
+            
             // set it's properties
             SetObjectProperties(newObject);
 

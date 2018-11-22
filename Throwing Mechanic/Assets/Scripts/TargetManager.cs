@@ -12,6 +12,8 @@ public class TargetManager : MonoBehaviour {
     private int numSpawns;
     private int numTargets;
 
+    private AudioManager instance;
+
     // Use this for initialization
     void Start()
     {
@@ -27,17 +29,11 @@ public class TargetManager : MonoBehaviour {
         }
 
         numTargets = 0;
+
+        instance = AudioManager.instance;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            SpawnRandomTarget();
-        }
-    }
-
-    private void SpawnRandomTarget()
+    public void SpawnRandomTarget()
     {
         // if spawns are available
         if (numTargets < numSpawns)
@@ -47,6 +43,7 @@ public class TargetManager : MonoBehaviour {
             // if random spawn isn't already taken
             if (!activeSpawns[rand])
             {
+                instance.PlaySound("TargetSpawn");
                 activeSpawns[rand] = true;
                 numTargets++;
                 spawnArray[rand].SendMessage("Spawn", targetPrefab);

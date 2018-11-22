@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour {
         }
 	}
 
-    private void SpawnRandomEnemy()
+    public void SpawnRandomEnemy()
     {
         // if spawns are available
         if (numEnemies < numSpawns)

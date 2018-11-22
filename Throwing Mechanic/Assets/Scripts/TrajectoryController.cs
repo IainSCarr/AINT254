@@ -20,6 +20,8 @@ public class TrajectoryController : MonoBehaviour {
 
     private Camera cam;
 
+    private AudioManager instance;
+
     private GameObject player;
     private Vector3 playerVector;
 
@@ -46,6 +48,7 @@ public class TrajectoryController : MonoBehaviour {
         }
 
         cam = Camera.main;
+        instance = AudioManager.instance;
 
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -71,6 +74,7 @@ public class TrajectoryController : MonoBehaviour {
                 if (hasClickedObject && !hasBeenThrown)
                 {
                     projectile.GetComponent<ThrowableBehaviour>().Throw(aimVector, magnitude);
+                    instance.PlaySound("Throw");
 
                     hasBeenThrown = true;
 

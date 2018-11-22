@@ -7,12 +7,14 @@ public class ObstacleMovement : MonoBehaviour {
     public float slideTime = 5f;
 
     private float startTime;
+    private bool hasDied;
 
     private bool isQuitting;
 
     // Use this for initialization
     void Start () {
-        iTween.MoveFrom(gameObject, iTween.Hash("y", -5, "easetype", iTween.EaseType.easeInOutBounce, "oncomplete", "StartMoving"));
+        AudioManager.instance.PlaySound("ObstacleSpawn");
+        iTween.MoveFrom(gameObject, iTween.Hash("y", -5, "easetype", iTween.EaseType.easeOutQuad, "oncomplete", "StartMoving", "time", 1.5f));
 
         startTime = Time.time;
     }
@@ -21,7 +23,13 @@ public class ObstacleMovement : MonoBehaviour {
     {
         if (Time.time - startTime >= 30)
         {
-            iTween.MoveTo(gameObject, iTween.Hash("y", -5, "easetype", iTween.EaseType.easeInOutBounce, "oncomplete", "Die"));
+            if (!hasDied)
+            {
+                hasDied = true;
+                AudioManager.instance.PlaySound("ObstacleSpawn");
+                iTween.MoveTo(gameObject, iTween.Hash("y", -5, "easetype", iTween.EaseType.easeInOutQuad, "oncomplete", "Die", "time", 2f));
+            }
+
         }
     }
 

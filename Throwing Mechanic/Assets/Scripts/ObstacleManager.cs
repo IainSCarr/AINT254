@@ -36,7 +36,7 @@ public class ObstacleManager : MonoBehaviour {
         }
 	}
 
-    private void SpawnRandomObstacle()
+    public void SpawnRandomObstacle()
     {
         // if spawns are available
         if (numObstacles < numSpawns)

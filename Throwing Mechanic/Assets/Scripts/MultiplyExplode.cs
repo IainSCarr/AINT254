@@ -6,7 +6,7 @@ public class MultiplyExplode : MonoBehaviour {
 
     public GameObject exlodePrefab;
 
-    private float power = 700f;
+    private float power = 1000f;
 
     private bool hasExploded;
 
@@ -31,6 +31,8 @@ public class MultiplyExplode : MonoBehaviour {
             if (!hasExploded)
             {
                 hasExploded = true;
+
+                AudioManager.instance.PlaySound("Explode");
 
                 // create 5 gameobjects, place them so they don't interact with each other then add a force in the general direction they are placed
                 for (int i = 0; i < 5; i++)

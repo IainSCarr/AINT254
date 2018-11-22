@@ -12,6 +12,8 @@ public class NewPowerUpManager : MonoBehaviour {
     private int numSpawns;
     private int numPowerUps;
 
+    private AudioManager instance;
+
     // Use this for initialization
     void Start () {
         numSpawns = transform.childCount;
@@ -26,6 +28,8 @@ public class NewPowerUpManager : MonoBehaviour {
         }
 
         numPowerUps = 0;
+
+        instance = AudioManager.instance;
     }
 	
 	// Update is called once per frame
@@ -36,7 +40,7 @@ public class NewPowerUpManager : MonoBehaviour {
         }
     }
 
-    private void SpawnRandomPowerUp(int prefabChoice)
+    public void SpawnRandomPowerUp(int prefabChoice)
     {
         // if spawns are available
         if (numPowerUps < numSpawns)
@@ -49,6 +53,7 @@ public class NewPowerUpManager : MonoBehaviour {
                 activeSpawns[rand] = true;
                 numPowerUps++;
                 spawnArray[rand].SendMessage("Spawn", powerUpPrefabs[prefabChoice]);
+                instance.PlaySound("SpawnPowerUp");
             }
             else // try again
             {
@@ -64,7 +69,7 @@ public class NewPowerUpManager : MonoBehaviour {
     public void PowerUpDestroyed(Transform parent)
     {
         numPowerUps--;
-
+        instance.PlaySound("CollectPowerUp");
         // Loop through spawners and find parent of destroyed powerup
         for (int i = 0; i < numSpawns; i++)
         {

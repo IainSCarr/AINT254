@@ -8,7 +8,8 @@ public class PlayerBehaviour : MonoBehaviour {
 
     private int speed;
 
-
+    public delegate void UpdateHealth(int health);
+    public static event UpdateHealth OnUpdateHealth;
 
     private GameObject currentObject;
 
@@ -25,6 +26,11 @@ public class PlayerBehaviour : MonoBehaviour {
     public void TakeDamage(int damage)
     {
         health -= damage;
+
+        if (OnUpdateHealth != null)
+        {
+            OnUpdateHealth(health);
+        }
 
         if (health <= 0)
         {

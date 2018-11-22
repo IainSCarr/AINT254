@@ -7,21 +7,21 @@ public class ObjectDeath : MonoBehaviour {
     public float deathTime = 0.2f;
     public float scaleAmount = 0.2f;
 
-    private void Start()
+    void OnCollisionEnter(Collision collision)
     {
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Target")
+        if (collision.gameObject.tag == "Enemy")
         {
-            // if the object can explode
+            StartDeath();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Target")
+        {
             if (GetComponent<MultiplyExplode>().GetCanExplode())
             {
                 StartDeath();
-            }
-            else
-            {
-                Destroy(gameObject);
             }
         }
     }
@@ -31,11 +31,18 @@ public class ObjectDeath : MonoBehaviour {
     /// </summary>
     public void StartDeath()
     {
-        Invoke("Die", deathTime);
+        if (GetComponent<MultiplyExplode>().GetCanExplode())
+        {
+            Invoke("Die", deathTime);
+            // Animate death
+            iTween.ScaleBy(gameObject, iTween.Hash("x", scaleAmount, "y", scaleAmount, "z", scaleAmount, "time", deathTime));
+            iTween.ColorTo(gameObject, iTween.Hash("color", Color.red, "time", deathTime));
+        }
+        else
+        {
+            Die();
+        }
 
-        // Animate death
-        iTween.ScaleBy(gameObject, iTween.Hash("x", scaleAmount, "y", scaleAmount, "z", scaleAmount, "time", deathTime));
-        iTween.ColorTo(gameObject, iTween.Hash("color", Color.red, "time", deathTime));
     }
 
     /// <summary>

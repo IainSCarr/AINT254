@@ -5,18 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private AudioManager instance;
+
+    // Use this for initialization
+    void Start () {
+        instance = AudioManager.instance;
+    }
 
     public void LoadScene(string scene)
     {
+        instance.StopSound("TitleMusic");
+        instance.PlaySound("ClickButton");
         SceneManager.LoadScene(scene);
     }
 }

@@ -5,21 +5,18 @@ using UnityEngine.UI;
 
 public class SecondUIManager : MonoBehaviour {
 
-    private GameObject notification;
+    public GameObject notification;
+    public Slider healthBar;
+    public Text scoreText;
 
-    // Use this for initialization
-    void Start () {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).name == "Notification")
-            {
-                notification = transform.GetChild(i).gameObject;
-            }
-        }
-    }
-	
-	// Update is called once per frame
-	void Update () {
+    private int health;
+    private int score;
+    private int highscore;
+
+    void OnEnable()
+    {
+        PlayerBehaviour.OnUpdateHealth += HandleonUpdateHealth;
+        //AddScore.OnSendScore += HandleonSendScore;
     }
 
     public void ShowNotification(string text, bool goodNotification)
@@ -35,5 +32,17 @@ public class SecondUIManager : MonoBehaviour {
         }
         notification.GetComponent<Text>().text = text;
         notification.SetActive(true);
+    }
+
+    void HandleonUpdateHealth(int newHealth)
+    {
+        health = newHealth;
+        healthBar.value = health;
+    }
+
+    void HandleonSendScore(int theScore)
+    {
+        score += theScore;
+        scoreText.text = score.ToString();
     }
 }

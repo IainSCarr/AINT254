@@ -23,6 +23,7 @@ public class EnemyDeath : MonoBehaviour {
 
     public void StartDeath()
     {
+        AudioManager.instance.PlaySound("EnemySqueel");
         Invoke("Die", deathTime);
         // Animate death
         iTween.ShakePosition(gameObject, iTween.Hash("x", shakeAmount, "z", shakeAmount, "time", deathTime));
@@ -30,6 +31,7 @@ public class EnemyDeath : MonoBehaviour {
 
     private void Die()
     {
+        AudioManager.instance.PlaySound("EnemyDeath");
         Destroy(gameObject);
     }
 

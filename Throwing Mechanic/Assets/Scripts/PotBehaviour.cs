@@ -19,4 +19,32 @@ public class PotBehaviour : MonoBehaviour {
     {
         GetComponent<AutoMoveAndRotate>().enabled = rotating;
     }
+
+    public void Hit()
+    {
+        Invoke("FlyAway", 1f);
+    }
+
+    private void FlyAway()
+    {
+        Invoke("Die", 5f);
+        AudioManager.instance.PlaySound("TargetDeath");
+        iTween.MoveTo(gameObject, iTween.Hash("y", 20, "time", 5f));
+    }
+
+    private void Die()
+    {
+        SendMessageUpwards("TargetDestroyed", transform.parent);
+        Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        ActivatePowerUps.OnRotateTargets -= HandleOnRotateTargets;
+    }
+
+    private void OnDestroy()
+    {
+        CancelInvoke();
+    }
 }
