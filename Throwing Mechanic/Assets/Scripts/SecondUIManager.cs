@@ -13,30 +13,38 @@ public class SecondUIManager : MonoBehaviour {
 
     public GameObject endScreen;
     public GameObject gameInfo;
+
     public Text finalScore;
+    public Text highscore;
 
     private int health;
     private int score;
-    private int highscore;
 
     float totalTime = 180.0f;
+    private bool hasGameEnded;
+
+    private AudioManager instance;
 
     void OnEnable()
     {
         PlayerBehaviour.OnUpdateHealth += HandleonUpdateHealth;
-        //AddScore.OnSendScore += HandleonSendScore;
+        AddScore.OnSendScore += HandleonSendScore;
     }
 
     private void OnDisable()
     {
         PlayerBehaviour.OnUpdateHealth -= HandleonUpdateHealth;
+        AddScore.OnSendScore -= HandleonSendScore;
     }
 
-    private void Start()
+    void Start()
     {
         Time.timeScale = 1.0f;
+
         score = 0;
         scoreText.text = score.ToString();
+
+        instance = AudioManager.instance;
     }
 
     void Update()
@@ -45,7 +53,11 @@ public class SecondUIManager : MonoBehaviour {
 
         if (totalTime <= 0)
         {
-            EndGame();
+            if (!hasGameEnded)
+            {
+                hasGameEnded = true;
+                EndGame();
+            }
         }
         else
         {
@@ -92,7 +104,12 @@ public class SecondUIManager : MonoBehaviour {
 
         if (health <= 0)
         {
+            instance.PlaySound("PlayerDeath");
             EndGame();
+        }
+        else
+        {
+            instance.PlaySound("HitPlayer");
         }
     }
 
@@ -104,9 +121,25 @@ public class SecondUIManager : MonoBehaviour {
 
     private void EndGame()
     {
-        gameInfo.SetActive(false);
         Time.timeScale = 0f;
-        finalScore.text = score.ToString();
+        finalScore.text = "YOUR SCORE: " + score.ToString();
+
+        instance.StopSound("GameMusic");
+        instance.PlaySound("GameOver");
+        //instance.PlaySound("EndMusic");
+
+        SetHighScore();
+
+        gameInfo.SetActive(false);
         endScreen.SetActive(true);
+    }
+
+    private void SetHighScore()
+    {
+        if (score > PlayerPrefs.GetInt("Highscore", 0))
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+        }
+        highscore.text = "HIGH SCORE:  " + PlayerPrefs.GetInt("Highscore", 0).ToString();
     }
 }

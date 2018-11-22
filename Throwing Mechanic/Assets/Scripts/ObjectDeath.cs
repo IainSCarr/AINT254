@@ -13,6 +13,10 @@ public class ObjectDeath : MonoBehaviour {
         {
             StartDeath();
         }
+        else if (collision.gameObject.tag == "Obstacle")
+        {
+            AudioManager.instance.PlaySound("HitBrick");
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -25,6 +29,7 @@ public class ObjectDeath : MonoBehaviour {
             }
         }
     }
+
 
     /// <summary>
     /// Animates object and calls death function upon completion.

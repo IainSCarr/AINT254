@@ -32,6 +32,7 @@ public class EnemyDeath : MonoBehaviour {
     private void Die()
     {
         AudioManager.instance.PlaySound("EnemyDeath");
+        SendMessage("DoSendScore");
         Destroy(gameObject);
     }
 

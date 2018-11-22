@@ -23,6 +23,7 @@ public class PotBehaviour : MonoBehaviour {
     public void Hit()
     {
         Invoke("FlyAway", 1f);
+        SendMessage("DoSendScore");
     }
 
     private void FlyAway()

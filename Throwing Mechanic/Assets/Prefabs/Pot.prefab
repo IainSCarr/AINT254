@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 64187162133601806}
   - component: {fileID: 114229748766291644}
   - component: {fileID: 114315502379138768}
+  - component: {fileID: 114749943202776560}
   m_Layer: 0
   m_Name: Pot
   m_TagString: Untagged
@@ -171,6 +172,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8b7ff12d858d1488f93e9d18f22df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114749943202776560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1096131583417632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3433ab159b7b3054fb6e5db11ff88217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 20
 --- !u!136 &136395979108715936
 CapsuleCollider:
   m_ObjectHideFlags: 1
