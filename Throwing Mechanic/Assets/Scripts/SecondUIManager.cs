@@ -65,9 +65,6 @@ public class SecondUIManager : MonoBehaviour {
                     {
                         isTicking = true;
                         instance.PlaySound("Ticking");
-                        Debug.Log(timer.gameObject);
-                        Debug.Log("test");
-                        iTween.ColorTo(timer.gameObject, iTween.Hash("color", Color.red, "looptype", iTween.LoopType.pingPong));
                     }
                 }
 

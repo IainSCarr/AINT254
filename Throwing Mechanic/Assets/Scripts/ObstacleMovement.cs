@@ -9,8 +9,6 @@ public class ObstacleMovement : MonoBehaviour {
     private float startTime;
     private bool hasDied;
 
-    private bool isQuitting;
-
     // Use this for initialization
     void Start () {
         AudioManager.instance.PlaySound("ObstacleSpawn");
@@ -40,19 +38,7 @@ public class ObstacleMovement : MonoBehaviour {
 
     private void Die()
     {
+        transform.SendMessageUpwards("ObstacleDestroyed", transform.parent);
         Destroy(gameObject);
-    }
-
-    private void OnApplicationQuit()
-    {
-        isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-        if (!isQuitting)
-        {
-            transform.SendMessageUpwards("ObstacleDestroyed", transform.parent);
-        }
     }
 }

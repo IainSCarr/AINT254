@@ -9,9 +9,6 @@ public class EnemyDeath : MonoBehaviour {
     public float deathTime = 0.2f;
     public float shakeAmount = 0.2f;
 
-    private bool isQuitting;
-
-    // Use this for initialization
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -33,23 +30,8 @@ public class EnemyDeath : MonoBehaviour {
     {
         AudioManager.instance.PlaySound("EnemyDeath");
         SendMessage("DoSendScore");
+        transform.SendMessageUpwards("EnemyDestroyed", transform.parent);
+        Instantiate(particles, transform.position, transform.rotation);
         Destroy(gameObject);
-    }
-
-    private void OnApplicationQuit()
-    {
-        // prevents errors if application is closed during enemy death
-        isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-        if (!isQuitting)
-        {
-            Instantiate(particles, transform.position, transform.rotation);
-
-            // Send message to enemy manager with parent reference
-            transform.SendMessageUpwards("EnemyDestroyed", transform.parent);
-        }
     }
 }
