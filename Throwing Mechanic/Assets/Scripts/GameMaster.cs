@@ -14,7 +14,7 @@ public class GameMaster : MonoBehaviour {
     private float enemySpawnRate = 11f;
     private float obstacleSpawnRate = 25f;
     private float targetSpawnRate = 9f;
-    private float powerupSpawnRate = 17f;
+    private float powerupSpawnRate = 13f;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +26,9 @@ public class GameMaster : MonoBehaviour {
         instance = AudioManager.instance;
 
         Invoke("StartGame", 5f);
-	}
+        InvokeRepeating("SpawnPowerUp", 4f, powerupSpawnRate);
+
+    }
 
     private void StartGame()
     {
@@ -35,7 +37,6 @@ public class GameMaster : MonoBehaviour {
         InvokeRepeating("SpawnEnemy", 5f, enemySpawnRate);
         InvokeRepeating("SpawnTarget", 0f, targetSpawnRate);
         InvokeRepeating("SpawnObstacle", 15f, obstacleSpawnRate);
-        InvokeRepeating("SpawnPowerUp", 0f, powerupSpawnRate);
     }
 	
 	// Update is called once per frame

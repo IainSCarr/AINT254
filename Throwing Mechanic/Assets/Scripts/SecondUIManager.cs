@@ -21,7 +21,7 @@ public class SecondUIManager : MonoBehaviour {
     private int score;
     private bool isScoreDoubled;
 
-    float totalTime = 40.0f;
+    float totalTime = 180.0f;
     private bool isTicking = false;
     private bool hasGameStarted = false;
     private bool hasGameEnded;
