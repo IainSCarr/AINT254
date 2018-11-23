@@ -148,6 +148,82 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &558496741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 558496742}
+  - component: {fileID: 558496744}
+  - component: {fileID: 558496743}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &558496742
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 558496741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 979420568}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -349, y: 0.000015259}
+  m_SizeDelta: {x: 335.7, y: 492.9}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &558496743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 558496741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 19
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 46
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1.62
+  m_Text: "AIM\nGet the highest score before time runs out or you run out of health\n\nCONTROLS\nAD
+    - Move Player\nWS - Adjust Camera\nEsc - Pause / Unpause\n\nTHROWING\nClick and
+    hold on player \nDrag back to see trajectory\nRelease mouse button to throw\n\n"
+--- !u!222 &558496744
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 558496741}
 --- !u!1001 &803153454
 Prefab:
   m_ObjectHideFlags: 0
@@ -158,7 +234,7 @@ Prefab:
     - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
         type: 2}
       propertyPath: sounds.Array.size
-      value: 19
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 4375712706040528, guid: 98f8bd05e8bc7a14192ec33b996801ff, type: 2}
       propertyPath: m_LocalPosition.x
@@ -871,6 +947,83 @@ Prefab:
       propertyPath: sounds.Array.data[18].randomPitch
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[19].name
+      value: TargetHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[19].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1bd1ae46c5bc8984aa8345527ce49e48, type: 3}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[19].group
+      value: 
+      objectReference: {fileID: 243215389640047814, guid: e676962e0a76eb04b872d3b6f5efa0c2,
+        type: 2}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[19].volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[19].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[19].randomVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[19].randomPitch
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].name
+      value: Ticking
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 56c3e88d4ad3e494b9cd8ff832b8738f, type: 3}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].group
+      value: 
+      objectReference: {fileID: 243215389640047814, guid: e676962e0a76eb04b872d3b6f5efa0c2,
+        type: 2}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].randomVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].randomPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753514175473230, guid: 98f8bd05e8bc7a14192ec33b996801ff,
+        type: 2}
+      propertyPath: sounds.Array.data[20].loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98f8bd05e8bc7a14192ec33b996801ff, type: 2}
   m_IsPrefabParent: 0
@@ -906,7 +1059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 134}
+  m_AnchoredPosition: {x: -198, y: 124}
   m_SizeDelta: {x: 577.7, y: 108.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &943285542
@@ -1035,6 +1188,7 @@ RectTransform:
   m_Children:
   - {fileID: 1657993802}
   - {fileID: 80301011}
+  - {fileID: 558496742}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1386,7 +1540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -76}
+  m_AnchoredPosition: {x: -198, y: -86}
   m_SizeDelta: {x: 280, y: 52.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750960198

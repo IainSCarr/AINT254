@@ -9,9 +9,12 @@ public class StartCountdown : MonoBehaviour {
 
     private int number;
 
+    private SecondUIManager uiManager;
+
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
+        uiManager = FindObjectOfType<SecondUIManager>();
         number = 6;
         CountDown();
 	}
@@ -33,6 +36,7 @@ public class StartCountdown : MonoBehaviour {
         else
         {
             text.text = "GO!";
+            uiManager.GameStart();
             AnimateIn();
         }
     }

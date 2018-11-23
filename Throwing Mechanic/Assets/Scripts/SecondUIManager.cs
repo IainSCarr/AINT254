@@ -19,8 +19,11 @@ public class SecondUIManager : MonoBehaviour {
 
     private int health;
     private int score;
+    private bool isScoreDoubled;
 
-    float totalTime = 180.0f;
+    float totalTime = 40.0f;
+    private bool isTicking = false;
+    private bool hasGameStarted = false;
     private bool hasGameEnded;
 
     private AudioManager instance;
@@ -43,25 +46,41 @@ public class SecondUIManager : MonoBehaviour {
 
         score = 0;
         scoreText.text = score.ToString();
+        UpdateLevelTimer(totalTime);
 
         instance = AudioManager.instance;
     }
 
     void Update()
     {
-        totalTime -= Time.deltaTime;
+        if (hasGameStarted)
+        {
+            totalTime -= Time.deltaTime;
 
-        if (totalTime <= 0)
-        {
-            if (!hasGameEnded)
+            if (totalTime > 0)
             {
-                hasGameEnded = true;
-                EndGame();
+                if (totalTime <= 30)
+                {
+                    if (!isTicking)
+                    {
+                        isTicking = true;
+                        instance.PlaySound("Ticking");
+                        Debug.Log(timer.gameObject);
+                        Debug.Log("test");
+                        iTween.ColorTo(timer.gameObject, iTween.Hash("color", Color.red, "looptype", iTween.LoopType.pingPong));
+                    }
+                }
+
+                UpdateLevelTimer(totalTime);
             }
-        }
-        else
-        {
-            UpdateLevelTimer(totalTime);
+            else
+            {
+                if (!hasGameEnded)
+                {
+                    hasGameEnded = true;
+                    EndGame();
+                }
+            }
         }
     }
 
@@ -115,7 +134,15 @@ public class SecondUIManager : MonoBehaviour {
 
     void HandleonSendScore(int theScore)
     {
-        score += theScore;
+        if (isScoreDoubled)
+        {
+            score += (theScore * 2);
+        }
+        else
+        {
+            score += theScore;
+        }
+
         scoreText.text = score.ToString();
     }
 
@@ -124,6 +151,7 @@ public class SecondUIManager : MonoBehaviour {
         Time.timeScale = 0f;
         finalScore.text = "YOUR SCORE: " + score.ToString();
 
+        instance.StopSound("Ticking");
         instance.StopSound("GameMusic");
         instance.PlaySound("GameOver");
         //instance.PlaySound("EndMusic");
@@ -141,5 +169,15 @@ public class SecondUIManager : MonoBehaviour {
             PlayerPrefs.SetInt("Highscore", score);
         }
         highscore.text = "HIGH SCORE:  " + PlayerPrefs.GetInt("Highscore", 0).ToString();
+    }
+
+    public void SetDoubledScore(bool setting)
+    {
+        isScoreDoubled = setting;
+    }
+
+    public void GameStart()
+    {
+        hasGameStarted = true;
     }
 }

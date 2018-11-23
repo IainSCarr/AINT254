@@ -11,10 +11,10 @@ public class GameMaster : MonoBehaviour {
     private TargetManager targetManager;
     private NewPowerUpManager powerUpManager;
 
-    private float enemySpawnRate = 10f;
+    private float enemySpawnRate = 11f;
     private float obstacleSpawnRate = 25f;
-    private float targetSpawnRate = 10f;
-    private float powerupSpawnRate = 20f;
+    private float targetSpawnRate = 9f;
+    private float powerupSpawnRate = 17f;
 
 	// Use this for initialization
 	void Start () {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour {
 
-    private int health = 100;
+    private int health = 60;
 
     private int speed;
 

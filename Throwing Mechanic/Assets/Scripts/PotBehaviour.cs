@@ -23,6 +23,7 @@ public class PotBehaviour : MonoBehaviour {
     public void Hit()
     {
         Invoke("FlyAway", 1f);
+        AudioManager.instance.PlaySound("TargetHit");
         SendMessage("DoSendScore");
     }
 

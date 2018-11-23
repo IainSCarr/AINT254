@@ -58,6 +58,7 @@ public class ActivatePowerUps : MonoBehaviour {
                         break;
                     case 2:
                         // increase score multiplier
+                        uiManager.SetDoubledScore(true);
                         break;
                     case 3:
                         // set explodable objects
@@ -119,10 +120,10 @@ public class ActivatePowerUps : MonoBehaviour {
                             {
                                 OnIncreaseFireRate(0.25f);
                             }
-                            else
-                            {
-                                powerupWasActivated = false;
-                            }
+                        }
+                        else
+                        {
+                            powerupWasActivated = false;
                         }
                         break;
                     case 1:
@@ -180,6 +181,7 @@ public class ActivatePowerUps : MonoBehaviour {
                 break;
             case 2:
                 // Decrease score multiplier
+                uiManager.SetDoubledScore(false);
                 break;
             case 3:
                 objectManager.SetExplodableObjects(false);
