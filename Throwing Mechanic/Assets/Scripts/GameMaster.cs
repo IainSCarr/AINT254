@@ -16,8 +16,16 @@ public class GameMaster : MonoBehaviour {
     private float targetSpawnRate = 9f;
     private float powerupSpawnRate = 13f;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        if (AudioManager.instance == null)
+        {
+            instance = new AudioManager();
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         enemyManager = FindObjectOfType<EnemyManager>();
         obstacleManager = FindObjectOfType<ObstacleManager>();
         targetManager = FindObjectOfType<TargetManager>();

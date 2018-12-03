@@ -95,23 +95,24 @@ public class TrajectoryController : MonoBehaviour {
     /// <returns>True if player has clicked on correct object.</returns>
     private bool GetHasClickedObject()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.name == player.name)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hit;
+        //if (Physics.Raycast(ray, out hit))
+        //{
+        //    if (hit.transform.name == player.name)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+        //else
+        //{
+        //    return false;
+        //}
+        return true;
     }
 
     /// <summary>
