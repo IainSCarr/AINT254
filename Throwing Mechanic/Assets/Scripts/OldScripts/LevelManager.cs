@@ -10,6 +10,10 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         instance = AudioManager.instance;
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+        {
+            instance.PlaySound("TitleMusic");
+        }
     }
 
     public void LoadGame()
