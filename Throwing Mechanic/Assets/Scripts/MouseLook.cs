@@ -20,8 +20,6 @@ public class MouseLook : MonoBehaviour {
     void FixedUpdate()
     {
         RotatePlayer();
-        //playerTransform.eulerAngles.y = Mathf.Clamp(transform.eulerAngles.y, -90, 90);
-        
     }
 
     /// <summary>
@@ -49,6 +47,12 @@ public class MouseLook : MonoBehaviour {
 
             // Determine the target rotation.  This is the rotation if the transform looks at the target point.
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - playerTransform.position);
+
+            //if ((targetRotation.eulerAngles.y > 270 && targetRotation.eulerAngles.y < 360) || (targetRotation.eulerAngles.y < 90 && targetRotation.eulerAngles.y > 0))
+            //{
+            //    playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, speed * Time.deltaTime);
+            //}
+
 
             // Smoothly rotate towards the target point.
             playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, speed * Time.deltaTime);

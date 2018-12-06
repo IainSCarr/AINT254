@@ -26,15 +26,7 @@ public class ObjectManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            Spawn();
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            Debug.Log("Bouncy Objects");
-            SetBouncyObjects(true);
-        }
+
 	}
 
     /// <summary>

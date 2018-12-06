@@ -28,7 +28,7 @@ public class ThrowableBehaviour : MonoBehaviour {
         if (isCurrentObject)
         {
             // lock position to directly behind player
-            transform.position = playerPos.position - (playerPos.forward * 2);
+            transform.position = playerPos.position + (playerPos.forward * 2);
         }
     }
 

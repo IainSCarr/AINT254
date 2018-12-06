@@ -27,6 +27,8 @@ public class TrajectoryController : MonoBehaviour {
 
     private GameObject projectile;
 
+    private Vector3 mousePos;
+
     private Vector3 aimVector;
     private float magnitude;
 
@@ -60,18 +62,18 @@ public class TrajectoryController : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                hasClickedObject = GetHasClickedObject();
+                mousePos = Input.mousePosition;
             }
             else if (Input.GetMouseButton(0))
             {
-                if (hasClickedObject && !hasBeenThrown)
+                if (!hasBeenThrown)
                 {
                     CalculateVectors();
                 }
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                if (hasClickedObject && !hasBeenThrown)
+                if (!hasBeenThrown)
                 {
                     projectile.GetComponent<ThrowableBehaviour>().Throw(aimVector, magnitude);
                     instance.PlaySound("Throw");
@@ -84,7 +86,7 @@ public class TrajectoryController : MonoBehaviour {
                     }
                 }
 
-                hasClickedObject = false;
+                //hasClickedObject = false;
             }
         }
     }
@@ -123,9 +125,9 @@ public class TrajectoryController : MonoBehaviour {
         playerVector = cam.WorldToScreenPoint(player.transform.position);
         playerVector.z = 0;
 
-        aimVector = (playerVector - Input.mousePosition).normalized;
+        aimVector = (mousePos - Input.mousePosition).normalized;
         aimVector.z = aimVector.y;
-        magnitude = (playerVector - Input.mousePosition).magnitude * 0.1f;
+        magnitude = (mousePos - Input.mousePosition).magnitude * 0.1f;
 
         Aim(aimVector, magnitude);
     }

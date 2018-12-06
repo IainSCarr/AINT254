@@ -1568,8 +1568,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 57765829}
-  heightOffset: 5.89
-  widthOffset: -6.12
 --- !u!1 &597740141
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,7 +3471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0086c830ac9512b44abf3573d50c4246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 1358963454193310, guid: 3948bcd715c5d19429b0935a3c40a715,
+  objectPrefab: {fileID: 1009035741648190, guid: b02baed8e098f1048a45699eda25024f,
     type: 2}
   bouncyMaterial: {fileID: 13400000, guid: ac11dfb52c76e5f4d9484e545e9ff105, type: 2}
 --- !u!1 &1519199686
