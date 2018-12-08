@@ -125,9 +125,9 @@ public class TrajectoryController : MonoBehaviour {
         playerVector = cam.WorldToScreenPoint(player.transform.position);
         playerVector.z = 0;
 
-        aimVector = (mousePos - Input.mousePosition).normalized;
+        aimVector = (Input.mousePosition - mousePos).normalized;
         aimVector.z = aimVector.y;
-        magnitude = (mousePos - Input.mousePosition).magnitude * 0.1f;
+        magnitude = (Input.mousePosition - mousePos).magnitude * 0.1f;
 
         Aim(aimVector, magnitude);
     }
