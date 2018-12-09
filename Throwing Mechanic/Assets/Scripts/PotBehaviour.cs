@@ -29,14 +29,14 @@ public class PotBehaviour : MonoBehaviour {
 
     private void FlyAway()
     {
-        Invoke("Die", 5f);
+        Invoke("Die", 2f);
         AudioManager.instance.PlaySound("TargetDeath");
-        iTween.MoveTo(gameObject, iTween.Hash("y", 20, "time", 5f));
+        iTween.MoveTo(gameObject, iTween.Hash("y", 20, "time", 2f));
     }
 
     private void Die()
     {
-        SendMessageUpwards("TargetDestroyed", transform.parent);
+        SendMessageUpwards("ObjectDestroyed", transform.parent);
         Destroy(gameObject);
     }
 

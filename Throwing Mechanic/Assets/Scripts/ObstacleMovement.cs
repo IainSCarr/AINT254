@@ -38,7 +38,7 @@ public class ObstacleMovement : MonoBehaviour {
 
     private void Die()
     {
-        transform.SendMessageUpwards("ObstacleDestroyed", transform.parent);
+        transform.SendMessageUpwards("ObjectDestroyed", transform.parent);
         Destroy(gameObject);
     }
 }

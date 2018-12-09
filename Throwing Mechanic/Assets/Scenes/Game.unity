@@ -994,8 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18ef56d9b7706448aacc1fb7339ec5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 1433017637774752, guid: c6c9b2833efb2a54fa15a3745e508401,
-    type: 2}
+  prefab: {fileID: 1433017637774752, guid: c6c9b2833efb2a54fa15a3745e508401, type: 2}
 --- !u!4 &269138256
 Transform:
   m_ObjectHideFlags: 0
@@ -1962,7 +1961,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c49ef35987851b34fbcfcccdf731f5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves: []
+  waves:
+  - name: Start
+    spawners:
+    - manager: {fileID: 1154317516}
+      count: 2
+      rate: 3
+      isRequired: 1
+    - manager: {fileID: 1620401334}
+      count: 1
+      rate: 1
+      isRequired: 1
+  - name: Enemies
+    spawners:
+    - manager: {fileID: 1620401334}
+      count: 6
+      rate: 1
+      isRequired: 1
+  - name: Obstacle Targets
+    spawners:
+    - manager: {fileID: 269138255}
+      count: 2
+      rate: 2
+      isRequired: 0
+    - manager: {fileID: 1154317516}
+      count: 4
+      rate: 1
+      isRequired: 1
   timeBetweenWaves: 5
   waveCountdown: 0
   state: 1
@@ -3007,8 +3032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1a5ef76e51b074e8dd86df70b6e6b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPrefab: {fileID: 1658943144103624, guid: 451c69f092498664880f23513fefaafd,
-    type: 2}
+  prefab: {fileID: 1658943144103624, guid: 451c69f092498664880f23513fefaafd, type: 2}
 --- !u!4 &1154317517
 Transform:
   m_ObjectHideFlags: 0
@@ -3761,8 +3785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178b898279bcc2a44bd7ea67ea65a462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1894999931792924, guid: 4ba4fbafb789fa04f86559f1847532bf,
-    type: 2}
+  prefab: {fileID: 1894999931792924, guid: 4ba4fbafb789fa04f86559f1847532bf, type: 2}
 --- !u!4 &1620401335
 Transform:
   m_ObjectHideFlags: 0

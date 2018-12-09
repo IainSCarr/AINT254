@@ -10,15 +10,42 @@ public class GameMaster : MonoBehaviour {
     public class Wave
     {
         public string name;
-        public Transform manager;
+        public Spawner[] spawners;
+        private int numRequiredSpawners;
+
+        public void SetRequiredSpawners()
+        {
+            for (int i = 0; i < spawners.Length; i++)
+            {
+                if (spawners[i].isRequired)
+                {
+                    numRequiredSpawners++;
+                }
+            }
+        }
+
+        public int GetRequiredSpawners()
+        {
+            return numRequiredSpawners;
+        }
+    }
+
+    [System.Serializable]
+    public class Spawner
+    {
+        public SpawnManager manager;
         public int count;
         public int rate;
+        public bool isRequired;
     }
 
     public Wave[] waves;
-    private int nextWave = 0;
+    private int currentWave = 0;
+
     public float timeBetweenWaves = 5f;
     public float waveCountdown;
+
+    private float searchCountdown = 1f;
 
     public SpawnState state = SpawnState.Counting;
 
@@ -51,18 +78,38 @@ public class GameMaster : MonoBehaviour {
 
         instance = AudioManager.instance;
 
-        Invoke("StartGame", 5f);
+        //Invoke("StartGame", 5f);
 
         waveCountdown = timeBetweenWaves;
+
+        // loop through all waves and set property
+        for (int i = 0; i < waves.Length; i++)
+        {
+            waves[i].SetRequiredSpawners();
+        }
     }
 
     void Update()
     {
+        if (state == SpawnState.Waiting)
+        {
+            if (WaveIsOver())
+            {
+                Debug.Log("Wave completed");
+                WaveCompleted();
+            }
+            else
+            {
+                return;
+            }
+        }
+
         if (waveCountdown <= 0)
         {
             if (state != SpawnState.Spawning)
             {
-                StartCoroutine(SpawnWave(waves[nextWave]));
+                StartCoroutine(SpawnWave(waves[currentWave]));
+                Debug.Log("Test");
             }
         }
         else
@@ -71,13 +118,71 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
+    private bool WaveIsOver()
+    {
+        searchCountdown -= Time.deltaTime;
+
+        if (searchCountdown <= 0)
+        {
+            searchCountdown = 1f;
+
+            int completedSpawners = 0;
+
+            // Loop through all spawn managers in wave
+            for (int i = 0; i < waves[currentWave].spawners.Length; i++)
+            {
+                // if manager is spawning an object that needs to be destroyed
+                if (waves[currentWave].spawners[i].isRequired)
+                {
+                    // if all objects for that manager have been destroyed
+                    if (waves[currentWave].spawners[i].manager.GetNumberOfObjects() == 0)
+                    {
+                        completedSpawners++;
+                    }
+                }
+
+                if (waves[currentWave].GetRequiredSpawners() == completedSpawners)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private void WaveCompleted()
+    {
+        Debug.Log("Wave Completed");
+
+
+        state = SpawnState.Counting;
+        waveCountdown = timeBetweenWaves;
+
+        if (currentWave + 1 > waves.Length - 1)
+        {
+            currentWave = 0;
+            Debug.Log("All waves complete.");
+        }
+        else
+        {
+            currentWave++;
+        }
+    }
+
     IEnumerator SpawnWave (Wave _wave)
     {
         state = SpawnState.Spawning;
 
-        for (int i = 0; i < _wave.count; i++)
+        Debug.Log(_wave.spawners.Length);
+
+        for (int i = 0; i < _wave.spawners.Length; i++)
         {
-            yield return new WaitForSeconds(1f / _wave.rate);
+            for (int j = 0; j < _wave.spawners[i].count; j++)
+            {
+                _wave.spawners[i].manager.SpawnRandom();
+                yield return new WaitForSeconds(1f / _wave.spawners[i].rate);
+            }
         }
 
         state = SpawnState.Waiting;
@@ -96,17 +201,17 @@ public class GameMaster : MonoBehaviour {
 
     private void SpawnEnemy()
     {
-        enemyManager.SpawnRandomEnemy();
+        enemyManager.SpawnRandom();
     }
 
     private void SpawnTarget()
     {
-        targetManager.SpawnRandomTarget();
+        targetManager.SpawnRandom();
     }
 
     private void SpawnObstacle()
     {
-        obstacleManager.SpawnRandomObstacle();
+        obstacleManager.SpawnRandom();
     }
 
     private void SpawnPowerUp()

@@ -30,7 +30,7 @@ public class EnemyDeath : MonoBehaviour {
     {
         AudioManager.instance.PlaySound("EnemyDeath");
         SendMessage("DoSendScore");
-        transform.SendMessageUpwards("EnemyDestroyed", transform.parent);
+        transform.SendMessageUpwards("ObjectDestroyed", transform.parent);
         Instantiate(particles, transform.position, transform.rotation);
         Destroy(gameObject);
     }

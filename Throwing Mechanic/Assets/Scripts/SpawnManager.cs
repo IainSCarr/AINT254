@@ -4,15 +4,17 @@ using UnityEngine;
 
 public abstract class SpawnManager : MonoBehaviour {
 
-    public GameObject[] prefabs;
+    public GameObject prefab;
 
-    private Transform[] spawnArray;
-    private bool[] activeSpawns;
+    protected Transform[] spawnArray;
+    protected bool[] activeSpawns;
 
-    private int numSpawns;
-    private int numObjects;
+    protected int numSpawns;
+    protected int numObjects;
 
-    private AudioManager instance;
+    protected bool hasRequiredDeath;
+
+    protected AudioManager instance;
 
     // Use this for initialization
     void Start()
@@ -21,6 +23,8 @@ public abstract class SpawnManager : MonoBehaviour {
 
         spawnArray = new Transform[numSpawns];
         activeSpawns = new bool[numSpawns];
+
+        SetHasRequiredDeath();
 
         // Loop through all children and create an array of them
         for (int i = 0; i < numSpawns; i++)
@@ -36,13 +40,43 @@ public abstract class SpawnManager : MonoBehaviour {
         }
     }
 
-    public abstract void SpawnRandom();
+    /// <summary>
+    /// Spawn an object at a random spawn point.
+    /// </summary>
+    public void SpawnRandom()
+    {
+        // if spawns are available
+        if (numObjects < numSpawns)
+        {
+            int rand = Random.Range(0, numSpawns);
+
+            // if random spawn isn't already taken
+            if (!activeSpawns[rand])
+            {
+                PlaySpawnSound();
+                activeSpawns[rand] = true;
+                numObjects++;
+                spawnArray[rand].SendMessage("Spawn", prefab);
+            }
+            else // try again
+            {
+                SpawnRandom();
+            }
+        }
+        else
+        {
+            Debug.Log("No spawn points available.");
+        }
+    }
+
+    public abstract void PlaySpawnSound();
+    public abstract void SetHasRequiredDeath();
 
     /// <summary>
-    /// Updates state after target is destroyed.
+    /// Updates state after object is destroyed.
     /// </summary>
-    /// <param name="parent">The spawn point where the target was destroyed.</param>
-    private void TargetDestroyed(Transform parent)
+    /// <param name="parent">The spawn point where the object was destroyed.</param>
+    private void ObjectDestroyed(Transform parent)
     {
         numObjects--;
 
@@ -55,5 +89,15 @@ public abstract class SpawnManager : MonoBehaviour {
                 activeSpawns[i] = false;
             }
         }
+    }
+
+    public int GetNumberOfObjects()
+    {
+        return numObjects;
+    }
+
+    public bool GetHasRequiredDeath()
+    {
+        return hasRequiredDeath;
     }
 }
