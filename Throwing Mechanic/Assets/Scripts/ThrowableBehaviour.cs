@@ -38,6 +38,7 @@ public class ThrowableBehaviour : MonoBehaviour {
         // disconnect object from player
         isCurrentObject = false;
         player.GetComponent<PlayerBehaviour>().SetCurrentObject(null);
+        player.GetComponent<PlayerBehaviour>().Jump();
         gameObject.SendMessageUpwards("StartSpawn");
 
         GetComponent<Rigidbody>().useGravity = true;

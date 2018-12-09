@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour {
 
+    public enum SpawnState { Spawning, Counting, Waiting };
+
+    [System.Serializable]
+    public class Wave
+    {
+        public string name;
+        public Transform manager;
+        public int count;
+        public int rate;
+    }
+
+    public Wave[] waves;
+    private int nextWave = 0;
+    public float timeBetweenWaves = 5f;
+    public float waveCountdown;
+
+    public SpawnState state = SpawnState.Counting;
+
     private AudioManager instance;
 
     private EnemyManager enemyManager;
@@ -34,8 +52,37 @@ public class GameMaster : MonoBehaviour {
         instance = AudioManager.instance;
 
         Invoke("StartGame", 5f);
-        InvokeRepeating("SpawnPowerUp", 4f, powerupSpawnRate);
 
+        waveCountdown = timeBetweenWaves;
+    }
+
+    void Update()
+    {
+        if (waveCountdown <= 0)
+        {
+            if (state != SpawnState.Spawning)
+            {
+                StartCoroutine(SpawnWave(waves[nextWave]));
+            }
+        }
+        else
+        {
+            waveCountdown -= Time.deltaTime;
+        }
+    }
+
+    IEnumerator SpawnWave (Wave _wave)
+    {
+        state = SpawnState.Spawning;
+
+        for (int i = 0; i < _wave.count; i++)
+        {
+            yield return new WaitForSeconds(1f / _wave.rate);
+        }
+
+        state = SpawnState.Waiting;
+
+        yield break;
     }
 
     private void StartGame()
@@ -46,11 +93,6 @@ public class GameMaster : MonoBehaviour {
         InvokeRepeating("SpawnTarget", 0f, targetSpawnRate);
         InvokeRepeating("SpawnObstacle", 15f, obstacleSpawnRate);
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-	}
 
     private void SpawnEnemy()
     {

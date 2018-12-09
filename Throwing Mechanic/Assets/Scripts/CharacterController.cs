@@ -32,7 +32,7 @@ public class CharacterController : MonoBehaviour {
 
         MoveCamera(Input.GetAxis("Vertical"));
         // Clamp camera position
-        cameraFollowTransform.position = new Vector3(playerTransform.position.x, Mathf.Clamp(cameraFollowTransform.position.y, 3f, 7.5f), playerTransform.position.z);
+        cameraFollowTransform.position = new Vector3(playerTransform.position.x, Mathf.Clamp(cameraFollowTransform.position.y, 3f, 5f), playerTransform.position.z);
     }
 
     /// <summary>

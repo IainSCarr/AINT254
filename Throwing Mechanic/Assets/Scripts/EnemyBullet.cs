@@ -8,9 +8,12 @@ public class EnemyBullet : MonoBehaviour {
     public float destroyTime = 3.0f;
     private float dampner = 0.01f;
 
+    private Vector3 direction;
+
     void OnEnable()
     {
         Invoke("Die", destroyTime);
+        direction = transform.forward;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,7 +34,7 @@ public class EnemyBullet : MonoBehaviour {
     {
         // Fire towards Enemy
         //GetComponent<Rigidbody>().velocity = transform.forward * speed;
-        transform.position += transform.forward * speed * dampner;
+        transform.position += direction * speed * dampner;
     }
 
     private void Die()
