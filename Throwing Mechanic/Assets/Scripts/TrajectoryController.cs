@@ -32,7 +32,6 @@ public class TrajectoryController : MonoBehaviour {
     private Vector3 aimVector;
     private float magnitude;
 
-    private bool hasClickedObject;
     private bool hasBeenThrown;
 
     // Use this for initialization
@@ -92,32 +91,6 @@ public class TrajectoryController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Uses raycast to find if player has clicked on correct object.
-    /// </summary>
-    /// <returns>True if player has clicked on correct object.</returns>
-    private bool GetHasClickedObject()
-    {
-        //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    if (hit.transform.name == player.name)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-        //else
-        //{
-        //    return false;
-        //}
-        return true;
-    }
-
-    /// <summary>
     /// Calculates vector and magnitude between mouse position and player.
     /// </summary>
     private void CalculateVectors()
@@ -169,6 +142,5 @@ public class TrajectoryController : MonoBehaviour {
     {
         projectile = newProjectile;
         hasBeenThrown = false;
-        hasClickedObject = false;
     }
 }

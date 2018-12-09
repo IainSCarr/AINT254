@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour {
 
-    public GameObject objectPrefab;
+    public GameObject[] objectPrefab;
 
     private TrajectoryController trajectoryController;
     private PlayerBehaviour player;
@@ -19,7 +19,7 @@ public class ObjectManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         trajectoryController = FindObjectOfType<TrajectoryController>();
-         player = FindObjectOfType<PlayerBehaviour>();
+        player = FindObjectOfType<PlayerBehaviour>();
 
         Invoke("Spawn", 5f);
     }
@@ -37,7 +37,7 @@ public class ObjectManager : MonoBehaviour {
         if (!player.GetCurrentObject())
         {
             // create object
-            GameObject newObject = Instantiate(objectPrefab, player.transform.position - (player.transform.forward * 2), player.transform.rotation, gameObject.transform);
+            GameObject newObject = Instantiate(objectPrefab[Random.Range(0,objectPrefab.Length)], player.transform.position - (player.transform.forward * 2), player.transform.rotation, gameObject.transform);
             
             // set it's properties
             SetObjectProperties(newObject);

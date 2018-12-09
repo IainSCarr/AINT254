@@ -11,6 +11,14 @@ public class ThrowableBehaviour : MonoBehaviour {
 
     private bool isCurrentObject = true;
 
+    private void Awake()
+    {
+        if (GetComponent<iTween>())
+        {
+            Destroy(GetComponent<iTween>());
+        }
+    }
+
     // Use this for initialization
     void Start() {
         // find player

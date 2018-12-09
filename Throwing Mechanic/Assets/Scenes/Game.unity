@@ -1962,33 +1962,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - name: Start
+  - name: Target Introduction
     spawners:
-    - manager: {fileID: 1154317516}
-      count: 2
-      rate: 3
-      isRequired: 1
-    - manager: {fileID: 1620401334}
+    - name: Targets
+      manager: {fileID: 1154317516}
       count: 1
       rate: 1
       isRequired: 1
-  - name: Enemies
+  - name: Enemy Introduction
     spawners:
-    - manager: {fileID: 1620401334}
-      count: 6
+    - name: Enemies
+      manager: {fileID: 1620401334}
+      count: 1
       rate: 1
       isRequired: 1
   - name: Obstacle Targets
     spawners:
-    - manager: {fileID: 269138255}
+    - name: Obstacles
+      manager: {fileID: 269138255}
       count: 2
-      rate: 2
+      rate: 0.2
       isRequired: 0
-    - manager: {fileID: 1154317516}
-      count: 4
-      rate: 1
+    - name: Targets
+      manager: {fileID: 1154317516}
+      count: 2
+      rate: 0.2
       isRequired: 1
-  timeBetweenWaves: 5
+  - name: Obstacle Enemies
+    spawners:
+    - name: Obstacles
+      manager: {fileID: 269138255}
+      count: 2
+      rate: 0.2
+      isRequired: 0
+    - name: Enemies
+      manager: {fileID: 1620401334}
+      count: 2
+      rate: 0.2
+      isRequired: 1
+  - name: Target x4
+    spawners:
+    - name: Targets
+      manager: {fileID: 1154317516}
+      count: 4
+      rate: 0.5
+      isRequired: 1
+  - name: Enemies x4
+    spawners:
+    - name: Enemies
+      manager: {fileID: 1620401334}
+      count: 4
+      rate: 0.5
+      isRequired: 1
+    - name: Targets
+      manager: {fileID: 269138255}
+      count: 1
+      rate: 1
+      isRequired: 0
+  timeBetweenWaves: 2
   waveCountdown: 0
   state: 1
 --- !u!1 &684676303
@@ -3594,8 +3625,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0086c830ac9512b44abf3573d50c4246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 1705362127776996, guid: d7df12dcdcc882e4abb5cf660d2c5135,
-    type: 2}
+  objectPrefab:
+  - {fileID: 1705362127776996, guid: d7df12dcdcc882e4abb5cf660d2c5135, type: 2}
+  - {fileID: 1009035741648190, guid: b02baed8e098f1048a45699eda25024f, type: 2}
   bouncyMaterial: {fileID: 13400000, guid: ac11dfb52c76e5f4d9484e545e9ff105, type: 2}
 --- !u!1 &1519199686
 GameObject:

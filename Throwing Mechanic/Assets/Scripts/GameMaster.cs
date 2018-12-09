@@ -33,9 +33,10 @@ public class GameMaster : MonoBehaviour {
     [System.Serializable]
     public class Spawner
     {
+        public string name;
         public SpawnManager manager;
         public int count;
-        public int rate;
+        public float rate;
         public bool isRequired;
     }
 
@@ -43,7 +44,7 @@ public class GameMaster : MonoBehaviour {
     private int currentWave = 0;
 
     public float timeBetweenWaves = 5f;
-    public float waveCountdown;
+    private float waveCountdown;
 
     private float searchCountdown = 1f;
 
@@ -51,14 +52,7 @@ public class GameMaster : MonoBehaviour {
 
     private AudioManager instance;
 
-    private EnemyManager enemyManager;
-    private ObstacleManager obstacleManager;
-    private TargetManager targetManager;
     private NewPowerUpManager powerUpManager;
-
-    private float enemySpawnRate = 11f;
-    private float obstacleSpawnRate = 25f;
-    private float targetSpawnRate = 9f;
     private float powerupSpawnRate = 13f;
 
     private void Awake()
@@ -71,14 +65,11 @@ public class GameMaster : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        enemyManager = FindObjectOfType<EnemyManager>();
-        obstacleManager = FindObjectOfType<ObstacleManager>();
-        targetManager = FindObjectOfType<TargetManager>();
         powerUpManager = FindObjectOfType<NewPowerUpManager>();
 
         instance = AudioManager.instance;
 
-        //Invoke("StartGame", 5f);
+        Invoke("StartGame", 5f);
 
         waveCountdown = timeBetweenWaves;
 
@@ -108,8 +99,7 @@ public class GameMaster : MonoBehaviour {
         {
             if (state != SpawnState.Spawning)
             {
-                StartCoroutine(SpawnWave(waves[currentWave]));
-                Debug.Log("Test");
+                SpawnWave(waves[currentWave]);
             }
         }
         else
@@ -170,19 +160,23 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-    IEnumerator SpawnWave (Wave _wave)
+    private void SpawnWave(Wave _wave)
     {
         state = SpawnState.Spawning;
 
-        Debug.Log(_wave.spawners.Length);
-
+        // loop through spawners and make them start spawning
         for (int i = 0; i < _wave.spawners.Length; i++)
         {
-            for (int j = 0; j < _wave.spawners[i].count; j++)
-            {
-                _wave.spawners[i].manager.SpawnRandom();
-                yield return new WaitForSeconds(1f / _wave.spawners[i].rate);
-            }
+            StartCoroutine(SpawnObjects(_wave.spawners[i]));
+        }
+    }
+
+    IEnumerator SpawnObjects(Spawner spawner)
+    {
+        for (int i = 0; i < spawner.count; i++)
+        {
+            spawner.manager.SpawnRandom();
+            yield return new WaitForSeconds(1f / spawner.rate);
         }
 
         state = SpawnState.Waiting;
@@ -194,44 +188,12 @@ public class GameMaster : MonoBehaviour {
     {
         instance.PlaySound("GameMusic");
 
-        InvokeRepeating("SpawnEnemy", 5f, enemySpawnRate);
-        InvokeRepeating("SpawnTarget", 0f, targetSpawnRate);
-        InvokeRepeating("SpawnObstacle", 15f, obstacleSpawnRate);
-    }
-
-    private void SpawnEnemy()
-    {
-        enemyManager.SpawnRandom();
-    }
-
-    private void SpawnTarget()
-    {
-        targetManager.SpawnRandom();
-    }
-
-    private void SpawnObstacle()
-    {
-        obstacleManager.SpawnRandom();
+        InvokeRepeating("SpawnPowerUp", 10f, powerupSpawnRate);
     }
 
     private void SpawnPowerUp()
     {
         powerUpManager.SpawnRandomPowerUp(Random.Range(0, 2));
-    }
-
-    public void SetEnemySpawnRate(float rate)
-    {
-        enemySpawnRate = rate;
-    }
-
-    public void SetObstacleSpawnRate(float rate)
-    {
-        obstacleSpawnRate = rate;
-    }
-
-    public void SetTargetSpawnRate(float rate)
-    {
-        targetSpawnRate = rate;
     }
 
     public void SetPowerUpSpawnRate(float rate)

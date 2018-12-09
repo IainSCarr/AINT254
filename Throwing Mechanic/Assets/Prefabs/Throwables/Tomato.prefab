@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd63d5fa77b910046b9d20ebc82f6e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exlodePrefab: {fileID: 0}
+  explodePrefab: {fileID: 1009035741648190}
 --- !u!114 &114931819298970364
 MonoBehaviour:
   m_ObjectHideFlags: 1

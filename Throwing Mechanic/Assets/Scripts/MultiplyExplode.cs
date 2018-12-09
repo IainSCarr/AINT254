@@ -37,7 +37,7 @@ public class MultiplyExplode : MonoBehaviour {
                 // create 5 gameobjects, place them so they don't interact with each other then add a force in the general direction they are placed
                 for (int i = 0; i < 5; i++)
                 {
-                    GameObject tempObject = Instantiate(gameObject, transform.position + (Vector3.up), transform.rotation);
+                    GameObject tempObject = Instantiate(explodePrefab, transform.position + (Vector3.up), transform.rotation);
                     tempObject.GetComponent<ThrowableBehaviour>().enabled = false;
                     tempObject.transform.localScale *= 0.5f;
                     tempObject.GetComponent<Collider>().material = GetComponent<Collider>().material;
