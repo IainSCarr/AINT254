@@ -43,7 +43,7 @@ public abstract class SpawnManager : MonoBehaviour {
     /// <summary>
     /// Spawn an object at a random spawn point.
     /// </summary>
-    public void SpawnRandom()
+    public virtual void SpawnRandom()
     {
         // if spawns are available
         if (numObjects < numSpawns)

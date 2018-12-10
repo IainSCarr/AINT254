@@ -52,9 +52,6 @@ public class GameMaster : MonoBehaviour {
 
     private AudioManager instance;
 
-    private NewPowerUpManager powerUpManager;
-    private float powerupSpawnRate = 13f;
-
     private void Awake()
     {
         if (AudioManager.instance == null)
@@ -65,8 +62,6 @@ public class GameMaster : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        powerUpManager = FindObjectOfType<NewPowerUpManager>();
-
         instance = AudioManager.instance;
 
         Invoke("StartGame", 5f);
@@ -145,7 +140,6 @@ public class GameMaster : MonoBehaviour {
     {
         Debug.Log("Wave Completed");
 
-
         state = SpawnState.Counting;
         waveCountdown = timeBetweenWaves;
 
@@ -187,17 +181,5 @@ public class GameMaster : MonoBehaviour {
     private void StartGame()
     {
         instance.PlaySound("GameMusic");
-
-        InvokeRepeating("SpawnPowerUp", 10f, powerupSpawnRate);
-    }
-
-    private void SpawnPowerUp()
-    {
-        powerUpManager.SpawnRandomPowerUp(Random.Range(0, 2));
-    }
-
-    public void SetPowerUpSpawnRate(float rate)
-    {
-        powerupSpawnRate = rate;
     }
 }
