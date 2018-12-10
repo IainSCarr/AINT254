@@ -71,7 +71,7 @@ public class GameMaster : MonoBehaviour {
 
         Invoke("StartGame", 5f);
 
-        waveCountdown = timeBetweenWaves;
+        waveCountdown = 5f;
 
         // loop through all waves and set property
         for (int i = 0; i < waves.Length; i++)

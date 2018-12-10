@@ -34,7 +34,7 @@ public class EnemyBullet : MonoBehaviour {
     {
         // Fire towards Enemy
         //GetComponent<Rigidbody>().velocity = transform.forward * speed;
-        transform.position += direction * speed * dampner;
+        transform.position -= direction * speed * dampner;
     }
 
     private void Die()

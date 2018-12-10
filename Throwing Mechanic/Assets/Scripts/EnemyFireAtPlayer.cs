@@ -24,7 +24,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
 
         AudioManager.instance.PlaySound("EnemySpawn");
 
-        iTween.MoveTo(gameObject, iTween.Hash("y", 0.5, "time", 0.5f, "easetype", iTween.EaseType.spring));
+        iTween.MoveTo(gameObject, iTween.Hash("y", -1, "time", 0.5f, "easetype", iTween.EaseType.spring));
         iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0, "time", 0.5f, "oncomplete", "StartShooting"));
     }
 
