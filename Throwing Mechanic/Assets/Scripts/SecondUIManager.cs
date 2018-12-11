@@ -51,35 +51,35 @@ public class SecondUIManager : MonoBehaviour {
         instance = AudioManager.instance;
     }
 
-    void Update()
-    {
-        if (hasGameStarted)
-        {
-            totalTime -= Time.deltaTime;
+    //void Update()
+    //{
+    //    if (hasGameStarted)
+    //    {
+    //        totalTime -= Time.deltaTime;
 
-            if (totalTime > 0)
-            {
-                if (totalTime <= 30)
-                {
-                    if (!isTicking)
-                    {
-                        isTicking = true;
-                        instance.PlaySound("Ticking");
-                    }
-                }
+    //        if (totalTime > 0)
+    //        {
+    //            if (totalTime <= 30)
+    //            {
+    //                if (!isTicking)
+    //                {
+    //                    isTicking = true;
+    //                    instance.PlaySound("Ticking");
+    //                }
+    //            }
 
-                UpdateLevelTimer(totalTime);
-            }
-            else
-            {
-                if (!hasGameEnded)
-                {
-                    hasGameEnded = true;
-                    EndGame();
-                }
-            }
-        }
-    }
+    //            UpdateLevelTimer(totalTime);
+    //        }
+    //        else
+    //        {
+    //            if (!hasGameEnded)
+    //            {
+    //                hasGameEnded = true;
+    //                EndGame();
+    //            }
+    //        }
+    //    }
+    //}
 
     // Code below used from Unity Answers for simple formatting
     private void UpdateLevelTimer(float totalSeconds)

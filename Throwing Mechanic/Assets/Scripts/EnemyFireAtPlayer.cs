@@ -7,7 +7,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
     public GameObject bullet;
     public Transform origin;
 
-    private float normalFireRate = 1.0f;
+    private float normalFireRate = 0.7f;
     private float fireRate;
 
     private bool isShootingFast;

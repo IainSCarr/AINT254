@@ -38,7 +38,7 @@ public class PowerUpBehaviour : MonoBehaviour {
                 transform.SendMessageUpwards("DoGoodPowerUp");
             }
 
-            transform.SendMessageUpwards("PowerUpDestroyed", transform.parent);
+            transform.SendMessageUpwards("ObjectDestroyed", transform.parent);
             Destroy(gameObject);
         }
     }
