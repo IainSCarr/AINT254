@@ -6,6 +6,7 @@ public class EnemyBullet : MonoBehaviour {
 
     public float speed = 10.0f;
     public float destroyTime = 3.0f;
+    public int damage = 5;
     private float dampner = 0.01f;
 
     private Vector3 direction;
@@ -20,7 +21,7 @@ public class EnemyBullet : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.SendMessage("TakeDamage", 5f);
+            other.gameObject.SendMessage("TakeDamage", damage);
             other.gameObject.SendMessage("DoDamageFlash");
             Die();
         }
