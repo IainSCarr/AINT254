@@ -568,7 +568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &117311294
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2102,7 +2102,7 @@ MonoBehaviour:
       isRequired: 1
     - name: PowerUps
       manager: {fileID: 1640553613}
-      count: 5
+      count: 1
       rate: 1
       isRequired: 0
   - name: Enemy Introduction
