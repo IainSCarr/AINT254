@@ -9,12 +9,12 @@ public class StartCountdown : MonoBehaviour {
 
     private int number;
 
-    private SecondUIManager uiManager;
+    private UIManager uiManager;
 
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
-        uiManager = FindObjectOfType<SecondUIManager>();
+        uiManager = FindObjectOfType<UIManager>();
         number = 6;
         CountDown();
 	}

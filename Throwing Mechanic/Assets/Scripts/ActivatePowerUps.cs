@@ -6,7 +6,7 @@ public class ActivatePowerUps : MonoBehaviour {
 
     private EnemyManager enemyManager;
     private ObjectManager objectManager;
-    private SecondUIManager uiManager;
+    private UIManager uiManager;
 
     private int numActiveGoodPowerUps;
     private int numActiveBadPowerUps;
@@ -30,7 +30,7 @@ public class ActivatePowerUps : MonoBehaviour {
 	void Start () {
         enemyManager = FindObjectOfType<EnemyManager>();
         objectManager = FindObjectOfType<ObjectManager>();
-        uiManager = FindObjectOfType<SecondUIManager>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     public void DoGoodPowerUp()
