@@ -7,11 +7,6 @@ public class PowerUpManager : SpawnManager {
     public GameObject[] powerUpPrefabs;
     private ActivatePowerUps manager;
 
-    private void Start()
-    {
-        manager = GetComponent<ActivatePowerUps>();
-    }
-
     public override void PlaySpawnSound()
     {
         instance.PlaySound("SpawnPowerUp");
