@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplodePowerUp : PowerUp {
+public class QuickfirePowerUp : PowerUp {
 
     private ObjectManager objectManager;
 
-    public ExplodePowerUp()
+    public QuickfirePowerUp()
     {
-        label = "EXPLODING OBJECTS";
+        label = "QUICKFIRE";
         isActive = false;
         resetTime = 30f;
-        type = PowerUpType.Random;
+        type = PowerUpType.Good;
     }
 
     private void Awake()
@@ -21,11 +21,11 @@ public class ExplodePowerUp : PowerUp {
 
     protected override void Activate()
     {
-        objectManager.SetExplodableObjects(true);
+        objectManager.SetPlayerFireRate(0.5f);
     }
 
     protected override void Deactivate()
     {
-        objectManager.SetExplodableObjects(false);
+        objectManager.SetPlayerFireRate(2f);
     }
 }

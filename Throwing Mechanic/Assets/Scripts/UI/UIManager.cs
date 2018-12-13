@@ -9,17 +9,16 @@ public class UIManager : MonoBehaviour {
 
     public Slider healthBar;
     public Text timer;
-    public Text scoreText;
 
     public GameObject endScreen;
     public GameObject gameInfo;
+
+    public ScoreManager scoreManager;
 
     public Text finalScore;
     public Text highscore;
 
     private int health;
-    private int score;
-    private bool isScoreDoubled;
 
     float totalTime = 180.0f;
     private bool isTicking = false;
@@ -31,21 +30,18 @@ public class UIManager : MonoBehaviour {
     void OnEnable()
     {
         PlayerBehaviour.OnUpdateHealth += HandleonUpdateHealth;
-        AddScore.OnSendScore += HandleonSendScore;
     }
 
     private void OnDisable()
     {
         PlayerBehaviour.OnUpdateHealth -= HandleonUpdateHealth;
-        AddScore.OnSendScore -= HandleonSendScore;
     }
 
     void Start()
     {
         Time.timeScale = 1.0f;
 
-        score = 0;
-        scoreText.text = score.ToString();
+
         UpdateLevelTimer(totalTime);
 
         instance = AudioManager.instance;
@@ -100,17 +96,17 @@ public class UIManager : MonoBehaviour {
 
     public void ShowNotification(string text, bool goodNotification)
     {
-        notification.SetActive(false);
-        if (goodNotification)
-        {
-            notification.GetComponent<Text>().color = Color.green;
-        }
-        else
-        {
-            notification.GetComponent<Text>().color = Color.red;
-        }
-        notification.GetComponent<Text>().text = text;
-        notification.SetActive(true);
+        //notification.SetActive(false);
+        //if (goodNotification)
+        //{
+        //    notification.GetComponent<Text>().color = Color.green;
+        //}
+        //else
+        //{
+        //    notification.GetComponent<Text>().color = Color.red;
+        //}
+        //notification.GetComponent<Text>().text = text;
+        //notification.SetActive(true);
     }
 
     void HandleonUpdateHealth(int newHealth)
@@ -129,24 +125,10 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    void HandleonSendScore(int theScore)
-    {
-        if (isScoreDoubled)
-        {
-            score += (theScore * 2);
-        }
-        else
-        {
-            score += theScore;
-        }
-
-        scoreText.text = score.ToString();
-    }
-
     private void EndGame()
     {
         Time.timeScale = 0f;
-        finalScore.text = "YOUR SCORE: " + score.ToString();
+        finalScore.text = "YOUR SCORE: " + scoreManager.GetScore().ToString();
 
         instance.StopSound("Ticking");
         instance.StopSound("GameMusic");
@@ -161,17 +143,13 @@ public class UIManager : MonoBehaviour {
 
     private void SetHighScore()
     {
-        if (score > PlayerPrefs.GetInt("Highscore", 0))
+        if (scoreManager.GetScore() > PlayerPrefs.GetInt("Highscore", 0))
         {
-            PlayerPrefs.SetInt("Highscore", score);
+            PlayerPrefs.SetInt("Highscore", scoreManager.GetScore());
         }
         highscore.text = "HIGH SCORE:  " + PlayerPrefs.GetInt("Highscore", 0).ToString();
     }
 
-    public void SetDoubledScore(bool setting)
-    {
-        isScoreDoubled = setting;
-    }
 
     public void GameStart()
     {

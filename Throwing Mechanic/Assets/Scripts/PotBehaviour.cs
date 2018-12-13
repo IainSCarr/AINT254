@@ -7,7 +7,7 @@ public class PotBehaviour : MonoBehaviour {
 
     private void Awake()
     {
-        ActivatePowerUps.OnRotateTargets += HandleOnRotateTargets;
+        //ActivatePowerUps.OnRotateTargets += HandleOnRotateTargets;
     }
 
     // Use this for initialization
@@ -42,7 +42,7 @@ public class PotBehaviour : MonoBehaviour {
 
     private void OnDisable()
     {
-        ActivatePowerUps.OnRotateTargets -= HandleOnRotateTargets;
+        //ActivatePowerUps.OnRotateTargets -= HandleOnRotateTargets;
     }
 
     private void OnDestroy()

@@ -11,11 +11,6 @@ public class NotificationEffects : MonoBehaviour {
 	void Start () {
         text = GetComponent<Text>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
 
     void OnEnable()
     {

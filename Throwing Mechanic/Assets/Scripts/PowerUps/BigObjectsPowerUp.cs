@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplodePowerUp : PowerUp {
+public class BigObjectsPowerUp : PowerUp {
 
     private ObjectManager objectManager;
 
-    public ExplodePowerUp()
+    public BigObjectsPowerUp()
     {
-        label = "EXPLODING OBJECTS";
+        label = "BIG OBJECTS";
         isActive = false;
         resetTime = 30f;
         type = PowerUpType.Random;
@@ -21,11 +21,11 @@ public class ExplodePowerUp : PowerUp {
 
     protected override void Activate()
     {
-        objectManager.SetExplodableObjects(true);
+        objectManager.SetBigObjects(true);
     }
 
     protected override void Deactivate()
     {
-        objectManager.SetExplodableObjects(false);
+        objectManager.SetBigObjects(false);
     }
 }

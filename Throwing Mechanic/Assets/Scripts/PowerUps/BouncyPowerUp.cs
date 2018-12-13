@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplodePowerUp : PowerUp {
+public class BouncyPowerUp : PowerUp {
 
     private ObjectManager objectManager;
 
-    public ExplodePowerUp()
+    public BouncyPowerUp()
     {
-        label = "EXPLODING OBJECTS";
+        label = "BOUNCY OBJECTS";
         isActive = false;
         resetTime = 30f;
         type = PowerUpType.Random;
@@ -21,11 +21,11 @@ public class ExplodePowerUp : PowerUp {
 
     protected override void Activate()
     {
-        objectManager.SetExplodableObjects(true);
+        objectManager.SetBouncyObjects(true);
     }
 
     protected override void Deactivate()
     {
-        objectManager.SetExplodableObjects(false);
+        objectManager.SetBouncyObjects(false);
     }
 }

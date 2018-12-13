@@ -27,6 +27,10 @@ public class ObjectDeath : MonoBehaviour {
             {
                 StartDeath();
             }
+            else
+            {
+                Die();
+            }
         }
     }
 

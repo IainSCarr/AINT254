@@ -16,6 +16,8 @@ public class ObjectManager : MonoBehaviour {
     public PhysicMaterial bouncyMaterial;
     private bool bouncyObjects;
 
+    private bool bigObjects;
+
 	// Use this for initialization
 	void Start () {
         trajectoryController = FindObjectOfType<TrajectoryController>();
@@ -63,6 +65,11 @@ public class ObjectManager : MonoBehaviour {
         {
             newObject.GetComponent<Collider>().material = bouncyMaterial;
         }
+
+        if (bigObjects)
+        {
+            newObject.GetComponent<Transform>().localScale *= 2;
+        }
     }
 
     public void SetExplodableObjects(bool setting)
@@ -78,5 +85,10 @@ public class ObjectManager : MonoBehaviour {
     public void SetPlayerFireRate(float rate)
     {
         fireRate = rate;
+    }
+
+    public void SetBigObjects(bool setting)
+    {
+        bigObjects = setting;
     }
 }

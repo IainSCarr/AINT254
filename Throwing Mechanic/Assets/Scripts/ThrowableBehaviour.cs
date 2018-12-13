@@ -5,37 +5,29 @@ using UnityEngine;
 public class ThrowableBehaviour : MonoBehaviour {
 
     private GameObject player;
+    private PlayerBehaviour pb;
     private Transform playerPos;
 
-    private MultiplyExplode exploder;
-
     private bool isCurrentObject = true;
-
-    private void Awake()
-    {
-        if (GetComponent<iTween>())
-        {
-            Destroy(GetComponent<iTween>());
-        }
-    }
 
     // Use this for initialization
     void Start() {
         // find player
         player = GameObject.FindGameObjectWithTag("Player");
+        playerPos = player.GetComponent<Transform>();
+        pb = player.GetComponent<PlayerBehaviour>();
 
         // set itself to players current object
-        player.GetComponent<PlayerBehaviour>().SetCurrentObject(gameObject);
+        pb.SetCurrentObject(gameObject);
 
-        playerPos = player.GetComponent<Transform>();
-
+        // animate in
         iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0));
     }
 
     void FixedUpdate() {
         if (isCurrentObject)
         {
-            // lock position to directly behind player
+            // lock position to directly infront of player
             transform.position = playerPos.position + (playerPos.forward * 2);
         }
     }
@@ -45,8 +37,8 @@ public class ThrowableBehaviour : MonoBehaviour {
         Invoke("Die", 10f);
         // disconnect object from player
         isCurrentObject = false;
-        player.GetComponent<PlayerBehaviour>().SetCurrentObject(null);
-        player.GetComponent<PlayerBehaviour>().Jump();
+        pb.SetCurrentObject(null);
+        pb.Jump();
         gameObject.SendMessageUpwards("StartSpawn");
 
         GetComponent<Rigidbody>().useGravity = true;

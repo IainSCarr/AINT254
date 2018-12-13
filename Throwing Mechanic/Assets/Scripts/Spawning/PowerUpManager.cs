@@ -5,6 +5,12 @@ using UnityEngine;
 public class PowerUpManager : SpawnManager {
 
     public GameObject[] powerUpPrefabs;
+    private ActivatePowerUps manager;
+
+    private void Start()
+    {
+        manager = GetComponent<ActivatePowerUps>();
+    }
 
     public override void PlaySpawnSound()
     {
@@ -18,6 +24,8 @@ public class PowerUpManager : SpawnManager {
 
     public override void SpawnRandom()
     {
+        Debug.Log("Objects: " + numObjects + "     Spawns: " + numSpawns);
+        Debug.Log(transform.childCount);
         // if spawns are available
         if (numObjects < numSpawns)
         {

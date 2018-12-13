@@ -26,7 +26,7 @@ public class PowerUpBehaviour : MonoBehaviour {
 
                 if (coinFlip == 0)
                 {
-                    transform.SendMessageUpwards("DoGoodPowerUp");
+                    transform.SendMessageUpwards("DoRandomPowerUp");
                 }
                 else
                 {
