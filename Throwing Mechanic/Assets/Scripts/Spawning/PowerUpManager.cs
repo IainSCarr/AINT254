@@ -5,7 +5,7 @@ using UnityEngine;
 public class PowerUpManager : SpawnManager {
 
     public GameObject[] powerUpPrefabs;
-    private ActivatePowerUps manager;
+    public ActivatePowerUps manager;
 
     public override void PlaySpawnSound()
     {
@@ -19,17 +19,24 @@ public class PowerUpManager : SpawnManager {
 
     public override void SpawnRandom()
     {
-        Debug.Log("Objects: " + numObjects + "     Spawns: " + numSpawns);
-        Debug.Log(transform.childCount);
         // if spawns are available
         if (numObjects < numSpawns)
         {
             int rand = Random.Range(0, numSpawns);
-            int prefabChoice = Random.Range(0, 2);
 
             // if random spawn isn't already taken
             if (!activeSpawns[rand])
             {
+                int prefabChoice = Random.Range(0, 2);
+
+                if (prefabChoice == 1)
+                {
+                    if (manager.IsPowerUpPossible(PowerUpType.Good))
+                    {
+
+                    }
+                }
+
                 activeSpawns[rand] = true;
                 numObjects++;
                 spawnArray[rand].SendMessage("Spawn", powerUpPrefabs[prefabChoice]);

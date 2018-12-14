@@ -34,8 +34,6 @@ public class ActivatePowerUps : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        ActivatePowerUps reference = gameObject.GetComponent<ActivatePowerUps>();
-
         // good powerups
         scoreMultiplier = holder.AddComponent<ScorePowerUp>();
         killEnemies = holder.AddComponent<KillEnemiesPowerUp>();
@@ -49,23 +47,11 @@ public class ActivatePowerUps : MonoBehaviour {
         bounce = holder.AddComponent<BouncyPowerUp>();
         bigObjects = holder.AddComponent<BigObjectsPowerUp>();
 
-        goodPowerUps = new PowerUp[2] { scoreMultiplier, killEnemies };
-        for (int i = 0; i < goodPowerUps.Length; i++)
-        {
-            goodPowerUps[i].SetManager(reference);
-        }
+        goodPowerUps = new PowerUp[3] { scoreMultiplier, killEnemies, quickfire };
 
         badPowerUps = new PowerUp[1] { barrage };
-        for (int i = 0; i < badPowerUps.Length; i++)
-        {
-            badPowerUps[i].SetManager(reference);
-        }
 
         randomPowerUps = new PowerUp[3] { explode, bounce, bigObjects };
-        for (int i = 0; i < randomPowerUps.Length; i++)
-        {
-            randomPowerUps[i].SetManager(reference);
-        }
     }
 
     public void DoGoodPowerUp()
@@ -128,7 +114,17 @@ public class ActivatePowerUps : MonoBehaviour {
         }
     }
 
-    public void PowerUpDisabled(PowerUpType type)
+    void OnEnable()
+    {
+        PowerUp.OnPowerUpDeactivated += HandleOnPowerUpDeactivated;
+    }
+
+    void OnDisable()
+    {
+        PowerUp.OnPowerUpDeactivated -= HandleOnPowerUpDeactivated;
+    }
+
+    public void HandleOnPowerUpDeactivated(string label, PowerUpType type)
     {
         if (type == PowerUpType.Good)
         {

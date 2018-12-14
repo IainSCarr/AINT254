@@ -13,7 +13,7 @@ public class PowerUpBehaviour : MonoBehaviour {
             chance = true;
         }
 
-        iTween.ScaleFrom(gameObject, iTween.Hash("scale", Vector3.zero));
+        iTween.ScaleFrom(gameObject, iTween.Hash("scale", Vector3.zero, "easetype", iTween.EaseType.easeOutBounce));
     }
 
     void OnTriggerEnter(Collider other)

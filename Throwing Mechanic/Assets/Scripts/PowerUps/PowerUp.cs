@@ -10,17 +10,15 @@ public abstract class PowerUp : MonoBehaviour {
     protected PowerUpType type;
     protected bool isActive;
     protected float resetTime;
-    protected ActivatePowerUps manager;
 
     public delegate void PowerUpActivated(string name, PowerUpType type);
     public static event PowerUpActivated OnPowerUpActivated;
 
-    public delegate void PowerUpDeactivated(string name);
+    public delegate void PowerUpDeactivated(string name, PowerUpType type);
     public static event PowerUpDeactivated OnPowerUpDeactivated;
 
     protected abstract void Activate();
     protected abstract void Deactivate();
-
 
 
     public void Enable()
@@ -49,11 +47,9 @@ public abstract class PowerUp : MonoBehaviour {
         isActive = false;
         Debug.Log(label + " DEACTIVATED");
 
-        manager.PowerUpDisabled(type);
-
         if (OnPowerUpDeactivated != null)
         {
-            OnPowerUpDeactivated(label);
+            OnPowerUpDeactivated(label, type);
         }
 
         yield break;
@@ -77,11 +73,5 @@ public abstract class PowerUp : MonoBehaviour {
     public float GetResetTime()
     {
         return resetTime;
-    }
-
-    public PowerUp SetManager(ActivatePowerUps parent)
-    {
-        manager = parent;
-        return this;
     }
 }

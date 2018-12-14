@@ -58,7 +58,7 @@ public class UIPowerUpNotifications : MonoBehaviour {
         ShowNotification(name, type);
     }
 
-    void HandleOnPowerDeactived(string name)
+    void HandleOnPowerDeactived(string name, PowerUpType type)
     {
 
     }
