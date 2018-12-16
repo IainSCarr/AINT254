@@ -39,7 +39,8 @@ public class PowerUpManager : SpawnManager {
 
                 activeSpawns[rand] = true;
                 numObjects++;
-                spawnArray[rand].SendMessage("Spawn", powerUpPrefabs[prefabChoice]);
+                //spawnArray[rand].SendMessage("Spawn", powerUpPrefabs[prefabChoice]);
+                spawnObjects[rand].Spawn(powerUpPrefabs[prefabChoice]);
                 instance.PlaySound("SpawnPowerUp");
             }
             else // try again

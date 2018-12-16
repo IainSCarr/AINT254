@@ -22,13 +22,10 @@ public class KillEnemiesPowerUp : PowerUp {
     protected override void Activate()
     {
         enemyManager.DestroyAllEnemies();
-
-        Debug.Log(label + " activated.");
     }
 
     protected override void Deactivate()
     {
-        Debug.Log(label + " deactivated.");
     }
 
     public override bool GetIsPossible()

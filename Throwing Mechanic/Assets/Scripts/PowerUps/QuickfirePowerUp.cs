@@ -8,7 +8,7 @@ public class QuickfirePowerUp : PowerUp {
 
     public QuickfirePowerUp()
     {
-        label = "QUICKFIRE";
+        label = "QUICKFIRE ACTIVATED";
         isActive = false;
         resetTime = 30f;
         type = PowerUpType.Good;

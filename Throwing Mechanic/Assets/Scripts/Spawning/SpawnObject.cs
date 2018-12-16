@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SpawnObject : MonoBehaviour {
 
-    public void Spawn(GameObject newObject)
+    public GameObject Spawn(GameObject newObject)
     {
-        Instantiate(newObject, transform.position, transform.rotation, transform);
+        GameObject createdObject = Instantiate(newObject, transform.position, transform.rotation, transform);
+        return createdObject;
     }
 }

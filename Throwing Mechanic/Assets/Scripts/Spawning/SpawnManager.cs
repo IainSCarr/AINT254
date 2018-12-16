@@ -6,7 +6,8 @@ public abstract class SpawnManager : MonoBehaviour {
 
     public GameObject prefab;
 
-    protected Transform[] spawnArray;
+    //protected Transform[] spawnArray;
+    protected SpawnObject[] spawnObjects;
     protected bool[] activeSpawns;
 
     protected int numSpawns;
@@ -21,7 +22,8 @@ public abstract class SpawnManager : MonoBehaviour {
     {
         numSpawns = transform.childCount;
 
-        spawnArray = new Transform[numSpawns];
+        //spawnArray = new Transform[numSpawns];
+        spawnObjects = new SpawnObject[numSpawns];
         activeSpawns = new bool[numSpawns];
 
         SetHasRequiredDeath();
@@ -29,7 +31,8 @@ public abstract class SpawnManager : MonoBehaviour {
         // Loop through all children and create an array of them
         for (int i = 0; i < numSpawns; i++)
         {
-            spawnArray[i] = transform.GetChild(i);
+            //spawnArray[i] = transform.GetChild(i);
+            spawnObjects[i] = transform.GetChild(i).GetComponent<SpawnObject>();
         }
 
         numObjects = 0;
@@ -56,7 +59,9 @@ public abstract class SpawnManager : MonoBehaviour {
                 PlaySpawnSound();
                 activeSpawns[rand] = true;
                 numObjects++;
-                spawnArray[rand].SendMessage("Spawn", prefab);
+                //spawnArray[rand].SendMessage("Spawn", prefab);
+                GameObject tempObject = spawnObjects[rand].Spawn(prefab);
+                SetObjectProperties(tempObject);
             }
             else // try again
             {
@@ -72,6 +77,11 @@ public abstract class SpawnManager : MonoBehaviour {
     public abstract void PlaySpawnSound();
     public abstract void SetHasRequiredDeath();
 
+    public virtual void SetObjectProperties(GameObject gameObject)
+    {
+
+    }
+
     /// <summary>
     /// Updates state after object is destroyed.
     /// </summary>
@@ -83,7 +93,7 @@ public abstract class SpawnManager : MonoBehaviour {
         // Loop through spawners and find parent of destroyed target
         for (int i = 0; i < numSpawns; i++)
         {
-            if (spawnArray[i] == parent)
+            if (spawnObjects[i].transform == parent)
             {
                 // Make spawn available for next target
                 activeSpawns[i] = false;

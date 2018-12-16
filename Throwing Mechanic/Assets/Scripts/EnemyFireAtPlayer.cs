@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyState { Waiting, Firing, Barrage, Moving}
+
 public class EnemyFireAtPlayer : MonoBehaviour
 {
     public GameObject bullet;
     public Transform origin;
 
+    private EnemyState state;
     private float normalFireRate = 0.7f;
     private float fireRate;
 
@@ -20,17 +23,13 @@ public class EnemyFireAtPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        state = EnemyState.Waiting;
         fireRate = normalFireRate;
 
         AudioManager.instance.PlaySound("EnemySpawn");
 
         iTween.MoveTo(gameObject, iTween.Hash("y", -1, "time", 0.5f, "easetype", iTween.EaseType.spring));
         iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0, "time", 0.5f, "oncomplete", "StartShooting"));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void StartShooting()
@@ -67,6 +66,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
         if (!isShootingFast)
         {
             isShootingFast = true;
+            state = EnemyState.Barrage;
             ChangeFireRate(rate);
         }
     }
@@ -76,6 +76,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
         yield return new WaitForSeconds(10.0f);
 
         isShootingFast = false;
+        state = EnemyState.Firing;
         ChangeFireRate(normalFireRate);
     }
 
@@ -89,5 +90,10 @@ public class EnemyFireAtPlayer : MonoBehaviour
         {
             StartCoroutine(ResetFireRate());
         }
+    }
+
+    public EnemyState GetState()
+    {
+        return state;
     }
 }

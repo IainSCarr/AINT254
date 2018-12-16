@@ -2143,7 +2143,7 @@ MonoBehaviour:
       isRequired: 1
     - name: PowerUps
       manager: {fileID: 1640553613}
-      count: 1
+      count: 5
       rate: 1
       isRequired: 0
     - name: SuperTarget
@@ -4817,7 +4817,7 @@ MonoBehaviour:
   timer: {fileID: 117311296}
   endScreen: {fileID: 1252623490}
   gameInfo: {fileID: 2001715669}
-  scoreManager: {fileID: 0}
+  scoreManager: {fileID: 207207332}
   finalScore: {fileID: 1839788546}
   highscore: {fileID: 1133230273}
 --- !u!114 &1681765228
