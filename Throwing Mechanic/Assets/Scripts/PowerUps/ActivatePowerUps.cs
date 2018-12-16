@@ -17,8 +17,8 @@ public class ActivatePowerUps : MonoBehaviour {
     private BigObjectsPowerUp bigObjects;
 
     // bad powerups
-    private BarragePowerUp barrage;
-    private FastEnemiesPowerUp fastEnemies;
+    public BarragePowerUp barrage;
+    public FastEnemiesPowerUp fastEnemies;
 
     private PowerUp[] goodPowerUps;
     private PowerUp[] badPowerUps;
@@ -80,7 +80,7 @@ public class ActivatePowerUps : MonoBehaviour {
                     //{
                     //    DoGoodPowerUp();
                     //}
-                    Debug.Log("MASSIVE ERROR CALL THE POLICE");
+                    Debug.LogError("DEFENCES BREACHED! MASSIVE ERROR CALL THE POLICE");
                 }
             }
             else
@@ -126,6 +126,11 @@ public class ActivatePowerUps : MonoBehaviour {
                 DoRandomPowerUp();
             }
         }
+    }
+
+    public void DoPowerUp(PowerUp powerUp)
+    {
+
     }
 
     void OnEnable()

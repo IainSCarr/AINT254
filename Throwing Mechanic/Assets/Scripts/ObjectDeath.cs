@@ -47,11 +47,6 @@ public class ObjectDeath : MonoBehaviour {
             //iTween.ScaleBy(gameObject, iTween.Hash("x", scaleAmount, "y", scaleAmount, "z", scaleAmount, "time", deathTime));
             //iTween.ColorTo(gameObject, iTween.Hash("color", Color.red, "time", deathTime));
         }
-        else
-        {
-            Die();
-        }
-
     }
 
     /// <summary>

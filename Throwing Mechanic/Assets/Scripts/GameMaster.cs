@@ -11,6 +11,9 @@ public class GameMaster : MonoBehaviour {
     {
         public string name;
         public Spawner[] spawners;
+        public bool hasEvent;
+        public WaveEvent waveEvent;
+
         private int numRequiredSpawners;
 
         public void SetRequiredSpawners()
@@ -40,6 +43,14 @@ public class GameMaster : MonoBehaviour {
         public bool isRequired;
     }
 
+    [System.Serializable]
+    public class WaveEvent
+    {
+        public enum EventType {FastEnemies, Barrage};
+        public EventType eventType;
+        public float waitTime;
+    }
+
     public Wave[] waves;
     private int currentWave = 0;
 
@@ -51,6 +62,7 @@ public class GameMaster : MonoBehaviour {
     public SpawnState state = SpawnState.Counting;
 
     private AudioManager instance;
+    private ActivatePowerUps powerupActivator;
 
     private void Awake()
     {
@@ -63,6 +75,7 @@ public class GameMaster : MonoBehaviour {
     // Use this for initialization
     void Start () {
         instance = AudioManager.instance;
+        powerupActivator = FindObjectOfType<ActivatePowerUps>();
 
         Invoke("StartGame", 5f);
 
@@ -158,6 +171,11 @@ public class GameMaster : MonoBehaviour {
     {
         state = SpawnState.Spawning;
 
+        if (_wave.hasEvent)
+        {
+            StartCoroutine(StartEvent(_wave.waveEvent));
+        }
+
         // loop through spawners and make them start spawning
         for (int i = 0; i < _wave.spawners.Length; i++)
         {
@@ -174,6 +192,22 @@ public class GameMaster : MonoBehaviour {
         }
 
         state = SpawnState.Waiting;
+
+        yield break;
+    }
+
+    IEnumerator StartEvent(WaveEvent _event)
+    {
+        yield return new WaitForSeconds(_event.waitTime);
+
+        if (_event.eventType == WaveEvent.EventType.Barrage)
+        {
+            powerupActivator.barrage.Enable();
+        }
+        else if (_event.eventType == WaveEvent.EventType.FastEnemies)
+        {
+            powerupActivator.fastEnemies.Enable();
+        }
 
         yield break;
     }

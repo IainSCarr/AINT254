@@ -2151,6 +2151,10 @@ MonoBehaviour:
       count: 1
       rate: 1
       isRequired: 0
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Enemy Introduction
     spawners:
     - name: Enemies
@@ -2163,6 +2167,10 @@ MonoBehaviour:
       count: 5
       rate: 1
       isRequired: 0
+    hasEvent: 0
+    waveEvent:
+      eventType: 1
+      waitTime: 10
   - name: Obstacle Enemy Target
     spawners:
     - name: Obstacles
@@ -2185,6 +2193,10 @@ MonoBehaviour:
       count: 1
       rate: 1
       isRequired: 0
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Obstacle Enemies
     spawners:
     - name: Obstacles
@@ -2197,6 +2209,10 @@ MonoBehaviour:
       count: 2
       rate: 0.3
       isRequired: 1
+    hasEvent: 1
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Target x4
     spawners:
     - name: Targets
@@ -2204,6 +2220,10 @@ MonoBehaviour:
       count: 4
       rate: 0.5
       isRequired: 1
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Enemies x4
     spawners:
     - name: Enemies
@@ -2216,6 +2236,10 @@ MonoBehaviour:
       count: 1
       rate: 1
       isRequired: 0
+    hasEvent: 1
+    waveEvent:
+      eventType: 1
+      waitTime: 3
   - name: Targets x2 Enemies x2
     spawners:
     - name: Enemies
@@ -2233,6 +2257,10 @@ MonoBehaviour:
       count: 2
       rate: 1
       isRequired: 0
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Targets x6
     spawners:
     - name: Targets
@@ -2245,6 +2273,10 @@ MonoBehaviour:
       count: 2
       rate: 0.5
       isRequired: 0
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Targets x3 Enemies x3 Obstacles x2
     spawners:
     - name: Targets
@@ -2262,6 +2294,10 @@ MonoBehaviour:
       count: 2
       rate: 1
       isRequired: 0
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Powerups
     spawners:
     - name: Powerups
@@ -2269,6 +2305,10 @@ MonoBehaviour:
       count: 3
       rate: 0.6
       isRequired: 1
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Enemies x6 Obstacles x1
     spawners:
     - name: Enemies
@@ -2281,6 +2321,10 @@ MonoBehaviour:
       count: 1
       rate: 1
       isRequired: 0
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   - name: Enemies x4 Targets x2
     spawners:
     - name: Enemies
@@ -2293,6 +2337,10 @@ MonoBehaviour:
       count: 2
       rate: 0.6
       isRequired: 1
+    hasEvent: 0
+    waveEvent:
+      eventType: 0
+      waitTime: 0
   timeBetweenWaves: 1
   state: 1
 --- !u!1 &669791214
@@ -4683,6 +4731,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holder: {fileID: 66195246}
+  barrage: {fileID: 0}
+  fastEnemies: {fileID: 0}
 --- !u!114 &1640553613
 MonoBehaviour:
   m_ObjectHideFlags: 0
