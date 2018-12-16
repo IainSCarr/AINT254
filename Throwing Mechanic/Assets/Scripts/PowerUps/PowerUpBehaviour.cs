@@ -22,23 +22,15 @@ public class PowerUpBehaviour : MonoBehaviour {
         {
             if (chance)
             {
-                int coinFlip = Random.Range(0, 2);
-
-                if (coinFlip == 0)
-                {
-                    transform.SendMessageUpwards("DoRandomPowerUp");
-                }
-                else
-                {
-                    transform.SendMessageUpwards("DoBadPowerUp");
-                }
+                transform.SendMessageUpwards("DoRandomPowerUp");
+                transform.SendMessageUpwards("RandomPowerUpDestroyed", transform.parent);
             }
             else
             {
                 transform.SendMessageUpwards("DoGoodPowerUp");
+                transform.SendMessageUpwards("GoodPowerUpDestroyed", transform.parent);
             }
 
-            transform.SendMessageUpwards("ObjectDestroyed", transform.parent);
             Destroy(gameObject);
         }
     }

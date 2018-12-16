@@ -7,6 +7,9 @@ public class PowerUpManager : SpawnManager {
     public GameObject[] powerUpPrefabs;
     public ActivatePowerUps manager;
 
+    private int numGoodPowerUps = 0;
+    private int numRandomPowerUps = 0;
+
     public override void PlaySpawnSound()
     {
         instance.PlaySound("SpawnPowerUp");
@@ -27,21 +30,44 @@ public class PowerUpManager : SpawnManager {
             // if random spawn isn't already taken
             if (!activeSpawns[rand])
             {
+                // randomly select powerup
                 int prefabChoice = Random.Range(0, 2);
 
                 if (prefabChoice == 1)
                 {
-                    if (manager.IsPowerUpPossible(PowerUpType.Good))
+                    // if good powerup is possible
+                    if (manager.IsPowerUpPossible(PowerUpType.Good, numGoodPowerUps))
                     {
-
+                        DoSpawn(rand, prefabChoice);
+                        numGoodPowerUps++;
+                    }
+                    else if (manager.IsPowerUpPossible(PowerUpType.Random, numRandomPowerUps))
+                    {
+                        DoSpawn(rand, 0);
+                        numRandomPowerUps++;
+                    }
+                    else
+                    {
+                        Debug.Log("No powerups available");
                     }
                 }
-
-                activeSpawns[rand] = true;
-                numObjects++;
-                //spawnArray[rand].SendMessage("Spawn", powerUpPrefabs[prefabChoice]);
-                spawnObjects[rand].Spawn(powerUpPrefabs[prefabChoice]);
-                instance.PlaySound("SpawnPowerUp");
+                else
+                {
+                    if (manager.IsPowerUpPossible(PowerUpType.Random, numRandomPowerUps))
+                    {
+                        DoSpawn(rand, prefabChoice);
+                        numRandomPowerUps++;
+                    }
+                    else if (manager.IsPowerUpPossible(PowerUpType.Good, numGoodPowerUps))
+                    {
+                        DoSpawn(rand, 1);
+                        numGoodPowerUps++;
+                    }
+                    else
+                    {
+                        Debug.Log("No powerups available");
+                    }
+                }
             }
             else // try again
             {
@@ -51,6 +77,46 @@ public class PowerUpManager : SpawnManager {
         else
         {
             Debug.Log("No spawn points available.");
+        }
+    }
+
+    private void DoSpawn(int rand, int prefabChoice)
+    {
+        activeSpawns[rand] = true;
+        numObjects++;
+        spawnObjects[rand].Spawn(powerUpPrefabs[prefabChoice]);
+        instance.PlaySound("SpawnPowerUp");
+    }
+
+    public void GoodPowerUpDestroyed(Transform parent)
+    {
+        numObjects--;
+        numGoodPowerUps--;
+
+        // Loop through spawners and find parent of destroyed target
+        for (int i = 0; i < numSpawns; i++)
+        {
+            if (spawnObjects[i].transform == parent)
+            {
+                // Make spawn available for next target
+                activeSpawns[i] = false;
+            }
+        }
+    }
+
+    public void RandomPowerUpDestroyed(Transform parent)
+    {
+        numObjects--;
+        numRandomPowerUps--;
+
+        // Loop through spawners and find parent of destroyed target
+        for (int i = 0; i < numSpawns; i++)
+        {
+            if (spawnObjects[i].transform == parent)
+            {
+                // Make spawn available for next target
+                activeSpawns[i] = false;
+            }
         }
     }
 }

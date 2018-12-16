@@ -2160,7 +2160,7 @@ MonoBehaviour:
       isRequired: 1
     - name: PowerUps
       manager: {fileID: 1640553613}
-      count: 1
+      count: 5
       rate: 1
       isRequired: 0
   - name: Obstacle Enemy Target

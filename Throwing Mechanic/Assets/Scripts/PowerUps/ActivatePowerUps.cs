@@ -58,17 +58,29 @@ public class ActivatePowerUps : MonoBehaviour {
 
     public void DoGoodPowerUp()
     {
+        // if not all powerups are active
         if (numActiveGoodPowerUps < goodPowerUps.Length)
         {
+            // randomly choose a powerup
             int num = Random.Range(0, goodPowerUps.Length);
 
+            // if it isn't active
             if (!goodPowerUps[num].GetIsActive())
             {
+                // if it is possible to use that powerup
                 if (goodPowerUps[num].GetIsPossible())
                 {
                     goodPowerUps[num].Enable();
 
                     numActiveGoodPowerUps++;
+                }
+                else
+                {
+                    //if (IsPowerUpPossible(PowerUpType.Good)) // although powerup should only spawn if at least one powerup is possible this is a double check to prevent stack overflows
+                    //{
+                    //    DoGoodPowerUp();
+                    //}
+                    Debug.Log("MASSIVE ERROR CALL THE POLICE");
                 }
             }
             else
@@ -142,21 +154,26 @@ public class ActivatePowerUps : MonoBehaviour {
         }
     }
 
-    public bool IsPowerUpPossible(PowerUpType type)
+    public bool IsPowerUpPossible(PowerUpType type, int currentSpawned)
     {
         if (type == PowerUpType.Good)
         {
-            for (int i = 0; i < goodPowerUps.Length; i++)
+            if (goodPowerUps.Length - numActiveGoodPowerUps - currentSpawned > 0)
             {
-                if (!goodPowerUps[i].GetIsActive())
+                for (int i = 0; i < goodPowerUps.Length; i++)
                 {
-                    if (goodPowerUps[i].GetIsPossible())
+                    if (!goodPowerUps[i].GetIsActive())
                     {
-                        return true;
+                        if (goodPowerUps[i].GetIsPossible())
+                        {
+                            Debug.Log("Good Powerup possible");
+                            return true;
+                        }
                     }
                 }
             }
 
+            Debug.Log("Good Powerup not possible");
             return false;
         }
         else if (type == PowerUpType.Bad)
@@ -167,26 +184,33 @@ public class ActivatePowerUps : MonoBehaviour {
                 {
                     if (badPowerUps[i].GetIsPossible())
                     {
+                        Debug.Log("Bad Powerup possible");
                         return true;
                     }
                 }
             }
 
+            Debug.Log("Bad Powerup not possible");
             return false;
         }
         else
         {
-            for (int i = 0; i < randomPowerUps.Length; i++)
+            if (randomPowerUps.Length - numActiveRandomPowerUps - currentSpawned > 0)
             {
-                if (!randomPowerUps[i].GetIsActive())
+                for (int i = 0; i < randomPowerUps.Length; i++)
                 {
-                    if (randomPowerUps[i].GetIsPossible())
+                    if (!randomPowerUps[i].GetIsActive())
                     {
-                        return true;
+                        if (randomPowerUps[i].GetIsPossible())
+                        {
+                            Debug.Log("Random Powerup possible");
+                            return true;
+                        }
                     }
                 }
             }
 
+            Debug.Log("Random Powerup not possible");
             return false;
         }
     }
