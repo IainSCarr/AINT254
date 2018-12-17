@@ -2143,7 +2143,7 @@ MonoBehaviour:
       isRequired: 1
     - name: PowerUps
       manager: {fileID: 1640553613}
-      count: 5
+      count: 1
       rate: 1
       isRequired: 0
     - name: SuperTarget
@@ -2164,7 +2164,7 @@ MonoBehaviour:
       isRequired: 1
     - name: PowerUps
       manager: {fileID: 1640553613}
-      count: 5
+      count: 1
       rate: 1
       isRequired: 0
     hasEvent: 0
@@ -2195,7 +2195,7 @@ MonoBehaviour:
       isRequired: 0
     hasEvent: 0
     waveEvent:
-      eventType: 0
+      eventType: 1
       waitTime: 0
   - name: Obstacle Enemies
     spawners:
@@ -2211,8 +2211,8 @@ MonoBehaviour:
       isRequired: 1
     hasEvent: 1
     waveEvent:
-      eventType: 0
-      waitTime: 0
+      eventType: 1
+      waitTime: 5
   - name: Target x4
     spawners:
     - name: Targets
@@ -2238,8 +2238,8 @@ MonoBehaviour:
       isRequired: 0
     hasEvent: 1
     waveEvent:
-      eventType: 1
-      waitTime: 3
+      eventType: 0
+      waitTime: 0
   - name: Targets x2 Enemies x2
     spawners:
     - name: Enemies
