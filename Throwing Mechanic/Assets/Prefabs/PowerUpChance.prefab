@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114248600140175540}
   m_Layer: 0
   m_Name: PowerUpChance
-  m_TagString: ChancePowerUp
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

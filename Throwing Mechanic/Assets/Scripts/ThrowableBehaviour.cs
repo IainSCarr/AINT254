@@ -8,6 +8,8 @@ public class ThrowableBehaviour : MonoBehaviour {
     private PlayerBehaviour pb;
     private Transform playerPos;
 
+    private ObjectDeath death;
+
     private bool isCurrentObject = true;
 
     // Use this for initialization
@@ -19,6 +21,8 @@ public class ThrowableBehaviour : MonoBehaviour {
 
         // set itself to players current object
         pb.SetCurrentObject(gameObject);
+
+        death = GetComponent<ObjectDeath>();
 
         // animate in
         iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0));
@@ -48,7 +52,7 @@ public class ThrowableBehaviour : MonoBehaviour {
 
     private void Die()
     {
-        Destroy(gameObject);
+        death.Die();
     }
 
     private void OnDestroy()

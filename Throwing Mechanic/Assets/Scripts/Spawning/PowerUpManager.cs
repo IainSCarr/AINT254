@@ -102,6 +102,11 @@ public class PowerUpManager : SpawnManager {
                 activeSpawns[i] = false;
             }
         }
+
+        if (increasesStreak)
+        {
+            streak.IncreaseStreak();
+        }
     }
 
     public void RandomPowerUpDestroyed(Transform parent)
@@ -117,6 +122,11 @@ public class PowerUpManager : SpawnManager {
                 // Make spawn available for next target
                 activeSpawns[i] = false;
             }
+        }
+
+        if (increasesStreak)
+        {
+            streak.IncreaseStreak();
         }
     }
 }

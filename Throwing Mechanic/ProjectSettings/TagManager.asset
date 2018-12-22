@@ -7,8 +7,8 @@ TagManager:
   - Object
   - Obstacle
   - Enemy
-  - ChancePowerUp
   - Target
+  - PowerUp
   layers:
   - Default
   - TransparentFX

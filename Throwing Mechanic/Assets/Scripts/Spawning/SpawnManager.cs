@@ -6,23 +6,23 @@ public abstract class SpawnManager : MonoBehaviour {
 
     public GameObject prefab;
 
-    //protected Transform[] spawnArray;
     protected SpawnObject[] spawnObjects;
     protected bool[] activeSpawns;
 
     protected int numSpawns;
     protected int numObjects;
 
+    protected bool increasesStreak;
     protected bool hasRequiredDeath;
 
     protected AudioManager instance;
+    protected StreakController streak;
 
     // Use this for initialization
     void Start()
     {
         numSpawns = transform.childCount;
 
-        //spawnArray = new Transform[numSpawns];
         spawnObjects = new SpawnObject[numSpawns];
         activeSpawns = new bool[numSpawns];
 
@@ -31,7 +31,6 @@ public abstract class SpawnManager : MonoBehaviour {
         // Loop through all children and create an array of them
         for (int i = 0; i < numSpawns; i++)
         {
-            //spawnArray[i] = transform.GetChild(i);
             spawnObjects[i] = transform.GetChild(i).GetComponent<SpawnObject>();
         }
 
@@ -40,6 +39,13 @@ public abstract class SpawnManager : MonoBehaviour {
         if (AudioManager.instance != null)
         {
             instance = AudioManager.instance;
+        }
+
+        SetIncreasesStreak();
+
+        if (increasesStreak)
+        {
+            streak = FindObjectOfType<StreakController>();
         }
     }
 
@@ -59,7 +65,6 @@ public abstract class SpawnManager : MonoBehaviour {
                 PlaySpawnSound();
                 activeSpawns[rand] = true;
                 numObjects++;
-                //spawnArray[rand].SendMessage("Spawn", prefab);
                 GameObject tempObject = spawnObjects[rand].Spawn(prefab);
                 SetObjectProperties(tempObject);
             }
@@ -76,6 +81,11 @@ public abstract class SpawnManager : MonoBehaviour {
 
     public abstract void PlaySpawnSound();
     public abstract void SetHasRequiredDeath();
+
+    public virtual void SetIncreasesStreak()
+    {
+        increasesStreak = true;
+    }
 
     public virtual void SetObjectProperties(GameObject gameObject)
     {
@@ -98,6 +108,11 @@ public abstract class SpawnManager : MonoBehaviour {
                 // Make spawn available for next target
                 activeSpawns[i] = false;
             }
+        }
+
+        if (increasesStreak)
+        {
+            streak.IncreaseStreak();
         }
     }
 

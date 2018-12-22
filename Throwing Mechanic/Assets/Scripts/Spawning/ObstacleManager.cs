@@ -12,4 +12,9 @@ public class ObstacleManager : SpawnManager {
     {
         hasRequiredDeath = false;
     }
+
+    public override void SetIncreasesStreak()
+    {
+        increasesStreak = false;
+    }
 }

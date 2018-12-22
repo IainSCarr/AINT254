@@ -7,11 +7,14 @@ public class ObjectDeath : MonoBehaviour {
     public float deathTime = 0.2f;
     public float scaleAmount = 0.2f;
 
+    private bool hasHitObject = false;
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             StartDeath();
+            hasHitObject = true;
         }
         else if (collision.gameObject.tag == "Obstacle")
         {
@@ -23,6 +26,8 @@ public class ObjectDeath : MonoBehaviour {
     {
         if (other.gameObject.tag == "Target")
         {
+            hasHitObject = true;
+
             if (GetComponent<MultiplyExplode>().GetCanExplode())
             {
                 StartDeath();
@@ -31,6 +36,10 @@ public class ObjectDeath : MonoBehaviour {
             {
                 Die();
             }
+        }
+        else if (other.gameObject.tag == "PowerUp")
+        {
+            hasHitObject = true;
         }
     }
 
@@ -52,9 +61,18 @@ public class ObjectDeath : MonoBehaviour {
     /// <summary>
     /// Calls explode function then destroys object
     /// </summary>
-    private void Die()
+    public void Die()
     {
         SendMessage("Explode", SendMessageOptions.DontRequireReceiver);
+
+        Debug.Log("Dying");
+        Debug.Log(hasHitObject);
+
+        if (!hasHitObject)
+        {
+            SendMessageUpwards("NoObjectHit");
+        }
+
         Destroy(gameObject);
     }
 }

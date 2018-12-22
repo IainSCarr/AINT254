@@ -8,7 +8,7 @@ public class PowerUpBehaviour : MonoBehaviour {
 
     private void Start()
     {
-        if (gameObject.tag == "ChancePowerUp")
+        if (gameObject.name == "ChancePowerUp")
         {
             chance = true;
         }

@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class UIPowerUpNotifications : MonoBehaviour {
 
     public GameObject notification;
-    private Text notificationText;
+
+    public Text notificationText;
 
 
     // Use this for initialization
     void Start () {
-        notificationText = notification.GetComponent<Text>();
 	}
 	
 	// Update is called once per frame

@@ -20,7 +20,7 @@ public class PotCollider : MonoBehaviour {
                 OnSendScore(15);
             }
 
-            SendMessageUpwards("Hit");
+            SendMessageUpwards("Hit"); 
         }
     }
 }

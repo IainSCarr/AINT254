@@ -27,7 +27,6 @@ public abstract class PowerUp : MonoBehaviour {
         {
             Activate();
             isActive = true;
-            Debug.Log(label + " ACTIVATED");
 
             StartCoroutine(DisableAfterTime(resetTime));
 
@@ -40,12 +39,10 @@ public abstract class PowerUp : MonoBehaviour {
 
     private IEnumerator DisableAfterTime(float time)
     {
-        Debug.Log("Waiting");
         yield return new WaitForSeconds(resetTime);
 
         Deactivate();
         isActive = false;
-        Debug.Log(label + " DEACTIVATED");
 
         if (OnPowerUpDeactivated != null)
         {

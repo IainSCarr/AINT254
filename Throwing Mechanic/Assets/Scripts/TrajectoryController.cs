@@ -18,6 +18,8 @@ public class TrajectoryController : MonoBehaviour {
     [SerializeField]
     private GameObject[] dots;
 
+    public StreakController streak;
+
     private Camera cam;
 
     private AudioManager instance;
@@ -75,6 +77,7 @@ public class TrajectoryController : MonoBehaviour {
                 if (!hasBeenThrown)
                 {
                     projectile.GetComponent<ThrowableBehaviour>().Throw(aimVector, magnitude);
+                    streak.IncreaseThrows();
                     instance.PlaySound("Throw");
 
                     hasBeenThrown = true;

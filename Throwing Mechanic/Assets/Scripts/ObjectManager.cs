@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectManager : MonoBehaviour {
 
     public GameObject[] objectPrefab;
+    public StreakController streak;
 
     private TrajectoryController trajectoryController;
     private PlayerBehaviour player;
@@ -90,5 +91,11 @@ public class ObjectManager : MonoBehaviour {
     public void SetBigObjects(bool setting)
     {
         bigObjects = setting;
+    }
+
+    public void NoObjectHit()
+    {
+        Debug.Log("NoObjectHit");
+        streak.ResetStreak();
     }
 }

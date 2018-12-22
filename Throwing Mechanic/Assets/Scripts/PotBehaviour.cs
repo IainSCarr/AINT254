@@ -24,6 +24,7 @@ public class PotBehaviour : MonoBehaviour {
     {
         Invoke("FlyAway", 1f);
         AudioManager.instance.PlaySound("TargetHit");
+        SendMessageUpwards("ObjectDestroyed", transform.parent);
         SendMessage("DoSendScore");
     }
 
@@ -36,7 +37,6 @@ public class PotBehaviour : MonoBehaviour {
 
     private void Die()
     {
-        SendMessageUpwards("ObjectDestroyed", transform.parent);
         Destroy(gameObject);
     }
 
