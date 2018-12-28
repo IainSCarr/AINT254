@@ -25,7 +25,6 @@ public class EnemyManager : SpawnManager {
             if (activeSpawns[i])
             {
                 // Send self destruct message
-                //spawnArray[i].GetChild(0).SendMessage("StartDeath", SendMessageOptions.DontRequireReceiver);
                 spawnObjects[i].transform.GetChild(0).SendMessage("StartDeath", SendMessageOptions.DontRequireReceiver);
             }
         }
@@ -43,12 +42,7 @@ public class EnemyManager : SpawnManager {
     {
         if (fastEnemies)
         {
-            Debug.Log("Creating fast enemy");
             gameObject.GetComponent<EnemyMovement>().SetFastEnemy();
-        }
-        else
-        {
-            Debug.Log("Creating slow enemy");
         }
     }
 

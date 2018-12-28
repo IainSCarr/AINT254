@@ -38,7 +38,7 @@ public class ThrowableBehaviour : MonoBehaviour {
 
     public void Throw(Vector3 direction, float magnitude)
     {
-        Invoke("Die", 10f);
+        Invoke("Die", 5f);
         // disconnect object from player
         isCurrentObject = false;
         pb.SetCurrentObject(null);
