@@ -7,6 +7,8 @@ public class CharacterController : MonoBehaviour {
     private Transform playerTransform;
     private Transform cameraFollowTransform;
 
+    private PlayerBehaviour playerBehaviour;
+
     public float characterSpeed = 5.0f;
 
     private float dampner = 0.05f;
@@ -14,6 +16,7 @@ public class CharacterController : MonoBehaviour {
 	
     // Use this for initialization
 	void Start () {
+        playerBehaviour = GetComponent<PlayerBehaviour>();
         playerTransform = GetComponent<Transform>();
         cameraFollowTransform = transform.GetChild(0);
 
@@ -22,6 +25,14 @@ public class CharacterController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            playerBehaviour.NextObject();
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            playerBehaviour.PreviousObject();
+        }
 	}
 
     void FixedUpdate()

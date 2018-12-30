@@ -2,22 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Utility;
+using UnityEngine.UI;
 
 public class PotBehaviour : MonoBehaviour {
 
+    private ObjectManager manager;
+    private SelectedObjectHighlight imageManager;
+
+    private GameObject[] objects;
+    private Image[] objectImages;
+
+    private string target;
+
+    private SpriteRenderer render;
+
     private void Awake()
     {
-        //ActivatePowerUps.OnRotateTargets += HandleOnRotateTargets;
+        manager = FindObjectOfType<ObjectManager>();
+        imageManager = FindObjectOfType<SelectedObjectHighlight>();
+        objects = manager.GetObjects();
+        objectImages = imageManager.GetImages();
+        render = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Use this for initialization
     void Start() {
         iTween.MoveFrom(gameObject, iTween.Hash("y", 20));
+
+        int num = Random.Range(0, objects.Length);
+        target = objects[num].name;
+
+        render.sprite = objectImages[num].sprite;
     }
 
-    private void HandleOnRotateTargets(bool rotating)
+    public void SetRotatingTargets()
     {
-        GetComponent<AutoMoveAndRotate>().enabled = rotating;
+        GetComponent<AutoMoveAndRotate>().enabled = true;
     }
 
     public void Hit()
@@ -40,13 +60,13 @@ public class PotBehaviour : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void OnDisable()
-    {
-        //ActivatePowerUps.OnRotateTargets -= HandleOnRotateTargets;
-    }
-
     private void OnDestroy()
     {
         CancelInvoke();
+    }
+
+    public string GetTarget()
+    {
+        return target;
     }
 }

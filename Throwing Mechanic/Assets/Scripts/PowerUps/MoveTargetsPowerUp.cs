@@ -4,31 +4,28 @@ using UnityEngine;
 
 public class MoveTargetsPowerUp : PowerUp {
 
-    //public delegate void MoveTargets(bool isActive);
-    //public static event MoveTargets OnMoveTargets;
+    private TargetManager targetManager;
 
     public MoveTargetsPowerUp()
     {
         label = "MOVING TARGETS";
         isActive = false;
-        resetTime = 30f;
+        resetTime = 60f;
         type = PowerUpType.Bad;
     }
 
     private void Awake()
     {
+        targetManager = FindObjectOfType<TargetManager>();
     }
 
     protected override void Activate()
     {
+        targetManager.SetRotatingTargets(true);
     }
 
     protected override void Deactivate()
     {
-    }
-
-    public override bool GetIsPossible()
-    {
-        return false;
+        targetManager.SetRotatingTargets(false);
     }
 }

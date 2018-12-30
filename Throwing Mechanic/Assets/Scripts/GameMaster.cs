@@ -46,7 +46,7 @@ public class GameMaster : MonoBehaviour {
     [System.Serializable]
     public class WaveEvent
     {
-        public enum EventType {FastEnemies, Barrage};
+        public enum EventType {FastEnemies, Barrage, RotatingTargets};
         public EventType eventType;
         public float waitTime;
     }
@@ -207,6 +207,10 @@ public class GameMaster : MonoBehaviour {
         else if (_event.eventType == WaveEvent.EventType.FastEnemies)
         {
             powerupActivator.fastEnemies.Enable();
+        }
+        else if (_event.eventType == WaveEvent.EventType.RotatingTargets)
+        {
+            powerupActivator.moveTargets.Enable();
         }
 
         yield break;

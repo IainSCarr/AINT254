@@ -12,10 +12,16 @@ public class PlayerBehaviour : MonoBehaviour {
     public static event UpdateHealth OnUpdateHealth;
 
     private GameObject currentObject;
+    public ObjectManager objectManager;
+    public SelectedObjectHighlight highlight;
+
+    private int numObjects;
+    private int selectedObject;
 
     // Use this for initialization
     void Start () {
-
+        selectedObject = 0;
+        numObjects = objectManager.GetNumObjects();
 	}
 	
 	// Update is called once per frame
@@ -51,5 +57,46 @@ public class PlayerBehaviour : MonoBehaviour {
     public GameObject GetCurrentObject()
     {
         return currentObject;
+    }
+
+    public void DestroyObject()
+    {
+        Destroy(currentObject);
+        SetCurrentObject(null);
+    }
+
+    public int GetSelectedObject()
+    {
+        return selectedObject;
+    }
+
+    public void NextObject()
+    {
+        if (selectedObject == numObjects - 1)
+        {
+            selectedObject = 0;
+        }
+        else
+        {
+            selectedObject++;
+        }
+
+        objectManager.SwitchObject();
+        highlight.NextObject();
+    }
+
+    public void PreviousObject()
+    {
+        if (selectedObject == 0)
+        {
+            selectedObject = numObjects - 1;
+        }
+        else
+        {
+            selectedObject--;
+        }
+
+        objectManager.SwitchObject();
+        highlight.PreviousObject();
     }
 }

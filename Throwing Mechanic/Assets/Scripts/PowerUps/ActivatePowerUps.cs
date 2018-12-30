@@ -19,6 +19,7 @@ public class ActivatePowerUps : MonoBehaviour {
     // bad powerups
     public BarragePowerUp barrage;
     public FastEnemiesPowerUp fastEnemies;
+    public MoveTargetsPowerUp moveTargets;
 
     private PowerUp[] goodPowerUps;
     private PowerUp[] badPowerUps;
@@ -43,6 +44,7 @@ public class ActivatePowerUps : MonoBehaviour {
         //bad powerups
         barrage = holder.AddComponent<BarragePowerUp>();
         fastEnemies = holder.AddComponent<FastEnemiesPowerUp>();
+        moveTargets = holder.AddComponent<MoveTargetsPowerUp>();
 
         // random powerups
         explode = holder.AddComponent<ExplodePowerUp>();
@@ -51,7 +53,7 @@ public class ActivatePowerUps : MonoBehaviour {
 
         goodPowerUps = new PowerUp[3] { scoreMultiplier, killEnemies, quickfire };
 
-        badPowerUps = new PowerUp[2] { barrage, fastEnemies };
+        badPowerUps = new PowerUp[3] { barrage, fastEnemies, moveTargets };
 
         randomPowerUps = new PowerUp[3] { explode, bounce, bigObjects };
     }

@@ -8,7 +8,7 @@ public class PowerUpBehaviour : MonoBehaviour {
 
     private void Start()
     {
-        if (gameObject.name == "ChancePowerUp")
+        if (gameObject.name == "PowerUpChance(Clone)")
         {
             chance = true;
         }

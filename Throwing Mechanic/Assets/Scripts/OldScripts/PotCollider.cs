@@ -6,21 +6,31 @@ public class PotCollider : MonoBehaviour {
 
     private bool hasBeenHit;
 
+    private PotBehaviour pot;
+
     public delegate void SendScore(int score);
     public static event SendScore OnSendScore;
 
+    private void Start()
+    {
+        pot = GetComponentInParent<PotBehaviour>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (!hasBeenHit)
+        if (other.gameObject.name.Remove(other.gameObject.name.Length - 7) == pot.GetTarget())
         {
-            hasBeenHit = true;
-
-            if (OnSendScore != null)
+            if (!hasBeenHit)
             {
-                OnSendScore(15);
-            }
+                hasBeenHit = true;
 
-            SendMessageUpwards("Hit"); 
+                if (OnSendScore != null)
+                {
+                    OnSendScore(15);
+                }
+
+                SendMessageUpwards("Hit");
+            }
         }
     }
 }

@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SpawnState { Spawning, Spawned }
+
 public class ObjectManager : MonoBehaviour {
+
+    private SpawnState state;
 
     public GameObject[] objectPrefab;
     public StreakController streak;
@@ -24,6 +28,7 @@ public class ObjectManager : MonoBehaviour {
         trajectoryController = FindObjectOfType<TrajectoryController>();
         player = FindObjectOfType<PlayerBehaviour>();
 
+        state = SpawnState.Spawning;
         Invoke("Spawn", 5f);
     }
 	
@@ -40,18 +45,34 @@ public class ObjectManager : MonoBehaviour {
         if (!player.GetCurrentObject())
         {
             // create object
-            GameObject newObject = Instantiate(objectPrefab[Random.Range(0,objectPrefab.Length)], player.transform.position - (player.transform.forward * 2), player.transform.rotation, gameObject.transform);
+            GameObject newObject = Instantiate(objectPrefab[player.GetSelectedObject()], player.transform.position - (player.transform.forward * 2), player.transform.rotation, gameObject.transform);
             
             // set it's properties
             SetObjectProperties(newObject);
 
             // update trajectory controller
             trajectoryController.SetProjectile(newObject);
+
+            state = SpawnState.Spawned;
         }
+    }
+
+    public void SwitchObject()
+    {
+        if (state != SpawnState.Spawning)
+        {
+            player.DestroyObject();
+            Spawn();
+        }
+
+        // if is not waiting for spawn
+        // destroy current object
+        // spawn new object
     }
 
     public void StartSpawn()
     {
+        state = SpawnState.Spawning;
         Invoke("Spawn", fireRate);
     }
 
@@ -97,5 +118,15 @@ public class ObjectManager : MonoBehaviour {
     {
         Debug.Log("NoObjectHit");
         streak.ResetStreak();
+    }
+
+    public int GetNumObjects()
+    {
+        return objectPrefab.Length;
+    }
+
+    public GameObject[] GetObjects()
+    {
+        return objectPrefab;
     }
 }
