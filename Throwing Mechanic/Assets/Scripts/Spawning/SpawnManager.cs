@@ -26,8 +26,6 @@ public abstract class SpawnManager : MonoBehaviour {
         spawnObjects = new SpawnObject[numSpawns];
         activeSpawns = new bool[numSpawns];
 
-        SetHasRequiredDeath();
-
         // Loop through all children and create an array of them
         for (int i = 0; i < numSpawns; i++)
         {
@@ -41,6 +39,7 @@ public abstract class SpawnManager : MonoBehaviour {
             instance = AudioManager.instance;
         }
 
+        SetHasRequiredDeath();
         SetIncreasesStreak();
 
         if (increasesStreak)
@@ -79,19 +78,6 @@ public abstract class SpawnManager : MonoBehaviour {
         }
     }
 
-    public abstract void PlaySpawnSound();
-    public abstract void SetHasRequiredDeath();
-
-    public virtual void SetIncreasesStreak()
-    {
-        increasesStreak = true;
-    }
-
-    public virtual void SetObjectProperties(GameObject gameObject)
-    {
-
-    }
-
     /// <summary>
     /// Updates state after object is destroyed.
     /// </summary>
@@ -115,6 +101,25 @@ public abstract class SpawnManager : MonoBehaviour {
             streak.IncreaseStreak();
         }
     }
+
+    public virtual void PlaySpawnSound()
+    {
+
+    }
+
+    public abstract void SetHasRequiredDeath();
+
+    public virtual void SetIncreasesStreak()
+    {
+        increasesStreak = true;
+    }
+
+    public virtual void SetObjectProperties(GameObject gameObject)
+    {
+
+    }
+
+
 
     public int GetNumberOfObjects()
     {
