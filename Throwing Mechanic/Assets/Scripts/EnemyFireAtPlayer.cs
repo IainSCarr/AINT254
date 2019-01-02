@@ -15,6 +15,8 @@ public class EnemyFireAtPlayer : MonoBehaviour
 
     private bool isShootingFast;
 
+    private AudioManager instance;
+
     private void OnEnable()
     {
         BarragePowerUp.OnIncreaseFireRate += HandleOnIncreaseFireRate;
@@ -26,7 +28,7 @@ public class EnemyFireAtPlayer : MonoBehaviour
         state = EnemyState.Waiting;
         fireRate = normalFireRate;
 
-        AudioManager.instance.PlaySound("EnemySpawn");
+        instance = AudioManager.instance;
 
         iTween.MoveTo(gameObject, iTween.Hash("y", -1, "time", 0.5f, "easetype", iTween.EaseType.spring));
         iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0, "time", 0.5f, "oncomplete", "StartShooting"));
@@ -51,8 +53,9 @@ public class EnemyFireAtPlayer : MonoBehaviour
 
     private void Shoot()
     {
-        AudioManager.instance.PlaySound("EnemyShoot");
-        Instantiate(bullet, origin.position, transform.rotation);
+        instance.PlaySound("EnemyShoot");
+        //Instantiate(bullet, origin.position, transform.rotation);
+        SpawnBullet();
     }
 
     void OnDestroy()
@@ -95,5 +98,17 @@ public class EnemyFireAtPlayer : MonoBehaviour
     public EnemyState GetState()
     {
         return state;
+    }
+
+    private void SpawnBullet()
+    {
+        GameObject bullet = PoolManager.current.GetPooledObject("Knife");
+
+        if (bullet != null)
+        {
+            bullet.transform.position = origin.position;
+            bullet.transform.rotation = origin.rotation;
+            bullet.SetActive(true);
+        }
     }
 }

@@ -40,6 +40,7 @@ public class EnemyBullet : MonoBehaviour {
 
     private void Die()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        CancelInvoke();
     }
 }

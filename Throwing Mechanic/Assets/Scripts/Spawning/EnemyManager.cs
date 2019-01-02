@@ -8,7 +8,7 @@ public class EnemyManager : SpawnManager {
 
     public override void PlaySpawnSound()
     {
-        
+        instance.PlaySound("EnemySpawn");
     }
 
     public override void SetHasRequiredDeath()
