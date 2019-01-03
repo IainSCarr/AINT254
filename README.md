@@ -10,3 +10,5 @@ Created as a student project for Plymouth University.
  - Tomato Model - https://www.turbosquid.com/3d-models/tomato-3ds-free/758044
  - Music - https://assetstore.unity.com/packages/audio/music/orchestral/ultimate-game-music-collection-37351
  - SFX - https://assetstore.unity.com/packages/audio/sound-fx/universal-sound-fx-17256
+ - Arrows - http://www.clker.com/clipart-transparent-arrow-5.html
+ - Title Images - http://www.clipartpanda.com/clipart_images/vegetable-cartoon-image-5-42921038
