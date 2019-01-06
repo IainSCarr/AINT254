@@ -29,13 +29,17 @@ public class StreakView : MonoBehaviour {
 
         iTween.ScaleBy(streakText.gameObject, iTween.Hash("amount", scaleAmount, "looptype", iTween.LoopType.pingPong));
 
-        if (num == 2)
+        if (num == 3)
         {
             GoodStreak();
         }
-        else if (num == 3)
+        else if (num == 5)
         {
             GreatStreak();
+        }
+        else if (num == 10)
+        {
+            AmazingStreak();
         }
     }
 
@@ -65,7 +69,6 @@ public class StreakView : MonoBehaviour {
 
     public void ResetText()
     {
-        Debug.Log("Testttttttttt");
         feedback.gameObject.SetActive(false);
         feedback.transform.position = initialPosition;
     }
