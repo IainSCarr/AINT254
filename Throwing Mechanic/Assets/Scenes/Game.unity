@@ -2574,9 +2574,9 @@ MonoBehaviour:
       count: 2
       rate: 0.5
       isRequired: 0
-    hasEvent: 0
+    hasEvent: 1
     waveEvent:
-      eventType: 0
+      eventType: 2
       waitTime: 0
   - name: Targets x3 Enemies x3 Obstacles x2
     spawners:

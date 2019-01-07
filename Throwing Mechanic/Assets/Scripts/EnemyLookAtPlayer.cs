@@ -9,7 +9,9 @@ public class EnemyLookAtPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        // finds player
         player = GameObject.FindGameObjectWithTag("Player");
+        // gets position
         playerPosition = player.GetComponent<Transform>();
 	}
 

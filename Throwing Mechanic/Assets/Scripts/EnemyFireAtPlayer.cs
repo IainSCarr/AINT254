@@ -30,7 +30,9 @@ public class EnemyFireAtPlayer : MonoBehaviour
 
         instance = AudioManager.instance;
 
+        // animate spawn
         iTween.MoveTo(gameObject, iTween.Hash("y", -1, "time", 0.5f, "easetype", iTween.EaseType.spring));
+        // calls start shooting on animate complete
         iTween.ScaleFrom(gameObject, iTween.Hash("x", 0, "y", 0, "z", 0, "time", 0.5f, "oncomplete", "StartShooting"));
     }
 
@@ -64,6 +66,10 @@ public class EnemyFireAtPlayer : MonoBehaviour
         BarragePowerUp.OnIncreaseFireRate -= HandleOnIncreaseFireRate;
     }
 
+    /// <summary>
+    /// Handler for barrage powerup
+    /// </summary>
+    /// <param name="rate"></param>
     private void HandleOnIncreaseFireRate(float rate)
     {
         if (!isShootingFast)
@@ -89,8 +95,10 @@ public class EnemyFireAtPlayer : MonoBehaviour
         fireRate = rate;
         StartShooting();
 
+        // if barrage
         if (isShootingFast)
         {
+            // start reset
             StartCoroutine(ResetFireRate());
         }
     }

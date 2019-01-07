@@ -242,7 +242,7 @@ MonoBehaviour:
     randomPitch: 0.1
     spatialBlend: 0
     loop: 0
-  - name: TargetHit
+  - name: Cheer
     clip: {fileID: 8300000, guid: 1bd1ae46c5bc8984aa8345527ce49e48, type: 3}
     group: {fileID: 243215389640047814, guid: e676962e0a76eb04b872d3b6f5efa0c2, type: 2}
     position: {x: 0, y: 0, z: 0}
@@ -262,3 +262,13 @@ MonoBehaviour:
     randomPitch: 0
     spatialBlend: 0
     loop: 1
+  - name: TargetHit
+    clip: {fileID: 8300000, guid: c359d7bebdb4dcc488c56ae625af2b92, type: 3}
+    group: {fileID: 243215389640047814, guid: e676962e0a76eb04b872d3b6f5efa0c2, type: 2}
+    position: {x: 0, y: 0, z: 0}
+    volume: 0.8
+    pitch: 1
+    randomVolume: 0.2
+    randomPitch: 0.2
+    spatialBlend: 0
+    loop: 0

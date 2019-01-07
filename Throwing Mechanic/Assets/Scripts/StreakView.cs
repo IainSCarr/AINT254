@@ -15,14 +15,14 @@ public class StreakView : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        // save initial position
         initialPosition = feedback.transform.position;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    /// <summary>
+    /// Updates the streak text and animates it
+    /// </summary>
+    /// <param name="num"></param>
     public void UpdateStreak(int num)
     {
         streakText.text = num.ToString();
@@ -43,30 +43,48 @@ public class StreakView : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Displays congratulations message to user
+    /// </summary>
     private void GoodStreak()
     {
         feedback.text = "NICE!";
         AnimateText();
+        AudioManager.instance.PlaySound("Cheer");
     }
 
+    /// <summary>
+    /// Displays congratulations message to user
+    /// </summary>
     private void GreatStreak()
     {
         feedback.text = "GREAT!";
         AnimateText();
+        AudioManager.instance.PlaySound("Cheer");
     }
 
+    /// <summary>
+    /// Displays congratulations message to user
+    /// </summary>
     private void AmazingStreak()
     {
         feedback.text = "AMAZING!";
         AnimateText();
+        AudioManager.instance.PlaySound("Cheer");
     }
 
+    /// <summary>
+    /// Animates congratulatory message to user
+    /// </summary>
     private void AnimateText()
     {
         feedback.gameObject.SetActive(true);
         iTween.MoveAdd(feedback.gameObject, iTween.Hash("amount", moveAmount, "time", 1f, "easytype", iTween.EaseType.easeOutBack, "oncompletetarget", gameObject, "oncomplete", "ResetText"));
     }
 
+    /// <summary>
+    /// Resets message gameobject to original posistion
+    /// </summary>
     public void ResetText()
     {
         feedback.gameObject.SetActive(false);

@@ -17,19 +17,25 @@ public abstract class PowerUp : MonoBehaviour {
     public delegate void PowerUpDeactivated(string name, PowerUpType type);
     public static event PowerUpDeactivated OnPowerUpDeactivated;
 
+    // powerup-specific methods for activating and deactivating that must be implemented
     protected abstract void Activate();
     protected abstract void Deactivate();
 
-
+    /// <summary>
+    /// Activates powerup
+    /// </summary>
     public void Enable()
     {
+        // if is not currently active
         if (!isActive)
         {
             Activate();
             isActive = true;
 
+            // start disable timer
             StartCoroutine(DisableAfterTime(resetTime));
 
+            // send event
             if (OnPowerUpActivated != null)
             {
                 OnPowerUpActivated(label, type);
@@ -37,6 +43,9 @@ public abstract class PowerUp : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Disables powerup after time period
+    /// </summary>
     private IEnumerator DisableAfterTime(float time)
     {
         yield return new WaitForSeconds(resetTime);
@@ -54,6 +63,7 @@ public abstract class PowerUp : MonoBehaviour {
 
     public virtual bool GetIsPossible()
     {
+        // true by default but can be overridden
         return true;
     }
 

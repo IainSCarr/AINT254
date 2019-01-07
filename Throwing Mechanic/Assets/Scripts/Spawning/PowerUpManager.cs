@@ -20,6 +20,9 @@ public class PowerUpManager : SpawnManager {
         hasRequiredDeath = false;
     }
 
+    /// <summary>
+    /// Spawns a powerup at a random spawn point
+    /// </summary>
     public override void SpawnRandom()
     {
         // if spawns are available
@@ -33,16 +36,20 @@ public class PowerUpManager : SpawnManager {
                 // randomly select powerup
                 int prefabChoice = Random.Range(0, 2);
 
+                // if good powerup selected
                 if (prefabChoice == 1)
                 {
                     // if good powerup is possible
                     if (manager.IsPowerUpPossible(PowerUpType.Good, numGoodPowerUps))
                     {
+                        // spawn good powerup
                         DoSpawn(rand, prefabChoice);
                         numGoodPowerUps++;
                     }
+                    // if not try random powerup
                     else if (manager.IsPowerUpPossible(PowerUpType.Random, numRandomPowerUps))
                     {
+                        // spawn random powerup
                         DoSpawn(rand, 0);
                         numRandomPowerUps++;
                     }
@@ -51,15 +58,19 @@ public class PowerUpManager : SpawnManager {
                         Debug.Log("No powerups available");
                     }
                 }
-                else
+                else // random powerup selected
                 {
+                    // if random powerup is possible
                     if (manager.IsPowerUpPossible(PowerUpType.Random, numRandomPowerUps))
                     {
+                        // spawn random powerup
                         DoSpawn(rand, prefabChoice);
                         numRandomPowerUps++;
                     }
+                    // if not try good powerup
                     else if (manager.IsPowerUpPossible(PowerUpType.Good, numGoodPowerUps))
                     {
+                        // spawn good powerup
                         DoSpawn(rand, 1);
                         numGoodPowerUps++;
                     }
@@ -80,6 +91,11 @@ public class PowerUpManager : SpawnManager {
         }
     }
 
+    /// <summary>
+    /// Send spawn command and updates properties
+    /// </summary>
+    /// <param name="rand"></param>
+    /// <param name="prefabChoice"></param>
     private void DoSpawn(int rand, int prefabChoice)
     {
         activeSpawns[rand] = true;
@@ -103,10 +119,9 @@ public class PowerUpManager : SpawnManager {
             }
         }
 
-        if (increasesStreak)
-        {
-            streak.IncreaseStreak();
-        }
+        // increase streak for hitting powerup
+        streak.IncreaseStreak();
+
     }
 
     public void RandomPowerUpDestroyed(Transform parent)
@@ -124,9 +139,7 @@ public class PowerUpManager : SpawnManager {
             }
         }
 
-        if (increasesStreak)
-        {
-            streak.IncreaseStreak();
-        }
+        // increase streak for hitting powerup
+        streak.IncreaseStreak();
     }
 }

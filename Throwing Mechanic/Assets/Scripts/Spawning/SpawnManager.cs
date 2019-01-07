@@ -64,6 +64,7 @@ public abstract class SpawnManager : MonoBehaviour {
                 PlaySpawnSound();
                 activeSpawns[rand] = true;
                 numObjects++;
+                // spawn object then set its properties
                 GameObject tempObject = spawnObjects[rand].Spawn(prefab);
                 SetObjectProperties(tempObject);
             }
@@ -96,12 +97,16 @@ public abstract class SpawnManager : MonoBehaviour {
             }
         }
 
+        // if object destroyed increases streak
         if (increasesStreak)
         {
             streak.IncreaseStreak();
         }
     }
 
+    /// <summary>
+    /// Plays sound when object is spawned
+    /// </summary>
     public virtual void PlaySpawnSound()
     {
 
@@ -111,21 +116,28 @@ public abstract class SpawnManager : MonoBehaviour {
 
     public virtual void SetIncreasesStreak()
     {
+        // true by default but can be overwritten
         increasesStreak = true;
     }
 
     public virtual void SetObjectProperties(GameObject gameObject)
     {
-
+        // after spawning object, properties of that object can be changed here
     }
 
-
-
+    /// <summary>
+    /// Returns the number of currently spawned objects
+    /// </summary>
+    /// <returns></returns>
     public int GetNumberOfObjects()
     {
         return numObjects;
     }
 
+    /// <summary>
+    /// Gets if object being spawned must be hit to progress
+    /// </summary>
+    /// <returns></returns>
     public bool GetHasRequiredDeath()
     {
         return hasRequiredDeath;

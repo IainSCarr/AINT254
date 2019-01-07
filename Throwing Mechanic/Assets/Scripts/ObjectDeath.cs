@@ -11,6 +11,7 @@ public class ObjectDeath : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        // if collides with enemy
         if (collision.gameObject.tag == "Enemy")
         {
             StartDeath();
@@ -28,12 +29,14 @@ public class ObjectDeath : MonoBehaviour {
         {
             hasHitObject = true;
 
+            // if can explode
             if (GetComponent<MultiplyExplode>().GetCanExplode())
             {
                 StartDeath();
             }
             else
             {
+                // destroy immediately
                 Die();
             }
         }
@@ -64,9 +67,6 @@ public class ObjectDeath : MonoBehaviour {
     public void Die()
     {
         SendMessage("Explode", SendMessageOptions.DontRequireReceiver);
-
-        Debug.Log("Dying");
-        Debug.Log(hasHitObject);
 
         if (!hasHitObject)
         {

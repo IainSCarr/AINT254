@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls wave and spawning systems.
+/// </summary>
 public class GameMaster : MonoBehaviour {
 
     public enum SpawnState { Spawning, Counting, Waiting };
+
 
     [System.Serializable]
     public class Wave
@@ -16,6 +20,9 @@ public class GameMaster : MonoBehaviour {
 
         private int numRequiredSpawners;
 
+        /// <summary>
+        /// Loop through spawners and check if the object they're spawning needs to be hit to progress
+        /// </summary>
         public void SetRequiredSpawners()
         {
             for (int i = 0; i < spawners.Length; i++)
@@ -43,6 +50,9 @@ public class GameMaster : MonoBehaviour {
         public bool isRequired;
     }
 
+    /// <summary>
+    /// Acts maximum of once per wave similar bad powerup
+    /// </summary>
     [System.Serializable]
     public class WaveEvent
     {
@@ -90,11 +100,14 @@ public class GameMaster : MonoBehaviour {
 
     void Update()
     {
+        // if waiting for wave to end
         if (state == SpawnState.Waiting)
         {
+            // check if wave is over
             if (WaveIsOver())
             {
                 Debug.Log("Wave completed");
+                // start next wave
                 WaveCompleted();
             }
             else
@@ -116,6 +129,10 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Checks if all required objects have been hit.
+    /// </summary>
+    /// <returns></returns>
     private bool WaveIsOver()
     {
         searchCountdown -= Time.deltaTime;
@@ -148,6 +165,7 @@ public class GameMaster : MonoBehaviour {
 
         return false;
     }
+
 
     private void WaveCompleted()
     {
@@ -183,6 +201,11 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Spawns objects at a rate
+    /// </summary>
+    /// <param name="spawner"></param>
+    /// <returns></returns>
     IEnumerator SpawnObjects(Spawner spawner)
     {
         for (int i = 0; i < spawner.count; i++)
@@ -196,6 +219,11 @@ public class GameMaster : MonoBehaviour {
         yield break;
     }
 
+    /// <summary>
+    /// Selects event and activates it
+    /// </summary>
+    /// <param name="_event"></param>
+    /// <returns></returns>
     IEnumerator StartEvent(WaveEvent _event)
     {
         yield return new WaitForSeconds(_event.waitTime);

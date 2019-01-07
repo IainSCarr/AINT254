@@ -21,13 +21,12 @@ public class ActivatePowerUps : MonoBehaviour {
     public FastEnemiesPowerUp fastEnemies;
     public MoveTargetsPowerUp moveTargets;
 
+    // arrays of all powerups of a type
     private PowerUp[] goodPowerUps;
     private PowerUp[] badPowerUps;
     private PowerUp[] randomPowerUps;
 
-
-
-
+    // number of active powerups of a type
     private int numActiveGoodPowerUps;
     private int numActiveBadPowerUps;
     private int numActiveRandomPowerUps;
@@ -58,6 +57,9 @@ public class ActivatePowerUps : MonoBehaviour {
         randomPowerUps = new PowerUp[3] { explode, bounce, bigObjects };
     }
 
+    /// <summary>
+    /// Activates a random good powerup.
+    /// </summary>
     public void DoGoodPowerUp()
     {
         // if not all powerups are active
@@ -92,33 +94,43 @@ public class ActivatePowerUps : MonoBehaviour {
         }
     }
 
-    public void DoBadPowerUp()
-    {
-        if (numActiveBadPowerUps < badPowerUps.Length)
-        {
-            int num = Random.Range(0, badPowerUps.Length);
+    // <summary>
+    // Activates a random bad powerup
+    // </summary>
+    //public void DoBadPowerUp()
+    //{
+    //    if (numActiveBadPowerUps < badPowerUps.Length)
+    //    {
+    //        int num = Random.Range(0, badPowerUps.Length);
 
-            if (!badPowerUps[num].GetIsActive())
-            {
-                badPowerUps[num].Enable();
+    //        if (!badPowerUps[num].GetIsActive())
+    //        {
+    //            badPowerUps[num].Enable();
 
-                numActiveBadPowerUps++;
-            }
-            else
-            {
-                DoBadPowerUp();
-            }
-        }
-    }
+    //            numActiveBadPowerUps++;
+    //        }
+    //        else
+    //        {
+    //            DoBadPowerUp();
+    //        }
+    //    }
+    //}
 
+    /// <summary>
+    /// Activates a random random powerup
+    /// </summary>
     public void DoRandomPowerUp()
     {
+        // if not all powerups are active
         if (numActiveRandomPowerUps < randomPowerUps.Length)
         {
+            // randomly choose a powerup
             int num = Random.Range(0, randomPowerUps.Length);
 
+            // if it isn't active
             if (!randomPowerUps[num].GetIsActive())
             {
+                // random powerups are always possible so no check needed
                 randomPowerUps[num].Enable();
 
                 numActiveRandomPowerUps++;
@@ -145,6 +157,7 @@ public class ActivatePowerUps : MonoBehaviour {
         PowerUp.OnPowerUpDeactivated -= HandleOnPowerUpDeactivated;
     }
 
+
     public void HandleOnPowerUpDeactivated(string label, PowerUpType type)
     {
         if (type == PowerUpType.Good)
@@ -161,16 +174,26 @@ public class ActivatePowerUps : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Checks if a certain type of powerup is possible.
+    /// </summary>
+    /// <param name="type">Type of powerup</param>
+    /// <param name="currentSpawned">Current number of those powerups spawned</param>
+    /// <returns>Boolean - true if powerup is possible.</returns>
     public bool IsPowerUpPossible(PowerUpType type, int currentSpawned)
     {
         if (type == PowerUpType.Good)
         {
+            // if total possible powerups - current active powerups - current spawned
             if (goodPowerUps.Length - numActiveGoodPowerUps - currentSpawned > 0)
             {
+                // loop through all powerups
                 for (int i = 0; i < goodPowerUps.Length; i++)
                 {
+                    // if not active
                     if (!goodPowerUps[i].GetIsActive())
                     {
+                        // if can be activated
                         if (goodPowerUps[i].GetIsPossible())
                         {
                             Debug.Log("Good Powerup possible");

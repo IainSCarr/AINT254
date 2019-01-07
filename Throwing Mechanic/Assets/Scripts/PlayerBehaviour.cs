@@ -41,11 +41,13 @@ public class PlayerBehaviour : MonoBehaviour {
 
     public void Jump()
     {
+        // animate up
         iTween.MoveTo(gameObject, iTween.Hash("y", 1f, "time", 0.1f, "oncomplete", "Fall", "easetype", iTween.EaseType.easeOutQuad));
     }
 
     private void Fall()
     {
+        // animate down
         iTween.MoveTo(gameObject, iTween.Hash("y", 0.5f, "time", 0.1f, "easetype", iTween.EaseType.easeInQuad));
     }
 
@@ -70,6 +72,9 @@ public class PlayerBehaviour : MonoBehaviour {
         return selectedObject;
     }
 
+    /// <summary>
+    /// Chooses next object and updates view
+    /// </summary>
     public void NextObject()
     {
         if (selectedObject == numObjects - 1)
@@ -85,6 +90,9 @@ public class PlayerBehaviour : MonoBehaviour {
         highlight.NextObject();
     }
 
+    /// <summary>
+    /// Chooses previous object and updates view
+    /// </summary>
     public void PreviousObject()
     {
         if (selectedObject == 0)
