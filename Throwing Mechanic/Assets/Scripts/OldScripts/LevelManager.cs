@@ -28,6 +28,12 @@ public class LevelManager : MonoBehaviour {
         instance.StopSound("GameMusic");
         instance.PlaySound("TitleMusic");
         instance.PlaySound("ClickButton");
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MenuScreen");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
