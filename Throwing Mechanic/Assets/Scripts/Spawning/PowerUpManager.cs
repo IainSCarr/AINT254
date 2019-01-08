@@ -142,4 +142,17 @@ public class PowerUpManager : SpawnManager {
         // increase streak for hitting powerup
         streak.IncreaseStreak();
     }
+
+    public int GetCurrentSpawned(PowerUpType type)
+    {
+        switch (type)
+        {
+            case PowerUpType.Good:
+                return numGoodPowerUps;
+            case PowerUpType.Random:
+                return numRandomPowerUps;
+        };
+
+        return 0;
+    }
 }

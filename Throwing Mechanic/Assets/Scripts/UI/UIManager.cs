@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour {
     public GameObject notification;
 
     public Slider healthBar;
-    public Text timer;
 
     public GameObject endScreen;
     public GameObject gameInfo;
@@ -87,5 +86,10 @@ public class UIManager : MonoBehaviour {
     public void GameStart()
     {
         hasGameStarted = true;
+    }
+
+    public bool GetHasGameStarted()
+    {
+        return hasGameStarted;
     }
 }

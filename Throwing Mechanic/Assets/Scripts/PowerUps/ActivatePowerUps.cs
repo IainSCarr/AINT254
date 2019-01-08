@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActivatePowerUps : MonoBehaviour {
 
     public GameObject holder;
+    private PowerUpManager manager;
 
     // good powerups
     private ScorePowerUp scoreMultiplier;
@@ -35,6 +36,8 @@ public class ActivatePowerUps : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        manager = GetComponent<PowerUpManager>();
+
         // good powerups
         scoreMultiplier = holder.AddComponent<ScorePowerUp>();
         killEnemies = holder.AddComponent<KillEnemiesPowerUp>();
@@ -68,11 +71,11 @@ public class ActivatePowerUps : MonoBehaviour {
             // randomly choose a powerup
             int num = Random.Range(0, goodPowerUps.Length);
 
-            // if it isn't active
-            if (!goodPowerUps[num].GetIsActive())
+            // if it is possible to activate powerup
+            if (goodPowerUps[num].GetIsPossible())
             {
-                // if it is possible to use that powerup
-                if (goodPowerUps[num].GetIsPossible())
+                // if it not alrady activated
+                if (!goodPowerUps[num].GetIsActive())
                 {
                     goodPowerUps[num].Enable();
 
@@ -80,10 +83,10 @@ public class ActivatePowerUps : MonoBehaviour {
                 }
                 else
                 {
-                    //if (IsPowerUpPossible(PowerUpType.Good)) // although powerup should only spawn if at least one powerup is possible this is a double check to prevent stack overflows
-                    //{
-                    //    DoGoodPowerUp();
-                    //}
+                    if (IsPowerUpPossible(PowerUpType.Good, manager.GetCurrentSpawned(PowerUpType.Good))) // although powerup should only spawn if at least one powerup is possible this is a double check to prevent stack overflows
+                    {
+                        DoGoodPowerUp();
+                    }
                     Debug.LogError("DEFENCES BREACHED! MASSIVE ERROR CALL THE POLICE");
                 }
             }

@@ -8,11 +8,16 @@ public class PauseMenu : MonoBehaviour {
 
     public GameObject PauseUI;
 
+    private UIManager manager;
+
     AudioManager audioManager;
 
     void Start()
     {
         audioManager = AudioManager.instance;
+        manager = GetComponent<UIManager>();
+
+        GameisPaused = false;
 
         if (audioManager == null)
         {
@@ -39,8 +44,14 @@ public class PauseMenu : MonoBehaviour {
         PauseUI.SetActive(false);
         Time.timeScale = 1f;
         GameisPaused = false;
-        audioManager.PlaySound("StartGame");
-        audioManager.PlaySound("GameMusic");
+
+        // if game has started
+        if (manager.GetHasGameStarted())
+        {
+            // Play sounds
+            audioManager.PlaySound("StartGame");
+            audioManager.PlaySound("GameMusic");
+        }
     }
 
     void Pause()
